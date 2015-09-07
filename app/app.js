@@ -3,6 +3,7 @@ import Router from 'react-router'
 import LocationsContainer from './LocationsContainer'
 import ReceptaclesContainer from './ReceptaclesContainer'
 import 'bootstrap/less/bootstrap.less'
+import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 
 var Route = Router.Route
 var Redirect = Router.Redirect
@@ -13,25 +14,14 @@ var App = React.createClass({
   render: function () {
     return (
       <div>
-        <nav className="navbar-default">
-          <div className="container">
-            <div className="navbar-header">
-              <a className="navbar-brand" href="/">Puck Tracker</a>
-              <button type="button" className="navbar-toggle collapsed"
-                      data-toggle="collapse" data-target="#navbar">
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-                <span className="icon-bar"></span>
-              </button>
-            </div>
-            <div className="collapse navbar-collapse">
-              <ul className="nav navbar-nav">
-                <li><Link to="adaptors">Adaptors</Link></li>
-                <li><Link to="pucks">Pucks</Link></li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <Navbar brand="Puck Tracker" toggleNavKey={0}>
+          <CollapsibleNav eventKey={0}>
+            <Nav navbar>
+              <NavItem href="/#/adaptors">Adaptors</NavItem>
+              <NavItem href="/#/pucks">Pucks</NavItem>
+            </Nav>
+          </CollapsibleNav>
+        </Navbar>
         <div className="container">
           <RouteHandler/>
         </div>
