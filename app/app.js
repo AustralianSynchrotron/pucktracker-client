@@ -1,14 +1,14 @@
 import React from 'react'
 import Router from 'react-router'
+import 'bootstrap/less/bootstrap.less'
+import { Navbar, Nav, CollapsibleNav } from 'react-bootstrap'
+import { NavItemLink } from 'react-router-bootstrap'
 import LocationsContainer from './LocationsContainer'
 import ReceptaclesContainer from './ReceptaclesContainer'
-import 'bootstrap/less/bootstrap.less'
-import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 
 var Route = Router.Route
 var Redirect = Router.Redirect
 var RouteHandler = Router.RouteHandler
-var Link = Router.Link
 
 var App = React.createClass({
   render: function () {
@@ -17,8 +17,8 @@ var App = React.createClass({
         <Navbar brand="Puck Tracker" toggleNavKey={0}>
           <CollapsibleNav eventKey={0}>
             <Nav navbar>
-              <NavItem href="/#/adaptors">Adaptors</NavItem>
-              <NavItem href="/#/pucks">Pucks</NavItem>
+              <NavItemLink to="adaptors">Adaptors</NavItemLink>
+              <NavItemLink to="pucks">Pucks</NavItemLink>
             </Nav>
           </CollapsibleNav>
         </Navbar>
