@@ -1,0 +1,23 @@
+{
+  "name": "pucktracker-frontend",
+  "version": "0.0.0",
+  "description": "Frontend for puck tracking system",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RobbieClarken/pucktracker-frontend.git"
+  },
+  "author": "Robbie Clarken",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RobbieClarken/pucktracker-frontend/issues"
+  },
+  "homepage": "https://github.com/RobbieClarken/pucktracker-frontend#readme",
+  "dependencies": {
+    "webpack": "^1.12.1"
+  }
+}
