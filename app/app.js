@@ -1,14 +1,10 @@
 import React from 'react'
-import Router from 'react-router'
+import Router, { Route, Redirect, RouteHandler} from 'react-router'
 import 'bootstrap/less/bootstrap.less'
 import { Navbar, Nav, CollapsibleNav } from 'react-bootstrap'
 import { NavItemLink } from 'react-router-bootstrap'
 import LocationsContainer from './LocationsContainer'
 import ReceptaclesContainer from './ReceptaclesContainer'
-
-var Route = Router.Route
-var Redirect = Router.Redirect
-var RouteHandler = Router.RouteHandler
 
 var App = React.createClass({
   render: function () {
