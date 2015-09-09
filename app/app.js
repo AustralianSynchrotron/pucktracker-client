@@ -3,8 +3,8 @@ import Router, { Route, Redirect, RouteHandler} from 'react-router'
 import 'bootstrap/less/bootstrap.less'
 import { Navbar, Nav, CollapsibleNav } from 'react-bootstrap'
 import { NavItemLink } from 'react-router-bootstrap'
-import LocationsContainer from './LocationsContainer'
-import ReceptaclesContainer from './ReceptaclesContainer'
+import LocationsContainer from './components/LocationsContainer'
+import ReceptaclesContainer from './components/ReceptaclesContainer'
 
 var App = React.createClass({
   render: function () {
