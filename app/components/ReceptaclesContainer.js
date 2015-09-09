@@ -2,8 +2,8 @@ import React from 'react'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import AdaptorTypeReceptacle from './AdaptorTypeReceptacle'
 
-export default React.createClass({
-  render: function() {
+export default class ReceptaclesContainer extends React.Component {
+  render () {
     return (
       <Grid>
         <Row>
@@ -12,30 +12,32 @@ export default React.createClass({
         </Row>
       </Grid>
     )
-  },
-})
+  }
+}
 
-var ReceptaclesPanel = React.createClass({
-  contextTypes: {
-    router: React.PropTypes.func
-  },
-  getInitialState: function() {
-    var side = this.props.side
-    var query = this.context.router.getCurrentQuery()
-    var key = query[side] || (side == 'left' ? 'adaptor' : 'dewar')
-    return {key}
-  },
-  handleSelect: function(key) {
-    var router = this.context.router
-    var newQuery = Object.assign(router.getCurrentQuery(), {[this.props.side]: key})
+class ReceptaclesPanel extends React.Component {
+
+  constructor (props, context) {
+    super(props, context)
+    const query = context.router.getCurrentQuery()
+    const key = query[props.side] || (props.side == 'left' ? 'adaptor' : 'dewar')
+    this.state = { key }
+  }
+
+  handleSelect (key) {
+    const { router } = this.context
+    const { side } = this.props
+    const newQuery = Object.assign(router.getCurrentQuery(), {[side]: key})
     router.replaceWith(router.getCurrentPathname(),
                        router.getCurrentParams(),
                        newQuery)
-    this.setState({key})
-  },
-  render: function() {
+    this.setState({ key })
+  }
+
+  render () {
     return (
-      <Tabs justified activeKey={this.state.key} onSelect={this.handleSelect}>
+      <Tabs justified activeKey={this.state.key}
+            onSelect={this.handleSelect.bind(this)}>
         <Tab eventKey={'adaptor'} title='Adaptor'>
           <AdaptorTypeReceptacle/>
         </Tab>
@@ -45,5 +47,10 @@ var ReceptaclesPanel = React.createClass({
         </Tab>
       </Tabs>
     )
-  },
-})
+  }
+
+}
+
+ReceptaclesPanel.contextTypes = {
+  router: React.PropTypes.func.isRequired
+}

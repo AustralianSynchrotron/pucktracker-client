@@ -6,8 +6,8 @@ import { NavItemLink } from 'react-router-bootstrap'
 import LocationsContainer from './components/LocationsContainer'
 import ReceptaclesContainer from './components/ReceptaclesContainer'
 
-var App = React.createClass({
-  render: function () {
+class App extends React.Component {
+  render () {
     return (
       <div>
         <Navbar brand="Puck Tracker" toggleNavKey={0}>
@@ -24,9 +24,9 @@ var App = React.createClass({
       </div>
     )
   }
-})
+}
 
-var routes = (
+const routes = (
   <Route name="app" path="/" handler={App}>
     <Route name="adaptors" handler={LocationsContainer}/>
     <Route name="pucks" handler={ReceptaclesContainer}/>
@@ -34,6 +34,4 @@ var routes = (
   </Route>
 )
 
-Router.run(routes, function(Handler) {
-  React.render(<Handler/>, document.body)
-})
+Router.run(routes, (Handler) => { React.render(<Handler/>, document.body) })

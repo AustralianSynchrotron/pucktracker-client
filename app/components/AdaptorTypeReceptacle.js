@@ -1,8 +1,8 @@
 import React from 'react'
 import { Row, Col, Input } from 'react-bootstrap'
 
-export default React.createClass({
-  render: function() {
+export default class AdaptorTypeReceptacle extends React.Component {
+  render () {
     return (
       <div>
         <h1>
@@ -15,5 +15,5 @@ export default React.createClass({
         </h1>
       </div>
     )
-  },
-})
+  }
+}
