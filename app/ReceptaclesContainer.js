@@ -1,12 +1,15 @@
 import React from 'react'
-import { Grid, Col, Tabs, Tab } from 'react-bootstrap'
+import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
+import AdaptorTypeReceptacle from './AdaptorTypeReceptacle'
 
 export default React.createClass({
   render: function() {
     return (
       <Grid>
-        <Col md={6}><ReceptaclesPanel side="left"/></Col>
-        <Col md={6}><ReceptaclesPanel side="right"/></Col>
+        <Row>
+          <Col md={6}><ReceptaclesPanel side="left"/></Col>
+          <Col md={6}><ReceptaclesPanel side="right"/></Col>
+        </Row>
       </Grid>
     )
   },
@@ -23,23 +26,22 @@ var ReceptaclesPanel = React.createClass({
     return {key}
   },
   handleSelect: function(key) {
-    var query = this.context.router.getCurrentQuery()
-    query[this.props.side] = key
-    this.context.router.replaceWith(
-      this.context.router.getCurrentPathname(),
-      this.context.router.getCurrentParams(),
-      query
-    )
+    var router = this.context.router
+    var newQuery = Object.assign(router.getCurrentQuery(), {[this.props.side]: key})
+    router.replaceWith(router.getCurrentPathname(),
+                       router.getCurrentParams(),
+                       newQuery)
     this.setState({key})
   },
   render: function() {
     return (
       <Tabs justified activeKey={this.state.key} onSelect={this.handleSelect}>
         <Tab eventKey={'adaptor'} title='Adaptor'>
-          <h1>Adaptor</h1>
+          <AdaptorTypeReceptacle/>
         </Tab>
         <Tab eventKey={'dewar'} title='Dewar'>
           <h1>Dewar</h1>
+          <p>Coming soon...</p>
         </Tab>
       </Tabs>
     )
