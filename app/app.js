@@ -1,5 +1,5 @@
 import React from 'react'
-import Router, { Route, Redirect, RouteHandler} from 'react-router'
+import Router, { Route, IndexRoute } from 'react-router'
 import 'bootstrap/less/bootstrap.less'
 import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -30,12 +30,16 @@ class App extends React.Component {
   }
 }
 
+function redirectToChild(location, replaceWith) {
+  replaceWith(null, '/adaptors')
+}
+
 React.render((
     <Router>
       <Route path="/" component={App}>
+        <IndexRoute onEnter={redirectToChild}/>
         <Route path="adaptors" component={LocationsContainer}/>
         <Route path="pucks" component={ReceptaclesContainer}/>
-        <Redirect from="" to="/adaptors" />
       </Route>
     </Router>
   ),
