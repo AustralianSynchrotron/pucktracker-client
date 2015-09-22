@@ -19,18 +19,16 @@ class ReceptaclesPanel extends React.Component {
 
   constructor (props, context) {
     super(props, context)
-    const query = context.router.getCurrentQuery()
+    const query = this.context.location.query
     const key = query[props.side] || (props.side == 'left' ? 'adaptor' : 'dewar')
     this.state = { key }
   }
 
   handleSelect (key) {
-    const { router } = this.context
+    const { history, location } = this.context
     const { side } = this.props
-    const newQuery = Object.assign(router.getCurrentQuery(), {[side]: key})
-    router.replaceWith(router.getCurrentPathname(),
-                       router.getCurrentParams(),
-                       newQuery)
+    const newQuery = Object.assign(location.query, {[side]: key})
+    history.pushState(null, location.pathname, newQuery)
     this.setState({ key })
   }
 
@@ -52,5 +50,6 @@ class ReceptaclesPanel extends React.Component {
 }
 
 ReceptaclesPanel.contextTypes = {
-  router: React.PropTypes.func.isRequired
+  history: React.PropTypes.object.isRequired,
+  location: React.PropTypes.object.isRequired,
 }
