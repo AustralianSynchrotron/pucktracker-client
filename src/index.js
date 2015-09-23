@@ -1,10 +1,15 @@
 import React from 'react'
 import Router, { Route, IndexRoute } from 'react-router'
+import {Provider} from 'react-redux'
+import {createStore} from 'redux'
 import 'bootstrap/less/bootstrap.less'
 import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-import LocationsContainer from './components/LocationsContainer'
+import rootReducer from './reducers'
+import {LocationsContainer} from './components/LocationsContainer'
 import ReceptaclesContainer from './components/ReceptaclesContainer'
+
+const store = createStore(rootReducer)
 
 class App extends React.Component {
   render () {
@@ -34,14 +39,19 @@ function redirectToChild(location, replaceWith) {
   replaceWith(null, '/adaptors')
 }
 
-React.render((
-    <Router>
-      <Route path="/" component={App}>
-        <IndexRoute onEnter={redirectToChild}/>
-        <Route path="adaptors" component={LocationsContainer}/>
-        <Route path="pucks" component={ReceptaclesContainer}/>
-      </Route>
-    </Router>
+React.render(
+  (
+    <Provider store={store}>
+      {() =>
+        <Router>
+          <Route path="/" component={App}>
+            <IndexRoute onEnter={redirectToChild}/>
+            <Route path="adaptors" component={LocationsContainer}/>
+            <Route path="pucks" component={ReceptaclesContainer}/>
+          </Route>
+        </Router>
+      }
+    </Provider>
   ),
   document.body
 )

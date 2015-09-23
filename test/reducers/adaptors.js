@@ -21,14 +21,15 @@ describe('adaptors reducer', () => {
     const initialState = fromJS({'AS-01': {}})
     const action = {
       type: 'SET_ADAPTOR_PLACE',
-      name: 'AS-01',
+      adaptor: 'AS-01',
       place: {
-        dewar: '1',
+        location: 'MX1',
+        position: 'Left',
       },
     }
     const state = reducer(initialState, action)
     expect(state).to.equal(fromJS({
-      'AS-01': {place: {dewar: '1'}},
+      'AS-01': {place: {location: 'MX1', position: 'Left'}},
     }))
   })
 

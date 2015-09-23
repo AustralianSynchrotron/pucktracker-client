@@ -11,10 +11,10 @@ const POSITIONS = {
 
 export default class Location extends React.Component {
   render () {
-    const positions = POSITIONS[this.props.location]
+    const positions = POSITIONS[this.props.holderLocation]
     return (
       <div>
-        <h1>{this.props.location}</h1>
+        <h1>{this.props.holderLocation}</h1>
         <Table striped>
           <thead>
             <tr><th>Location</th><th>Holder</th></tr>
@@ -22,8 +22,8 @@ export default class Location extends React.Component {
           <tbody>
             {positions.map(position => (
               <Position key={position}
-                        location={this.props.location}
-                        position={position}
+                        holderPosition={position}
+                        {...this.props}
               />
             ))}
           </tbody>
