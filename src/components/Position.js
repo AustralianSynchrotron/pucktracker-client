@@ -1,7 +1,7 @@
 import React from 'react'
-import { ButtonInput } from 'react-bootstrap'
 import { Map, fromJS } from 'immutable'
 import { HolderContainer } from './Holder'
+import { TargetPosition } from './TargetPosition'
 
 class EmptyPosition extends React.Component {
   onClick () {
@@ -12,15 +12,12 @@ class EmptyPosition extends React.Component {
     })
     this.props.setSelectedHolder(null)
   }
-  isDisabled () {
-    return !this.props.selectedHolder
-  }
   render () {
     return (
-      <ButtonInput block disabled={this.isDisabled()} standalone
-                   onClick={this.onClick.bind(this)}>
+      <TargetPosition isDisabled={!this.props.selectedHolder}
+                      onClick={this.onClick.bind(this)}>
         Empty
-      </ButtonInput>
+      </TargetPosition>
     )
   }
 }

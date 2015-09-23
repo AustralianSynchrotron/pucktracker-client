@@ -4,6 +4,7 @@ import { Grid, Row, Col } from 'react-bootstrap'
 import { setSelectedHolder } from '../actions/app'
 import { setAdaptorPlace } from '../actions/adaptors'
 import Location from './Location'
+import { NoLocation } from './NoLocation'
 
 export class Locations extends React.Component {
   render () {
@@ -18,7 +19,7 @@ export class Locations extends React.Component {
             <Location holderLocation="MX2" {...this.props}/>
           </Col>
           <Col md={4}>
-            <Location holderLocation="Other" {...this.props}/>
+            <NoLocation {...this.props}/>
           </Col>
         </Row>
       </Grid>

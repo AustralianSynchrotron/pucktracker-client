@@ -13,7 +13,10 @@ import { setAdaptors } from './actions/adaptors'
 
 const store = createStore(rootReducer)
 store.dispatch(
-  setAdaptors({'AS-01': {place: {location: 'LS3000', position: 'A'}}})
+  setAdaptors({
+    'AS-01': {place: {location: 'LS3000', position: 'A'}},
+    'AS-02': {place: null},
+  })
 )
 
 class App extends React.Component {
