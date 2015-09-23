@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap'
-import { setSelectedHolder } from '../actions'
+import { setSelectedHolder } from '../actions/app'
+import { setAdaptorPlace } from '../actions/adaptors'
 import Location from './Location'
 
 export class Locations extends React.Component {
@@ -27,11 +28,12 @@ export class Locations extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    selectedHolder: state.get('selectedHolder'),
+    selectedHolder: state.app.get('selectedHolder'),
+    adaptors: state.adaptors,
   }
 }
 
 export const LocationsContainer = connect(
   mapStateToProps,
-  { setSelectedHolder }
+  { setSelectedHolder, setAdaptorPlace }
 )(Locations)

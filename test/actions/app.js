@@ -1,5 +1,5 @@
 import {expect} from 'chai'
-import * as actions from '../../src/actions/index'
+import * as actions from '../../src/actions/app'
 
 describe('app actions', () => {
 

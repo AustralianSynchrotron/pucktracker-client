@@ -1,24 +1,34 @@
 import React from 'react'
 import { ButtonInput } from 'react-bootstrap'
-import { fromJS } from 'immutable'
+import { Map, fromJS } from 'immutable'
 import { HolderContainer } from './Holder'
 
-const adaptors = fromJS({
-  'AS-01': {
-    'place': {'location': 'LS3000', 'position': 'B'},
-  },
-  'AS-02': {
-    'place': null,
-  },
-  'AS-03': {
-    'place': {'location': 'MX1', 'position': 'Left'},
-  },
-})
+class EmptyPosition extends React.Component {
+  onClick () {
+    const {selectedHolder, holderLocation, holderPosition} = this.props
+    this.props.setAdaptorPlace(selectedHolder, {
+      location: holderLocation,
+      position: holderPosition,
+    })
+    this.props.setSelectedHolder(null)
+  }
+  isDisabled () {
+    return !this.props.selectedHolder
+  }
+  render () {
+    return (
+      <ButtonInput block disabled={this.isDisabled()} standalone
+                   onClick={this.onClick.bind(this)}>
+        Empty
+      </ButtonInput>
+    )
+  }
+}
 
 export default class Position extends React.Component {
   render () {
     const {holderLocation, holderPosition} = this.props
-    const entry = adaptors.findEntry(adaptor => {
+    const entry = this.props.adaptors.findEntry(adaptor => {
       const adaptorPlace = adaptor.get('place')
       if (!adaptorPlace) { return false }
       return (adaptorPlace.get('location') === holderLocation &&
@@ -30,17 +40,14 @@ export default class Position extends React.Component {
         <td>{this.props.holderPosition}</td>
         <td style={{width: '70%'}}>
           {adaptorName ? (
-              <HolderContainer
-                type='adaptor'
-                name={adaptorName}
-                {...this.props}
-              />
-            ) : (
-              <ButtonInput block disabled standalone>Empty</ButtonInput>
-            )
-          }
+            <HolderContainer type='adaptor' name={adaptorName}
+                             {...this.props}/>
+          ) : (
+            <EmptyPosition {...this.props}/>
+          )}
         </td>
       </tr>
     )
   }
 }
+Position.defaultProps = {adaptors: Map()}

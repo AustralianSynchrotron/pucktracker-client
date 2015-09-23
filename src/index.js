@@ -6,10 +6,15 @@ import 'bootstrap/less/bootstrap.less'
 import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import rootReducer from './reducers'
-import {LocationsContainer} from './components/LocationsContainer'
+import { LocationsContainer } from './components/LocationsContainer'
 import ReceptaclesContainer from './components/ReceptaclesContainer'
 
+import { setAdaptors } from './actions/adaptors'
+
 const store = createStore(rootReducer)
+store.dispatch(
+  setAdaptors({'AS-01': {place: {location: 'LS3000', position: 'A'}}})
+)
 
 class App extends React.Component {
   render () {

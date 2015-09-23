@@ -1,10 +1,8 @@
-import {Map} from 'immutable'
 import { combineReducers } from 'redux'
+import app from './app'
+import adaptors from './adaptors'
 
-export default function(state=Map(), action) {
-  switch (action.type) {
-    case 'SET_SELECTED_HOLDER':
-      return state.set('selectedHolder', action.holder)
-  }
-  return state
-}
+export default combineReducers({
+  app,
+  adaptors,
+})

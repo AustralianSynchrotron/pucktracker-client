@@ -33,4 +33,24 @@ describe('adaptors reducer', () => {
     }))
   })
 
+  it('sets adaptors', () => {
+    const initialState = Map()
+    const action = {
+      type: 'SET_ADAPTORS',
+      adaptors: {
+        'AS-01': {
+          place: { location: 'MX1', position: 'Left' },
+        },
+        'AS-02': {},
+      }
+    }
+    const state = reducer(initialState, action)
+    expect(state).to.equal(fromJS({
+      'AS-01': {
+        place: { location: 'MX1', position: 'Left' },
+      },
+      'AS-02': {},
+    }))
+  })
+
 })

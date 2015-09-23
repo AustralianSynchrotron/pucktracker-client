@@ -1,6 +1,6 @@
 import {Map, fromJS} from 'immutable'
 import {expect} from 'chai'
-import reducer from '../../src/reducers/index'
+import reducer from '../../src/reducers/app'
 
 describe('app state reducer', () => {
 
