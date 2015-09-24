@@ -5,7 +5,7 @@ import { NoLocation } from '../../src/components/NoLocation'
 
 const {
   renderIntoDocument,
-  scryRenderedDOMComponentsWithTag,
+  scryRenderedDOMComponentsWithClass,
 } = React.addons.TestUtils
 
 
@@ -16,7 +16,7 @@ describe('NoLocation', () => {
     const component = renderIntoDocument(
       <NoLocation adaptors={adaptors}/>
     )
-    const cells = scryRenderedDOMComponentsWithTag(component, 'td')
+    const cells = scryRenderedDOMComponentsWithClass(component, 'holder')
     expect(cells).to.have.length(1)
   })
 
@@ -29,7 +29,7 @@ describe('NoLocation', () => {
     const component = renderIntoDocument(
       <NoLocation adaptors={adaptors}/>
     )
-    const cells = scryRenderedDOMComponentsWithTag(component, 'td')
+    const cells = scryRenderedDOMComponentsWithClass(component, 'holder')
     expect(cells).to.have.length(0)
   })
 
