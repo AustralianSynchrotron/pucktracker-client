@@ -4,3 +4,12 @@ export function setSelectedHolder (holder) {
     holder,
   }
 }
+
+export function setSelectedReceptacle (side, receptacleType, receptacleName) {
+  return {
+      type: 'SET_SELECTED_RECEPTACLE',
+      side,
+      receptacleType,
+      receptacleName,
+    }
+}

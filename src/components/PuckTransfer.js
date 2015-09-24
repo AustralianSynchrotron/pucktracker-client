@@ -1,14 +1,26 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import AdaptorTypeReceptacle from './AdaptorTypeReceptacle'
+import { setSelectedReceptacle } from '../actions/app'
 
-export default class ReceptaclesContainer extends React.Component {
+export class PuckTransfer extends React.Component {
   render () {
     return (
       <Grid>
         <Row>
-          <Col md={6}><ReceptaclesPanel side="left"/></Col>
-          <Col md={6}><ReceptaclesPanel side="right"/></Col>
+          <Col md={6}>
+            <ReceptaclesPanel
+              side="left" {...this.props}
+              selectedReceptacles={this.props.selectedReceptacles.get('left')}
+            />
+          </Col>
+          <Col md={6}>
+            <ReceptaclesPanel
+              side="right" {...this.props}
+              selectedReceptacles={this.props.selectedReceptacles.get('right')}
+            />
+          </Col>
         </Row>
       </Grid>
     )
@@ -37,7 +49,7 @@ class ReceptaclesPanel extends React.Component {
       <Tabs justified activeKey={this.state.key}
             onSelect={this.handleSelect.bind(this)}>
         <Tab eventKey={'adaptor'} title='Adaptor'>
-          <AdaptorTypeReceptacle/>
+          <AdaptorTypeReceptacle {...this.props}/>
         </Tab>
         <Tab eventKey={'dewar'} title='Dewar'>
           <h1>Dewar</h1>
@@ -53,3 +65,15 @@ ReceptaclesPanel.contextTypes = {
   history: React.PropTypes.object.isRequired,
   location: React.PropTypes.object.isRequired,
 }
+
+function mapStateToProps(state) {
+  return {
+    selectedReceptacles: state.app.get('selectedReceptacles'),
+    adaptors: state.adaptors,
+  }
+}
+
+export const ConnectedPuckTransfer = connect(
+  mapStateToProps,
+  {setSelectedReceptacle}
+)(PuckTransfer)

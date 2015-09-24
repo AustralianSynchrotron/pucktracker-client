@@ -7,8 +7,7 @@ import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import rootReducer from './reducers'
 import { LocationsContainer } from './components/LocationsContainer'
-import ReceptaclesContainer from './components/ReceptaclesContainer'
-
+import { ConnectedPuckTransfer } from './components/PuckTransfer'
 import { setAdaptors } from './actions/adaptors'
 
 const store = createStore(rootReducer)
@@ -55,7 +54,7 @@ React.render(
           <Route path="/" component={App}>
             <IndexRoute onEnter={redirectToChild}/>
             <Route path="adaptors" component={LocationsContainer}/>
-            <Route path="pucks" component={ReceptaclesContainer}/>
+            <Route path="pucks" component={ConnectedPuckTransfer}/>
           </Route>
         </Router>
       }

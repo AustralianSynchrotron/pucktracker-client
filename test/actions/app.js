@@ -10,4 +10,13 @@ describe('app actions', () => {
     })
   })
 
+  it('setSelectedReceptacle should create an action', () => {
+    expect(actions.setSelectedReceptacle('left', 'adaptor', 'AS-01')).to.eql({
+      type: 'SET_SELECTED_RECEPTACLE',
+      side: 'left',
+      receptacleType: 'adaptor',
+      receptacleName: 'AS-01',
+    })
+  })
+
 })
