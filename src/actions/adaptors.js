@@ -5,11 +5,10 @@ export function setAdaptors (adaptors) {
   }
 }
 
-export function addAdaptor (name, data={}) {
+export function addAdaptor (adaptor={}) {
   return {
     type: 'ADD_ADAPTOR',
-    name,
-    data,
+    adaptor,
   }
 }
 
@@ -18,5 +17,6 @@ export function setAdaptorPlace (adaptor, place) {
     type: 'SET_ADAPTOR_PLACE',
     adaptor,
     place,
+    broadcast: true,
   }
 }

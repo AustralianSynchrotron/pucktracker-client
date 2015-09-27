@@ -1,12 +1,19 @@
-import {Map, fromJS} from 'immutable'
+import {List, fromJS} from 'immutable'
 
-export default function reducer(state=Map(), action) {
+export default function reducer(state=List(), action) {
   if (action.type === 'SET_ADAPTORS') {
     return fromJS(action.adaptors)
   } else if (action.type === 'ADD_ADAPTOR') {
-    return state.set(action.name, fromJS(action.data))
+    return state.push(fromJS(action.adaptor))
   } else if (action.type === 'SET_ADAPTOR_PLACE') {
-    return state.setIn([action.adaptor, 'place'], fromJS(action.place))
+    const index = state.findIndex(
+      adaptor => adaptor.get('name') === action.adaptor
+    )
+    if (index > -1) {
+      return state.setIn([index, 'place'], fromJS(action.place))
+    } else {
+      return state
+    }
   }
   return state
 }

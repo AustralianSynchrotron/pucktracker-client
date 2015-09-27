@@ -25,13 +25,13 @@ class EmptyPosition extends React.Component {
 export default class Position extends React.Component {
   render () {
     const {holderLocation, holderPosition} = this.props
-    const entry = this.props.adaptors.findEntry(adaptor => {
+    const adaptor = this.props.adaptors.find(adaptor => {
       const adaptorPlace = adaptor.get('place')
       if (!adaptorPlace) { return false }
       return (adaptorPlace.get('location') === holderLocation &&
               adaptorPlace.get('position') === holderPosition)
     })
-    const [adaptorName, data] = entry ? entry : [null, null]
+    const adaptorName = adaptor ? adaptor.get('name') : null
     return (
       <tr>
         <td>{this.props.holderPosition}</td>

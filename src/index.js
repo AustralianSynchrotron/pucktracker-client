@@ -1,7 +1,8 @@
 import React from 'react'
 import Router, { Route, IndexRoute } from 'react-router'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import {createStore, applyMiddleware} from 'redux'
+import io from 'socket.io-client'
 import 'bootstrap/less/bootstrap.less'
 import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -10,12 +11,32 @@ import { LocationsContainer } from './components/LocationsContainer'
 import { ConnectedPuckTransfer } from './components/PuckTransfer'
 import { setAdaptors } from './actions/adaptors'
 
-const store = createStore(rootReducer)
+
+const socket = io(`${location.protocol}//${location.hostname}:8090`)
+
+const remoteActionMiddleware = socket => store => next => action => {
+  if (action.broadcast) {
+    socket.emit('action', action);
+  }
+  return next(action);
+}
+
+const createStoreWithMiddleware = applyMiddleware(
+  remoteActionMiddleware(socket)
+)(createStore)
+
+const store = createStoreWithMiddleware(rootReducer)
+
+socket.on('action', action => {
+  console.log(action)
+  store.dispatch(action)
+})
+
 store.dispatch(
-  setAdaptors({
-    'AS-01': {place: {location: 'LS3000', position: 'A'}},
-    'AS-02': {place: null},
-  })
+  setAdaptors([
+    {name: 'AS-01', place: {location: 'LS3000', position: 'A'}},
+    {name: 'AS-02', place: null},
+  ])
 )
 
 class App extends React.Component {

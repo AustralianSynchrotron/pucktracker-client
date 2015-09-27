@@ -1,24 +1,23 @@
-import {Map, fromJS} from 'immutable'
+import {List, fromJS} from 'immutable'
 import {expect} from 'chai'
 import reducer from '../../src/reducers/adaptors'
 
 describe('adaptors reducer', () => {
 
   it('adds adaptors', () => {
-    const initialState = Map()
+    const initialState = List()
     const action = {
       type: 'ADD_ADAPTOR',
-      name: 'AS-01',
-      data: {},
+      adaptor: {name: 'AS-01'},
     }
     const state = reducer(initialState, action)
-    expect(state).to.equal(fromJS({
-      'AS-01': {}
-    }))
+    expect(state).to.equal(fromJS([
+      {'name': 'AS-01'}
+    ]))
   })
 
   it('sets adaptor place', () => {
-    const initialState = fromJS({'AS-01': {}})
+    const initialState = fromJS([{name: 'AS-01'}])
     const action = {
       type: 'SET_ADAPTOR_PLACE',
       adaptor: 'AS-01',
@@ -28,29 +27,35 @@ describe('adaptors reducer', () => {
       },
     }
     const state = reducer(initialState, action)
-    expect(state).to.equal(fromJS({
-      'AS-01': {place: {location: 'MX1', position: 'Left'}},
-    }))
+    expect(state).to.equal(fromJS([
+      {name: 'AS-01', place: {location: 'MX1', position: 'Left'}},
+    ]))
   })
 
   it('sets adaptors', () => {
-    const initialState = Map()
+    const initialState = List()
     const action = {
       type: 'SET_ADAPTORS',
-      adaptors: {
-        'AS-01': {
+      adaptors: [
+        {
+          name: 'AS-01',
           place: { location: 'MX1', position: 'Left' },
         },
-        'AS-02': {},
-      }
+        {
+          name: 'AS-02',
+        }
+      ]
     }
     const state = reducer(initialState, action)
-    expect(state).to.equal(fromJS({
-      'AS-01': {
+    expect(state).to.equal(fromJS([
+      {
+        name: 'AS-01',
         place: { location: 'MX1', position: 'Left' },
       },
-      'AS-02': {},
-    }))
+      {
+        name: 'AS-02',
+      }
+    ]))
   })
 
 })

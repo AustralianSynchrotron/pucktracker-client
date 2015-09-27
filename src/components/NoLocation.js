@@ -28,10 +28,10 @@ export class NoLocation extends React.Component {
                 </TargetPosition>
               </td>
             </tr>
-            {this.holders().keySeq().map(name => (
-              <tr key={name}>
+            {this.holders().map(holder => (
+              <tr key={holder.get('name')}>
                 <td>
-                  <HolderContainer type='adaptor' name={name}
+                  <HolderContainer type='adaptor' name={holder.get('name')}
                                    {...this.props}/>
                 </td>
               </tr>

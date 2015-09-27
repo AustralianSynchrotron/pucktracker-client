@@ -11,11 +11,12 @@ describe('adaptor actions', () => {
   })
 
   it('addAdaptor should create an add adaptor action', () => {
-    const action = actions.addAdaptor('AS-01')
+    const action = actions.addAdaptor({name: 'AS-01'})
     expect(action).to.eql({
       type: 'ADD_ADAPTOR',
-      name: 'AS-01',
-      data: {},
+      adaptor: {
+        name: 'AS-01',
+      },
     })
   })
 
@@ -26,6 +27,7 @@ describe('adaptor actions', () => {
       type: 'SET_ADAPTOR_PLACE',
       adaptor: 'AS-01',
       place: {location: 'MX1', position: 'Left'},
+      broadcast: true,
     })
   })
 
