@@ -1,7 +1,11 @@
-import React from 'react'
+import React from 'react/addons'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Row, Col, Input } from 'react-bootstrap'
 
-export default class AdaptorTypeReceptacle extends React.Component {
+export class AdaptorTypeReceptacle extends React.Component {
+  shouldComponentUpdate () {
+    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
+  }
   onChange (event) {
     this.props.setSelectedReceptacle(this.props.side, 'adaptor', event.target.value)
   }
@@ -12,15 +16,13 @@ export default class AdaptorTypeReceptacle extends React.Component {
           <Row>
             <Col md={6}>Adaptor:</Col>
             <Col md={6} className="form-group form-group-lg">
-              <Input
-                type="select"
-                value={this.props.selectedReceptacles.get('adaptor')}
-                onChange={this.onChange.bind(this)}
-              >
+              <Input type="select"
+                     value={this.props.selectedReceptacle}
+                     onChange={this.onChange.bind(this)}>
                 <option></option>
-                {this.props.adaptors.keySeq().map(adaptor => (
-                  <option key={adaptor} value={adaptor}>
-                    {adaptor}
+                {this.props.adaptors.map(adaptor => (
+                  <option key={adaptor.get('name')} value={adaptor.get('name')}>
+                    {adaptor.get('name')}
                   </option>
                 ))}
               </Input>
@@ -30,4 +32,8 @@ export default class AdaptorTypeReceptacle extends React.Component {
       </div>
     )
   }
+}
+
+AdaptorTypeReceptacle.propTypes = {
+  selectedReceptacle: React.PropTypes.string,
 }

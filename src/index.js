@@ -28,7 +28,6 @@ const createStoreWithMiddleware = applyMiddleware(
 const store = createStoreWithMiddleware(rootReducer)
 
 socket.on('action', action => {
-  console.log(action)
   store.dispatch(action)
 })
 

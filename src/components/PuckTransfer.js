@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
-import AdaptorTypeReceptacle from './AdaptorTypeReceptacle'
+import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'
 import { setSelectedReceptacle } from '../actions/app'
 
 export class PuckTransfer extends React.Component {
@@ -49,7 +49,10 @@ class ReceptaclesPanel extends React.Component {
       <Tabs justified activeKey={this.state.key}
             onSelect={this.handleSelect.bind(this)}>
         <Tab eventKey={'adaptor'} title='Adaptor'>
-          <AdaptorTypeReceptacle {...this.props}/>
+          <AdaptorTypeReceptacle
+            {...this.props}
+            selectedReceptacle={this.props.selectedReceptacles.get('adaptor')}
+          />
         </Tab>
         <Tab eventKey={'dewar'} title='Dewar'>
           <h1>Dewar</h1>
