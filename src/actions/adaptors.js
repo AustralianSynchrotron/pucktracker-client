@@ -12,11 +12,12 @@ export function addAdaptor (adaptor={}) {
   }
 }
 
-export function setAdaptorPlace (adaptor, place) {
+export function setAdaptorPlace (adaptor, location, position) {
   return {
     type: 'SET_ADAPTOR_PLACE',
     adaptor,
-    place,
+    location,
+    position,
     broadcast: true,
   }
 }

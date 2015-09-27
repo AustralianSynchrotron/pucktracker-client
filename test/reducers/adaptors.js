@@ -21,14 +21,12 @@ describe('adaptors reducer', () => {
     const action = {
       type: 'SET_ADAPTOR_PLACE',
       adaptor: 'AS-01',
-      place: {
-        location: 'MX1',
-        position: 'Left',
-      },
+      location: 'MX1',
+      position: 'Left',
     }
     const state = reducer(initialState, action)
     expect(state).to.equal(fromJS([
-      {name: 'AS-01', place: {location: 'MX1', position: 'Left'}},
+      {name: 'AS-01', location: 'MX1', position: 'Left'},
     ]))
   })
 
@@ -37,24 +35,14 @@ describe('adaptors reducer', () => {
     const action = {
       type: 'SET_ADAPTORS',
       adaptors: [
-        {
-          name: 'AS-01',
-          place: { location: 'MX1', position: 'Left' },
-        },
-        {
-          name: 'AS-02',
-        }
+        {name: 'AS-01', location: 'MX1', position: 'Left'},
+        {name: 'AS-02'}
       ]
     }
     const state = reducer(initialState, action)
     expect(state).to.equal(fromJS([
-      {
-        name: 'AS-01',
-        place: { location: 'MX1', position: 'Left' },
-      },
-      {
-        name: 'AS-02',
-      }
+      {name: 'AS-01', location: 'MX1', position: 'Left'},
+      {name: 'AS-02'}
     ]))
   })
 

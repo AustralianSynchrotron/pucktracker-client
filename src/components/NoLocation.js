@@ -5,10 +5,10 @@ import { TargetPosition } from './TargetPosition'
 
 export class NoLocation extends React.Component {
   holders () {
-    return this.props.adaptors.filter(holder => !holder.get('place'))
+    return this.props.adaptors.filter(holder => !holder.get('location'))
   }
   moveHolder () {
-    this.props.setAdaptorPlace(this.props.selectedHolder, null)
+    this.props.setAdaptorPlace(this.props.selectedHolder, null, null)
     this.props.setSelectedHolder(null)
   }
   render () {

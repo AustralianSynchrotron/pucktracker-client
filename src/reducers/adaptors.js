@@ -10,7 +10,9 @@ export default function reducer(state=List(), action) {
       adaptor => adaptor.get('name') === action.adaptor
     )
     if (index > -1) {
-      return state.setIn([index, 'place'], fromJS(action.place))
+      return state.update(index, adaptor =>
+        adaptor.set('location', action.location).set('position', action.position)
+     )
     } else {
       return state
     }

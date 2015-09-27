@@ -6,10 +6,7 @@ import { TargetPosition } from './TargetPosition'
 class EmptyPosition extends React.Component {
   onClick () {
     const {selectedHolder, holderLocation, holderPosition} = this.props
-    this.props.setAdaptorPlace(selectedHolder, {
-      location: holderLocation,
-      position: holderPosition,
-    })
+    this.props.setAdaptorPlace(selectedHolder, holderLocation, holderPosition)
     this.props.setSelectedHolder(null)
   }
   render () {
@@ -26,10 +23,8 @@ export default class Position extends React.Component {
   render () {
     const {holderLocation, holderPosition} = this.props
     const adaptor = this.props.adaptors.find(adaptor => {
-      const adaptorPlace = adaptor.get('place')
-      if (!adaptorPlace) { return false }
-      return (adaptorPlace.get('location') === holderLocation &&
-              adaptorPlace.get('position') === holderPosition)
+      return (adaptor.get('location') === holderLocation &&
+              adaptor.get('position') === holderPosition)
     })
     const adaptorName = adaptor ? adaptor.get('name') : null
     return (

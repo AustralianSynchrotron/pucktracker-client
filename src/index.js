@@ -34,8 +34,8 @@ socket.on('action', action => {
 
 store.dispatch(
   setAdaptors([
-    {name: 'AS-01', place: {location: 'LS3000', position: 'A'}},
-    {name: 'AS-02', place: null},
+    {name: 'AS-01', location: 'LS3000', position: 'A'},
+    {name: 'AS-02'},
   ])
 )
 

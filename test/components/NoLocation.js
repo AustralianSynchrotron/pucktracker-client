@@ -22,7 +22,7 @@ describe('NoLocation', () => {
 
   it('should not display adaptors with a location', () => {
     const adaptors = fromJS([
-      {name: 'AS-01', place: {location: 'MX1', position: 'Left'}},
+      {name: 'AS-01', location: 'MX1', position: 'Left'},
     ])
     const component = renderIntoDocument(
       <NoLocation adaptors={adaptors}/>

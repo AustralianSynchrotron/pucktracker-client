@@ -21,12 +21,12 @@ describe('adaptor actions', () => {
   })
 
   it('move should create a move adaptor action', () => {
-    const place = {location: 'MX1', position: 'Left'}
-    const action = actions.setAdaptorPlace('AS-01', place)
+    const action = actions.setAdaptorPlace('AS-01', 'MX1', 'Left')
     expect(action).to.eql({
       type: 'SET_ADAPTOR_PLACE',
       adaptor: 'AS-01',
-      place: {location: 'MX1', position: 'Left'},
+      location: 'MX1',
+      position: 'Left',
       broadcast: true,
     })
   })
