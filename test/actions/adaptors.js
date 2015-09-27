@@ -4,9 +4,9 @@ import * as actions from '../../src/actions/adaptors'
 describe('adaptor actions', () => {
 
   it('setAdaptors should create a set adaptors action', () => {
-    expect(actions.setAdaptors({'AS-01': {}})).to.eql({
+    expect(actions.setAdaptors([{name: 'AS-01'}])).to.eql({
       type: 'SET_ADAPTORS',
-      adaptors: {'AS-01': {}}
+      adaptors: [{name: 'AS-01'}]
     })
   })
 

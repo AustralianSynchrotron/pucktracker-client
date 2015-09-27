@@ -1,0 +1,62 @@
+@puck-size: 250px;
+@port-size: 45px;
+
+.puck {
+    background: #ccc;
+    width: @puck-size;
+    height: @puck-size;
+    border-radius: 50%;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.puck-port {
+    background: #999;
+    width: @port-size;
+    height: @port-size;
+    border-radius: 50%;
+    position: absolute;
+    text-align: center;
+    line-height: @port-size;
+    color: grey;
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.puck-port-full {
+  background: #449d44;
+  color: white;
+}
+
+.puck-port-empty {
+  background: black;
+  color: white;
+}
+
+.generate-puck-port(@start, @end, @port-number, @ring-radius)
+  when (@port-number <= @end) {
+
+  @ring-index: @port-number - @start;
+  @puck-radius: @puck-size / 2;
+  @port-radius: @port-size / 2;
+  @offset: @puck-radius - @port-radius;
+  @angle: -2 * pi() / (@end - @start + 1);
+  @x: @ring-radius * sin( @ring-index * @angle - pi() / 2 );
+  @y: @ring-radius * cos( @ring-index * @angle - pi() / 2 );
+
+  .puck-port-@{port-number} {
+    top: round(@x + @offset, 2);
+    left: round(@y + @offset, 2);
+  }
+
+  .generate-puck-port(@start, @end, @port-number + 1, @ring-radius);
+
+}
+.generate-puck-port(1, 5, 1, @puck-size / 2 * 0.34);
+.generate-puck-port(6, 16, 6, @puck-size / 2 * 0.73);

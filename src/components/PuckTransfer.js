@@ -73,6 +73,7 @@ function mapStateToProps(state) {
   return {
     selectedReceptacles: state.app.get('selectedReceptacles'),
     adaptors: state.adaptors,
+    pucks: state.pucks,
   }
 }
 

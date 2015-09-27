@@ -10,15 +10,16 @@ import rootReducer from './reducers'
 import { LocationsContainer } from './components/LocationsContainer'
 import { ConnectedPuckTransfer } from './components/PuckTransfer'
 import { setAdaptors } from './actions/adaptors'
+import './styles/pucks.less'
 
 
 const socket = io(`${location.protocol}//${location.hostname}:8090`)
 
 const remoteActionMiddleware = socket => store => next => action => {
   if (action.broadcast) {
-    socket.emit('action', action);
+    socket.emit('action', action)
   }
-  return next(action);
+  return next(action)
 }
 
 const createStoreWithMiddleware = applyMiddleware(
