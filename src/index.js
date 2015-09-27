@@ -32,13 +32,6 @@ socket.on('action', action => {
   store.dispatch(action)
 })
 
-store.dispatch(
-  setAdaptors([
-    {name: 'AS-01', location: 'LS3000', position: 'A'},
-    {name: 'AS-02'},
-  ])
-)
-
 class App extends React.Component {
   render () {
     return (
