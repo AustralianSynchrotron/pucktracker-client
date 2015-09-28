@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react/addons'
 import { Map, List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames'
@@ -26,8 +26,19 @@ class PortToggleButtons extends Component {
 
 
 class PuckSelector extends Component {
+  onSelection (event) {
+    const selectedPuck = event.target.checked ? this.props.puck.get('name') : null
+    this.props.setSelectedPuck(selectedPuck)
+  }
+  isSelected () {
+    return this.props.puck.get('name') === this.props.selectedPuck
+  }
   render () {
-    const checkbox = <input type="checkbox" />
+    const checkbox = (
+      <input type="checkbox"
+             onChange={this.onSelection.bind(this)}
+             checked={this.isSelected()} />
+    )
     return (
       <ButtonInput className="form-control" standalone addonBefore={checkbox}>
         {this.props.puck.get('name')}
@@ -71,6 +82,15 @@ class Port extends Component {
 
 
 export class AdaptorSlot extends Component {
+  receivePuck () {
+    this.props.setPuckReceptacle(
+      this.props.selectedPuck,
+      'adaptor',
+      this.props.selectedReceptacle,
+      this.props.slot
+    )
+    this.props.setSelectedPuck(null)
+  }
   render () {
     return (
       <div>
@@ -78,7 +98,10 @@ export class AdaptorSlot extends Component {
           {this.props.puck ? (
             <PuckSelector {...this.props}/>
           ) : (
-            <TargetPosition>Empty</TargetPosition>
+            <TargetPosition isDisabled={!this.props.selectedPuck}
+                            onClick={this.receivePuck.bind(this)}>
+              Empty
+            </TargetPosition>
           )}
         </div>
         <PortToggleButtons disabled={!this.props.puck}/>
@@ -93,6 +116,7 @@ export class AdaptorSlot extends Component {
 }
 
 AdaptorSlot.propTypes = {
+  selectedPuck: React.PropTypes.string,
   puck: ImmutablePropTypes.map,
   ports: ImmutablePropTypes.list,
 }

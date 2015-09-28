@@ -5,12 +5,13 @@ export function setPucks(pucks) {
   }
 }
 
-export function setPuckContainer(puck, containerType, container) {
+export function setPuckReceptacle(puck, receptacleType, receptacle, slot=null) {
   return {
-    type: 'SET_PUCK_CONTAINER',
+    type: 'SET_PUCK_RECEPTACLE',
     puck,
-    containerType,
-    container,
+    receptacleType,
+    receptacle,
+    slot,
     broadcast: true,
   }
 }

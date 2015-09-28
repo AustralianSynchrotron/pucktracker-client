@@ -2,7 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'
-import { setSelectedReceptacle } from '../actions/app'
+import { setSelectedPuck, setSelectedReceptacle } from '../actions/app'
+import { setPuckReceptacle } from '../actions/pucks'
 import { setPortState } from '../actions/ports'
 
 export class PuckTransfer extends React.Component {
@@ -73,6 +74,7 @@ ReceptaclesPanel.contextTypes = {
 function mapStateToProps(state) {
   return {
     selectedReceptacles: state.app.get('selectedReceptacles'),
+    selectedPuck: state.app.get('selectedPuck'),
     adaptors: state.adaptors,
     pucks: state.pucks,
     ports: state.ports,
@@ -81,5 +83,10 @@ function mapStateToProps(state) {
 
 export const ConnectedPuckTransfer = connect(
   mapStateToProps,
-  {setSelectedReceptacle, setPortState}
+  {
+    setSelectedReceptacle,
+    setSelectedPuck,
+    setPuckReceptacle,
+    setPortState,
+  }
 )(PuckTransfer)

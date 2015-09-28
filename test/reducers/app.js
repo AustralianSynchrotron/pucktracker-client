@@ -30,4 +30,14 @@ describe('app state reducer', () => {
     )
   })
 
+  it('sets selected puck', () => {
+    const initialState = Map()
+    const action = {
+      type: 'SET_SELECTED_PUCK',
+      puck: 'ASP001',
+    }
+    const state = reducer(initialState, action)
+    expect(state.get('selectedPuck')).to.equal('ASP001')
+  })
+
 })

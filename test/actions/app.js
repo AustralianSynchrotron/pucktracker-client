@@ -19,4 +19,11 @@ describe('app actions', () => {
     })
   })
 
+  it('setSelectedPuck should create an action', () => {
+    expect(actions.setSelectedPuck('ASP001')).to.eql({
+      type: 'SET_SELECTED_PUCK',
+      puck: 'ASP001',
+    })
+  })
+
 })

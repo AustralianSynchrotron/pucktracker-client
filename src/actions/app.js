@@ -13,3 +13,10 @@ export function setSelectedReceptacle (side, receptacleType, receptacleName) {
       receptacleName,
     }
 }
+
+export function setSelectedPuck (puck) {
+  return {
+      type: 'SET_SELECTED_PUCK',
+      puck,
+    }
+}
