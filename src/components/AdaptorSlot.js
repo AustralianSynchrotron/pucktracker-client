@@ -3,6 +3,7 @@ import { Map, List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames'
 import { ButtonInput, ButtonGroup, Button } from 'react-bootstrap'
+import { PuckSelector } from './PuckSelector'
 import { TargetPosition } from './TargetPosition'
 
 
@@ -24,28 +25,6 @@ class PortToggleButtons extends Component {
   }
 }
 
-
-class PuckSelector extends Component {
-  onSelection (event) {
-    const selectedPuck = event.target.checked ? this.props.puck.get('name') : null
-    this.props.setSelectedPuck(selectedPuck)
-  }
-  isSelected () {
-    return this.props.puck.get('name') === this.props.selectedPuck
-  }
-  render () {
-    const checkbox = (
-      <input type="checkbox"
-             onChange={this.onSelection.bind(this)}
-             checked={this.isSelected()} />
-    )
-    return (
-      <ButtonInput className="form-control" standalone addonBefore={checkbox}>
-        {this.props.puck.get('name')}
-      </ButtonInput>
-    )
-  }
-}
 
 function nextState (currentState) {
   switch (currentState) {

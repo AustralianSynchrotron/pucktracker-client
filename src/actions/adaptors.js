@@ -5,7 +5,7 @@ export function setAdaptors (adaptors) {
   }
 }
 
-export function addAdaptor (adaptor={}) {
+export function addAdaptor (adaptor) {
   return {
     type: 'ADD_ADAPTOR',
     adaptor,

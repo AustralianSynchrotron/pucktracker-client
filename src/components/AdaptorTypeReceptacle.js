@@ -50,24 +50,28 @@ export class AdaptorTypeReceptacle extends React.Component {
             </Col>
           </Row>
         </h1>
-        <Row>
-          <Col md={6}>
-            <AdaptorSlot {...this.props} puck={puck_a} slot="A"
-                         ports={this.portsForPuck(puck_a)}
-            />
-            <AdaptorSlot {...this.props} puck={puck_b} slot="B"
-                         ports={this.portsForPuck(puck_b)}
-            />
-          </Col>
-          <Col md={6}>
-            <AdaptorSlot {...this.props} puck={puck_c} slot="C"
-                         ports={this.portsForPuck(puck_c)}
-            />
-            <AdaptorSlot {...this.props} puck={puck_d} slot="D"
-                         ports={this.portsForPuck(puck_d)}
-            />
-          </Col>
-        </Row>
+        {this.props.selectedReceptacle ? (
+          <Row>
+            <Col md={6}>
+              <AdaptorSlot {...this.props} puck={puck_a} slot="A"
+                           ports={this.portsForPuck(puck_a)}
+              />
+              <AdaptorSlot {...this.props} puck={puck_b} slot="B"
+                           ports={this.portsForPuck(puck_b)}
+              />
+            </Col>
+            <Col md={6}>
+              <AdaptorSlot {...this.props} puck={puck_c} slot="C"
+                           ports={this.portsForPuck(puck_c)}
+              />
+              <AdaptorSlot {...this.props} puck={puck_d} slot="D"
+                           ports={this.portsForPuck(puck_d)}
+              />
+            </Col>
+          </Row>
+        ) : (
+          null
+        )}
     </div>
     )
   }

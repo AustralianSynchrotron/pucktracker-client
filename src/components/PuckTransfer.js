@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'
+import { DewarTypeReceptacle } from './DewarTypeReceptacle'
 import { setSelectedPuck, setSelectedReceptacle } from '../actions/app'
 import { setPuckReceptacle } from '../actions/pucks'
 import { setPortState } from '../actions/ports'
@@ -57,8 +58,10 @@ class ReceptaclesPanel extends React.Component {
           />
         </Tab>
         <Tab eventKey={'dewar'} title='Dewar'>
-          <h1>Dewar</h1>
-          <p>Coming soon...</p>
+          <DewarTypeReceptacle
+            {...this.props}
+            selectedReceptacle={this.props.selectedReceptacles.get('dewar')}
+          />
         </Tab>
       </Tabs>
     )
@@ -76,6 +79,7 @@ function mapStateToProps(state) {
     selectedReceptacles: state.app.get('selectedReceptacles'),
     selectedPuck: state.app.get('selectedPuck'),
     adaptors: state.adaptors,
+    dewars: state.dewars,
     pucks: state.pucks,
     ports: state.ports,
   }
