@@ -16,4 +16,19 @@ describe('pucks reducer', () => {
     ]))
   })
 
+  it('sets puck container', () => {
+    const initialState = fromJS([{name: 'ASP001', container: '1001'}])
+    const action = {
+      type: 'SET_PUCK_CONTAINER',
+      puck: 'ASP001',
+      containerType: 'adaptor',
+      container: 'AS-01',
+      broadcast: true,
+    }
+    const state = reducer(initialState, action)
+    expect(state).to.equal(fromJS([
+      {name: 'ASP001', containerType: 'adaptor', container: 'AS-01'},
+    ]))
+  })
+
 })
