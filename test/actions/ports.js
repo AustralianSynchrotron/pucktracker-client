@@ -15,4 +15,15 @@ describe('ports actions', () => {
     })
   })
 
+  it('setPortState should return an action to set the port state', () => {
+    const action = actions.setPortState('ASP001', 1, 'full')
+    expect(action).to.eql({
+      type: 'SET_PORT_STATE',
+      container: 'ASP001',
+      number: 1,
+      state: 'full',
+      broadcast: true,
+    })
+  })
+
 })

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { List } from 'immutable'
+import { Map, List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames'
 import { ButtonInput, ButtonGroup, Button } from 'react-bootstrap'
@@ -36,14 +36,33 @@ class PuckSelector extends Component {
   }
 }
 
+function nextState (currentState) {
+  switch (currentState) {
+    case 'full':
+      return 'empty'
+    case 'empty':
+      return 'unknown'
+    default:
+      return 'full'
+  }
+}
+
 
 class Port extends Component {
+  onClick (event) {
+    const {port} = this.props
+    this.props.setPortState(
+      port.get('container'),
+      port.get('number'),
+      nextState(port.get('state'))
+   )
+  }
   render () {
     var classString = classNames('puck-port',
                                  'puck-port-' + this.props.port.get('number'),
                                  'puck-port-' + this.props.port.get('state'))
     return (
-      <div className={classString}>
+      <div className={classString} onClick={this.onClick.bind(this)}>
         {this.props.slot}{this.props.port.get('number')}
       </div>
     )
@@ -65,7 +84,7 @@ export class AdaptorSlot extends Component {
         <PortToggleButtons disabled={!this.props.puck}/>
         <div className="puck">
           {this.props.ports.map(
-            port => <Port key={port.get('number')} port={port} />
+            port => <Port {...this.props} key={port.get('number')} port={port} />
           )}
         </div>
       </div>
@@ -75,4 +94,9 @@ export class AdaptorSlot extends Component {
 
 AdaptorSlot.propTypes = {
   puck: ImmutablePropTypes.map,
+  ports: ImmutablePropTypes.list,
+}
+
+AdaptorSlot.defaultProps = {
+  ports: List(),
 }

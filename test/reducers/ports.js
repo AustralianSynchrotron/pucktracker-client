@@ -18,4 +18,18 @@ describe('ports reducer', () => {
     ]))
   })
 
+  it('sets port states', () => {
+    const initialState = fromJS([
+      {containerType: 'puck', container: 'ASP001', number: 1, state: 'unknown'}
+    ])
+    const action = {
+      type: 'SET_PORT_STATE',
+      container: 'ASP001',
+      number: 1,
+      state: 'full',
+    }
+    const state = reducer(initialState, action)
+    expect(state.getIn([0, 'state'])).to.equal('full')
+  })
+
 })

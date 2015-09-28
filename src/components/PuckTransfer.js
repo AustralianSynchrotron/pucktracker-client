@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'
 import { setSelectedReceptacle } from '../actions/app'
+import { setPortState } from '../actions/ports'
 
 export class PuckTransfer extends React.Component {
   render () {
@@ -80,5 +81,5 @@ function mapStateToProps(state) {
 
 export const ConnectedPuckTransfer = connect(
   mapStateToProps,
-  {setSelectedReceptacle}
+  {setSelectedReceptacle, setPortState}
 )(PuckTransfer)

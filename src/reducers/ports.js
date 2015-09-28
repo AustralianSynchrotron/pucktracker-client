@@ -5,7 +5,17 @@ export default function reducer(state=List(), action) {
     case 'SET_PORTS': {
       return fromJS(action.ports)
     }
+    case 'SET_PORT_STATE': {
+      const index = state.findIndex(port =>
+        port.get('container') === action.container
+        && port.get('number') === action.number
+      )
+      if (index > -1) {
+        return state.update(index, port => port.set('state', action.state))
+      } else {
+        return state
+      }
+    }
   }
   return state
 }
-
