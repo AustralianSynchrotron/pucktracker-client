@@ -53,7 +53,6 @@ class Port extends Component {
 
 export class AdaptorSlot extends Component {
   render () {
-    const ports = List()
     return (
       <div>
         <div style={{'paddingBottom': '6px'}}>
@@ -65,7 +64,9 @@ export class AdaptorSlot extends Component {
         </div>
         <PortToggleButtons disabled={!this.props.puck}/>
         <div className="puck">
-          {ports.map(port => <Port key={port.get('number')} port={port} />)}
+          {this.props.ports.map(
+            port => <Port key={port.get('number')} port={port} />
+          )}
         </div>
       </div>
     )

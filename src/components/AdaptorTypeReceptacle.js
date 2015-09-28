@@ -18,6 +18,13 @@ export class AdaptorTypeReceptacle extends React.Component {
       && puck.get('receptacle') === this.props.selectedReceptacle
     )
   }
+  portsForPuck (puck) {
+    if (!puck) { return List() }
+    return this.props.ports.filter(port =>
+      port.get('containerType') === 'puck'
+      && port.get('container') === puck.get('name')
+    )
+  }
   render () {
     const pucks = this.pucksForSelectedReceptacle()
     const puck_a = pucks.find(puck => puck.get('slot') === 'A')
@@ -45,12 +52,20 @@ export class AdaptorTypeReceptacle extends React.Component {
         </h1>
         <Row>
           <Col md={6}>
-            <AdaptorSlot {...this.props} puck={puck_a} slot="A"/>
-            <AdaptorSlot {...this.props} puck={puck_b} slot="B"/>
+            <AdaptorSlot {...this.props} puck={puck_a} slot="A"
+                         ports={this.portsForPuck(puck_a)}
+            />
+            <AdaptorSlot {...this.props} puck={puck_b} slot="B"
+                         ports={this.portsForPuck(puck_b)}
+            />
           </Col>
           <Col md={6}>
-            <AdaptorSlot {...this.props} puck={puck_c} slot="C"/>
-            <AdaptorSlot {...this.props} puck={puck_d} slot="D"/>
+            <AdaptorSlot {...this.props} puck={puck_c} slot="C"
+                         ports={this.portsForPuck(puck_c)}
+            />
+            <AdaptorSlot {...this.props} puck={puck_d} slot="D"
+                         ports={this.portsForPuck(puck_d)}
+            />
           </Col>
         </Row>
     </div>
