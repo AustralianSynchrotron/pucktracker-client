@@ -1,7 +1,6 @@
-import React, { Component } from 'react/addons'
-import ImmutablePropTypes from 'react-immutable-proptypes'
+import React, { Component, PropTypes } from 'react/addons'
 import { ButtonInput, ButtonGroup, Button } from 'react-bootstrap'
-
+import { Puck } from '../reducers/pucks'
 
 export class PuckSelector extends Component {
   onSelection (event) {
@@ -26,8 +25,7 @@ export class PuckSelector extends Component {
 }
 
 PuckSelector.propTypes = {
-  puck: ImmutablePropTypes.map,
-  selectedPuck: React.PropTypes.string,
-  setSelectedPuck: React.PropTypes.func,
+  puck: PropTypes.instanceOf(Puck),
+  selectedPuck: PropTypes.string,
+  setSelectedPuck: PropTypes.func,
 }
-

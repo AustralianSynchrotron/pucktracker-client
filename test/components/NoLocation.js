@@ -1,7 +1,8 @@
 import React from 'react/addons'
-import { fromJS } from 'immutable'
+import { Map } from 'immutable'
 import { expect } from 'chai'
 import { NoLocation } from '../../src/components/NoLocation'
+import { Adaptor } from '../../src/reducers/adaptors'
 
 const {
   renderIntoDocument,
@@ -12,7 +13,9 @@ const {
 describe('NoLocation', () => {
 
   it('should display adaptors with no location', () => {
-    const adaptors = fromJS([{name: 'AS-01'}])
+    const adaptors = Map({
+      'AS-01': Adaptor({name: 'AS-01'}),
+    })
     const component = renderIntoDocument(
       <NoLocation adaptors={adaptors}/>
     )
@@ -21,9 +24,9 @@ describe('NoLocation', () => {
   })
 
   it('should not display adaptors with a location', () => {
-    const adaptors = fromJS([
-      {name: 'AS-01', location: 'MX1', position: 'Left'},
-    ])
+    const adaptors = Map({
+      'AS-01': Adaptor({name: 'AS-01', location: 'MX1'}),
+    })
     const component = renderIntoDocument(
       <NoLocation adaptors={adaptors}/>
     )

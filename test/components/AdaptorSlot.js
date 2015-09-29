@@ -1,7 +1,8 @@
 import React, {findDOMNode} from 'react/addons'
-import { Map, List, fromJS } from 'immutable'
+import { Map } from 'immutable'
 import { expect } from 'chai'
 import { AdaptorSlot } from '../../src/components/AdaptorSlot'
+import { Puck } from '../../src/reducers/pucks'
 
 const {
   renderIntoDocument,
@@ -11,7 +12,7 @@ const {
 describe('AdaptorSlot', () => {
 
   it('displays the name of the puck', () => {
-    const puck = Map({name: 'ASP001'})
+    const puck = Puck({name: 'ASP001'})
     const component = renderIntoDocument(
       <AdaptorSlot puck={puck} ports={Map()} />
     )

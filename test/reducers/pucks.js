@@ -1,23 +1,21 @@
-import {List, fromJS} from 'immutable'
+import { Map } from 'immutable'
 import {expect} from 'chai'
-import reducer from '../../src/reducers/pucks'
+import reducer, { Puck } from '../../src/reducers/pucks'
 
 describe('pucks reducer', () => {
 
   it('sets pucks', () => {
-    const initialState = List()
+    const initialState = Map()
     const action = {
       type: 'SET_PUCKS',
       pucks: [{name: 'ASP001'}],
     }
     const state = reducer(initialState, action)
-    expect(state).to.equal(fromJS([
-      {name: 'ASP001'},
-    ]))
+    expect(state.getIn(['ASP001', 'name'])).to.equal('ASP001')
   })
 
   it('sets puck receptacle', () => {
-    const initialState = fromJS([{name: 'ASP001', receptacle: '1001'}])
+    const initialState = Map({'ASP001': Puck({receptacle: '1001'})})
     const action = {
       type: 'SET_PUCK_RECEPTACLE',
       puck: 'ASP001',
@@ -27,9 +25,10 @@ describe('pucks reducer', () => {
       broadcast: true,
     }
     const state = reducer(initialState, action)
-    expect(state).to.equal(fromJS([
-      {name: 'ASP001', receptacleType: 'adaptor', receptacle: 'AS-01', slot: 'A'},
-    ]))
+    const puck = state.get('ASP001')
+    expect(puck.get('receptacleType')).to.equal('adaptor')
+    expect(puck.get('receptacle')).to.equal('AS-01')
+    expect(puck.get('slot')).to.equal('A')
   })
 
 })

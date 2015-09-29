@@ -63,7 +63,7 @@ export class DewarTypeReceptacle extends React.Component {
                             onClick={this.receivePuck.bind(this)}>
               Move puck here
             </TargetPosition>
-            {pucks.map(puck =>
+            {pucks.toList().map(puck =>
               <PuckSelector key={puck.get('name')} {...this.props} puck={puck} />
             )}
           </div>

@@ -1,5 +1,5 @@
-import {Map, fromJS} from 'immutable'
-import {expect} from 'chai'
+import { Map } from 'immutable'
+import { expect } from 'chai'
 import reducer from '../../src/reducers/app'
 
 describe('app state reducer', () => {
@@ -11,7 +11,7 @@ describe('app state reducer', () => {
       holder: 'AS-01',
     }
     const state = reducer(initialState, action)
-    expect(state).to.equal(fromJS({
+    expect(state).to.equal(Map({
       selectedHolder: 'AS-01',
     }))
   })

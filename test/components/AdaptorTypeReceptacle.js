@@ -1,7 +1,8 @@
 import React, {findDOMNode} from 'react/addons'
-import { fromJS } from 'immutable'
+import { Map } from 'immutable'
 import { expect } from 'chai'
 import { AdaptorTypeReceptacle } from '../../src/components/AdaptorTypeReceptacle'
+import { Adaptor } from '../../src/reducers/adaptors'
 
 const {
   renderIntoDocument,
@@ -11,7 +12,10 @@ const {
 describe('AdaptorTypeReceptacle', () => {
 
   it('should render the adaptor names in a select box', () => {
-    const adaptors = fromJS([{name: 'AS-01'}, {name: 'AS-02'}])
+    const adaptors = Map({
+      'AS-01': Adaptor({name: 'AS-01'}),
+      'AS-02': Adaptor({name: 'AS-02'}),
+    })
     const component = renderIntoDocument(
       <AdaptorTypeReceptacle adaptors={adaptors}/>
     )

@@ -1,10 +1,11 @@
-import React, { Component } from 'react/addons'
+import React, { Component, PropTypes } from 'react/addons'
 import { Map, List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames'
 import { ButtonInput, ButtonGroup, Button } from 'react-bootstrap'
 import { PuckSelector } from './PuckSelector'
 import { TargetPosition } from './TargetPosition'
+import { Puck } from '../reducers/pucks'
 
 
 export class AdaptorSlot extends Component {
@@ -42,8 +43,8 @@ export class AdaptorSlot extends Component {
 }
 
 AdaptorSlot.propTypes = {
-  selectedPuck: React.PropTypes.string,
-  puck: ImmutablePropTypes.map,
+  selectedPuck: PropTypes.string,
+  puck: PropTypes.instanceOf(Puck),
   ports: ImmutablePropTypes.map,
 }
 

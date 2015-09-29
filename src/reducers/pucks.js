@@ -1,21 +1,27 @@
-import {List, fromJS} from 'immutable'
+import { Map, Record } from 'immutable'
 
-export default function reducer(state=List(), action) {
+export const Puck = Record({
+  name: null,
+  receptacle: null,
+  receptacleType: null,
+  slot: null,
+})
+
+export default function reducer(state=Map(), action) {
   switch (action.type) {
     case 'SET_PUCKS': {
-      return fromJS(action.pucks)
+      return Map().withMutations(state => {
+        action.pucks.forEach(puck => {
+          state.set(puck.name, new Puck(puck))
+        })
+      })
     }
     case 'SET_PUCK_RECEPTACLE': {
-      const index = state.findIndex(puck => puck.get('name') === action.puck)
-      if (index > -1) {
-        return state.update(index, puck => puck.merge({
-          receptacle: action.receptacle,
-          receptacleType: action.receptacleType,
-          slot: action.slot,
-        }))
-      } else {
-        return state
-      }
+      return state.withMutations(state => {
+        state.setIn([action.puck, 'receptacle'], action.receptacle)
+        state.setIn([action.puck, 'receptacleType'], action.receptacleType)
+        state.setIn([action.puck, 'slot'], action.slot)
+      })
     }
   }
   return state
