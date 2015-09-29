@@ -28,7 +28,7 @@ export class NoLocation extends React.Component {
                 </TargetPosition>
               </td>
             </tr>
-            {this.holders().toList().map(holder => (
+            {this.holders().sort().toList().map(holder => (
               <tr key={holder.get('name')}>
                 <td>
                   <HolderContainer type='adaptor' name={holder.get('name')}

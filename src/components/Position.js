@@ -1,5 +1,5 @@
 import React from 'react'
-import { Map, fromJS } from 'immutable'
+import { Map } from 'immutable'
 import { HolderContainer } from './Holder'
 import { TargetPosition } from './TargetPosition'
 

@@ -48,7 +48,7 @@ export class DewarTypeReceptacle extends React.Component {
                      value={this.props.selectedReceptacle}
                      onChange={this.onChange.bind(this)}>
                 <option></option>
-                {this.props.dewars.map(dewar => (
+                {this.props.dewars.toList().map(dewar => (
                   <option key={dewar.get('name')} value={dewar.get('name')}>
                     {dewar.get('name')}
                   </option>
