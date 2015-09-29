@@ -1,5 +1,5 @@
 import React from 'react/addons'
-import {List} from 'immutable'
+import {Map, List} from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Row, Col, Input } from 'react-bootstrap'
 import { AdaptorSlot } from './AdaptorSlot'
@@ -19,7 +19,7 @@ export class AdaptorTypeReceptacle extends React.Component {
     )
   }
   portsForPuck (puck) {
-    if (!puck) { return List() }
+    if (!puck) { return Map() }
     return this.props.ports.filter(port =>
       port.get('containerType') === 'puck'
       && port.get('container') === puck.get('name')

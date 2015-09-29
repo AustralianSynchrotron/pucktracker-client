@@ -14,3 +14,13 @@ export function setPortState(container, number, state) {
     broadcast: true,
   }
 }
+
+export function setMultiplePortStates(container, numbers, state) {
+  return {
+    type: 'SET_MULTIPLE_PORT_STATES',
+    container,
+    numbers,
+    state,
+    broadcast: true,
+  }
+}

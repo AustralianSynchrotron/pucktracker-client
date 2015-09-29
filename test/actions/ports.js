@@ -26,4 +26,15 @@ describe('ports actions', () => {
     })
   })
 
+  it('setMultiplePortStates should return an action', () => {
+    const action = actions.setMultiplePortStates('ASP001', [1, 2, 3], 'full')
+    expect(action).to.eql({
+      type: 'SET_MULTIPLE_PORT_STATES',
+      container: 'ASP001',
+      numbers: [1, 2, 3],
+      state: 'full',
+      broadcast: true,
+    })
+  })
+
 })

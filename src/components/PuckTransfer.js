@@ -5,7 +5,7 @@ import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'
 import { DewarTypeReceptacle } from './DewarTypeReceptacle'
 import { setSelectedPuck, setSelectedReceptacle } from '../actions/app'
 import { setPuckReceptacle } from '../actions/pucks'
-import { setPortState } from '../actions/ports'
+import { setPortState, setMultiplePortStates } from '../actions/ports'
 
 export class PuckTransfer extends React.Component {
   render () {
@@ -92,5 +92,6 @@ export const ConnectedPuckTransfer = connect(
     setSelectedPuck,
     setPuckReceptacle,
     setPortState,
+    setMultiplePortStates,
   }
 )(PuckTransfer)

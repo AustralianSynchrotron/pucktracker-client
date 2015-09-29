@@ -1,5 +1,5 @@
 import React, {findDOMNode} from 'react/addons'
-import { List, fromJS } from 'immutable'
+import { Map, List, fromJS } from 'immutable'
 import { expect } from 'chai'
 import { AdaptorSlot } from '../../src/components/AdaptorSlot'
 
@@ -11,9 +11,9 @@ const {
 describe('AdaptorSlot', () => {
 
   it('displays the name of the puck', () => {
-    const puck = fromJS({name: 'ASP001'})
+    const puck = Map({name: 'ASP001'})
     const component = renderIntoDocument(
-      <AdaptorSlot puck={puck} ports={List()} />
+      <AdaptorSlot puck={puck} ports={Map()} />
     )
     const button = scryRenderedDOMComponentsWithTag(component, 'input')[1]
     expect(findDOMNode(button).value).to.equal('ASP001')

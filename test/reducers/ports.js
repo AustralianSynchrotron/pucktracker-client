@@ -1,11 +1,11 @@
-import {List, fromJS} from 'immutable'
+import {Map, List} from 'immutable'
 import {expect} from 'chai'
-import reducer from '../../src/reducers/ports'
+import reducer, {Port} from '../../src/reducers/ports'
 
 describe('ports reducer', () => {
 
   it('sets ports', () => {
-    const initialState = List()
+    const initialState = Map()
     const action = {
       type: 'SET_PORTS',
       ports: [
@@ -13,14 +13,18 @@ describe('ports reducer', () => {
       ]
     }
     const state = reducer(initialState, action)
-    expect(state).to.equal(fromJS([
-      {containerType: 'puck', container: 'ASP001', number: 1, state: 'unknown'}
-    ]))
+    expect(state.size).to.equal(1)
+    const port = state.get(List.of('ASP001', 1))
+    expect(port.get('containerType')).to.equal('puck')
+    expect(port.get('container')).to.equal('ASP001')
+    expect(port.get('number')).to.equal(1)
+    expect(port.get('state')).to.equal('unknown')
   })
 
-  it('sets port states', () => {
-    const initialState = fromJS([
-      {containerType: 'puck', container: 'ASP001', number: 1, state: 'unknown'}
+  it('set port states', () => {
+    const initialState = Map([
+      [ List.of('ASP001', 1), new Port({state: 'unknown'}) ],
+      [ List.of('ASP001', 2), new Port({state: 'unknown'}) ],
     ])
     const action = {
       type: 'SET_PORT_STATE',
@@ -29,7 +33,26 @@ describe('ports reducer', () => {
       state: 'full',
     }
     const state = reducer(initialState, action)
-    expect(state.getIn([0, 'state'])).to.equal('full')
+    expect(state.getIn([List.of('ASP001', 1), 'state'])).to.equal('full')
+    expect(state.getIn([List.of('ASP001', 2), 'state'])).to.equal('unknown')
+  })
+
+  it('sets multiple port states', () => {
+    const initialState = Map([
+      [ List.of('ASP001', 1), new Port({state: 'unknown'}) ],
+      [ List.of('ASP001', 2), new Port({state: 'unknown'}) ],
+      [ List.of('ASP001', 3), new Port({state: 'unknown'}) ],
+    ])
+    const action = {
+      type: 'SET_MULTIPLE_PORT_STATES',
+      container: 'ASP001',
+      numbers: [1, 2],
+      state: 'full',
+    }
+    const state = reducer(initialState, action)
+    expect(state.getIn([List.of('ASP001', 1), 'state'])).to.equal('full')
+    expect(state.getIn([List.of('ASP001', 2), 'state'])).to.equal('full')
+    expect(state.getIn([List.of('ASP001', 3), 'state'])).to.equal('unknown')
   })
 
 })
