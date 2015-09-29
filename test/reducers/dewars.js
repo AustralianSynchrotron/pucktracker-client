@@ -1,6 +1,6 @@
 import { Map } from 'immutable'
 import { expect } from 'chai'
-import reducer from '../../src/reducers/dewars'
+import reducer, { Dewar } from '../../src/reducers/dewars'
 
 describe('dewars reducer', () => {
 
@@ -11,8 +11,33 @@ describe('dewars reducer', () => {
       dewars: [{name: '1001'}]
     }
     const state = reducer(initialState, action)
-    expect(state.size).to.equal(1)
     expect(state.getIn(['1001', 'name'])).to.equal('1001')
+  })
+
+  it('adds dewars', () => {
+    const initialState = Map()
+    const action = {
+      type: 'ADD_DEWAR',
+      dewar: {
+        name: '1001',
+      },
+    }
+    const state = reducer(initialState, action)
+    expect(state.getIn(['1001', 'name'])).to.equal('1001')
+  })
+
+  it('updates dewars', () => {
+    const initialState = Map({
+      '1001': Dewar({name: '1001', epn: '123a'})
+    })
+    const action = {
+      type: 'UPDATE_DEWAR',
+      dewar: '1001',
+      update: {epn: '456b'},
+    }
+    const state = reducer(initialState, action)
+    expect(state.getIn(['1001', 'name'])).to.equal('1001')
+    expect(state.getIn(['1001', 'epn'])).to.equal('456b')
   })
 
 })

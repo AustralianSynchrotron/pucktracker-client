@@ -7,6 +7,7 @@ const initialState = fromJS({
     left: {adaptor: null, dewar: null},
     right: {adaptor: null, dewar: null},
   },
+  newDewarText: '',
 })
 
 export default function(state=initialState, action) {
@@ -18,6 +19,8 @@ export default function(state=initialState, action) {
       return state.setIn(path, action.receptacleName)
     case 'SET_SELECTED_PUCK':
       return state.set('selectedPuck', action.puck)
+    case 'SET_NEW_DEWAR_TEXT':
+      return state.set('newDewarText', action.text)
   }
   return state
 }
