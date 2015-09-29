@@ -1,5 +1,5 @@
 import React from 'react/addons'
-import {Map, List} from 'immutable'
+import { Map } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Row, Col, Input } from 'react-bootstrap'
 import { AdaptorSlot } from './AdaptorSlot'
@@ -12,7 +12,7 @@ export class AdaptorTypeReceptacle extends React.Component {
     this.props.setSelectedReceptacle(this.props.side, 'adaptor', event.target.value)
   }
   pucksForSelectedReceptacle () {
-    if (!this.props.selectedReceptacle) return List()
+    if (!this.props.selectedReceptacle) return Map()
     return this.props.pucks.filter(puck =>
       puck.get('receptacleType') === 'adaptor'
       && puck.get('receptacle') === this.props.selectedReceptacle
@@ -41,7 +41,7 @@ export class AdaptorTypeReceptacle extends React.Component {
                      value={this.props.selectedReceptacle}
                      onChange={this.onChange.bind(this)}>
                 <option></option>
-                {this.props.adaptors.map(adaptor => (
+                {this.props.adaptors.toList().map(adaptor => (
                   <option key={adaptor.get('name')} value={adaptor.get('name')}>
                     {adaptor.get('name')}
                   </option>

@@ -1,37 +1,11 @@
-import {List, fromJS} from 'immutable'
-import {expect} from 'chai'
-import reducer from '../../src/reducers/adaptors'
+import { Map } from 'immutable'
+import { expect } from 'chai'
+import reducer, { Adaptor } from '../../src/reducers/adaptors'
 
 describe('adaptors reducer', () => {
 
-  it('adds adaptors', () => {
-    const initialState = List()
-    const action = {
-      type: 'ADD_ADAPTOR',
-      adaptor: {name: 'AS-01'},
-    }
-    const state = reducer(initialState, action)
-    expect(state).to.equal(fromJS([
-      {'name': 'AS-01'}
-    ]))
-  })
-
-  it('sets adaptor place', () => {
-    const initialState = fromJS([{name: 'AS-01'}])
-    const action = {
-      type: 'SET_ADAPTOR_PLACE',
-      adaptor: 'AS-01',
-      location: 'MX1',
-      position: 'Left',
-    }
-    const state = reducer(initialState, action)
-    expect(state).to.equal(fromJS([
-      {name: 'AS-01', location: 'MX1', position: 'Left'},
-    ]))
-  })
-
   it('sets adaptors', () => {
-    const initialState = List()
+    const initialState = Map()
     const action = {
       type: 'SET_ADAPTORS',
       adaptors: [
@@ -40,10 +14,38 @@ describe('adaptors reducer', () => {
       ]
     }
     const state = reducer(initialState, action)
-    expect(state).to.equal(fromJS([
-      {name: 'AS-01', location: 'MX1', position: 'Left'},
-      {name: 'AS-02'}
-    ]))
+    expect(state.size).to.equal(2)
+    expect(state.get('AS-01')).to.equal(
+      new Adaptor({name: 'AS-01', location: 'MX1', position: 'Left'})
+    )
+    expect(state.getIn(['AS-02', 'name'])).to.equal('AS-02')
   })
+
+  it('adds adaptors', () => {
+    const initialState = Map()
+    const action = {
+      type: 'ADD_ADAPTOR',
+      adaptor: {name: 'AS-01'},
+    }
+    const state = reducer(initialState, action)
+    expect(state).to.equal(Map({
+      'AS-01': new Adaptor({name: 'AS-01'})
+    }))
+  })
+
+  it('sets adaptor place', () => {
+    const initialState = Map({'AS-01': new Adaptor()})
+    const action = {
+      type: 'SET_ADAPTOR_PLACE',
+      adaptor: 'AS-01',
+      location: 'MX1',
+      position: 'Left',
+    }
+    const state = reducer(initialState, action)
+    const adaptor = state.get('AS-01')
+    expect(adaptor.get('location')).to.equal('MX1')
+    expect(adaptor.get('position')).to.equal('Left')
+  })
+
 
 })
