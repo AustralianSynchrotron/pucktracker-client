@@ -6,7 +6,7 @@ import { setAdaptorPlace } from '../actions/adaptors'
 import Location from './Location'
 import { NoLocation } from './NoLocation'
 
-export class Locations extends React.Component {
+export class AdaptorLocations extends React.Component {
   render () {
     return (
       <Grid>
@@ -34,7 +34,7 @@ function mapStateToProps(state) {
   }
 }
 
-export const LocationsContainer = connect(
+export const ConnectedAdaptorLocations = connect(
   mapStateToProps,
   { setSelectedHolder, setAdaptorPlace }
-)(Locations)
+)(AdaptorLocations)

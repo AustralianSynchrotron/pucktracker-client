@@ -7,8 +7,9 @@ import 'bootstrap/less/bootstrap.less'
 import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import rootReducer from './reducers'
-import { LocationsContainer } from './components/LocationsContainer'
+import { ConnectedAdaptorLocations } from './components/AdaptorLocations'
 import { ConnectedPuckTransfer } from './components/PuckTransfer'
+import { ConnectedDewars } from './components/Dewars'
 import { setAdaptors } from './actions/adaptors'
 import './styles/pucks.less'
 
@@ -45,6 +46,9 @@ class App extends React.Component {
               <LinkContainer to="/pucks">
                 <NavItem>Pucks</NavItem>
               </LinkContainer>
+              <LinkContainer to="/dewars">
+                <NavItem>Dewars</NavItem>
+              </LinkContainer>
             </Nav>
           </CollapsibleNav>
         </Navbar>
@@ -67,8 +71,9 @@ React.render(
         <Router>
           <Route path="/" component={App}>
             <IndexRoute onEnter={redirectToChild}/>
-            <Route path="adaptors" component={LocationsContainer}/>
+            <Route path="adaptors" component={ConnectedAdaptorLocations}/>
             <Route path="pucks" component={ConnectedPuckTransfer}/>
+            <Route path="dewars" component={ConnectedDewars}/>
           </Route>
         </Router>
       }
