@@ -43,8 +43,8 @@ describe('adaptors reducer', () => {
     }
     const state = reducer(initialState, action)
     const adaptor = state.get('AS-01')
-    expect(adaptor.get('location')).to.equal('MX1')
-    expect(adaptor.get('position')).to.equal('Left')
+    expect(adaptor.location).to.equal('MX1')
+    expect(adaptor.position).to.equal('Left')
   })
 
 

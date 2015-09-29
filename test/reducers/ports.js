@@ -15,10 +15,10 @@ describe('ports reducer', () => {
     const state = reducer(initialState, action)
     expect(state.size).to.equal(1)
     const port = state.get(List.of('ASP001', 1))
-    expect(port.get('containerType')).to.equal('puck')
-    expect(port.get('container')).to.equal('ASP001')
-    expect(port.get('number')).to.equal(1)
-    expect(port.get('state')).to.equal('unknown')
+    expect(port.containerType).to.equal('puck')
+    expect(port.container).to.equal('ASP001')
+    expect(port.number).to.equal(1)
+    expect(port.state).to.equal('unknown')
   })
 
   it('set port states', () => {

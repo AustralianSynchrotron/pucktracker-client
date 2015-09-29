@@ -26,9 +26,9 @@ describe('pucks reducer', () => {
     }
     const state = reducer(initialState, action)
     const puck = state.get('ASP001')
-    expect(puck.get('receptacleType')).to.equal('adaptor')
-    expect(puck.get('receptacle')).to.equal('AS-01')
-    expect(puck.get('slot')).to.equal('A')
+    expect(puck.receptacleType).to.equal('adaptor')
+    expect(puck.receptacle).to.equal('AS-01')
+    expect(puck.slot).to.equal('A')
   })
 
 })

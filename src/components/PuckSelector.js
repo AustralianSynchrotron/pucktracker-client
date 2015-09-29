@@ -4,11 +4,11 @@ import { Puck } from '../reducers/pucks'
 
 export class PuckSelector extends Component {
   onSelection (event) {
-    const selectedPuck = event.target.checked ? this.props.puck.get('name') : null
+    const selectedPuck = event.target.checked ? this.props.puck.name : null
     this.props.setSelectedPuck(selectedPuck)
   }
   isSelected () {
-    return this.props.puck.get('name') === this.props.selectedPuck
+    return this.props.puck.name === this.props.selectedPuck
   }
   render () {
     const checkbox = (
@@ -18,7 +18,7 @@ export class PuckSelector extends Component {
     )
     return (
       <ButtonInput className="form-control" standalone addonBefore={checkbox}>
-        {this.props.puck.get('name')}
+        {this.props.puck.name}
       </ButtonInput>
     )
   }

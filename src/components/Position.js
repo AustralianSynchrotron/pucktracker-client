@@ -23,10 +23,10 @@ export default class Position extends React.Component {
   render () {
     const {holderLocation, holderPosition} = this.props
     const adaptor = this.props.adaptors.find(adaptor => {
-      return (adaptor.get('location') === holderLocation &&
-              adaptor.get('position') === holderPosition)
+      return (adaptor.location === holderLocation &&
+              adaptor.position === holderPosition)
     })
-    const adaptorName = adaptor ? adaptor.get('name') : null
+    const adaptorName = adaptor ? adaptor.name : null
     return (
       <tr>
         <td>{this.props.holderPosition}</td>

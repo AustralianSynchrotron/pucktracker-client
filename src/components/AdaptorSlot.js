@@ -34,7 +34,7 @@ export class AdaptorSlot extends Component {
         <PortToggleButtons {...this.props} disabled={!this.props.puck}/>
         <div className="puck">
           {this.props.ports.toList().map(
-            port => <Port {...this.props} key={port.get('number')} port={port} />
+            port => <Port {...this.props} key={port.number} port={port} />
           )}
         </div>
       </div>
@@ -56,18 +56,18 @@ class Port extends Component {
   onClick (event) {
     const {port} = this.props
     this.props.setPortState(
-      port.get('container'),
-      port.get('number'),
-      nextState(port.get('state'))
+      port.container,
+      port.number,
+      nextState(port.state)
    )
   }
   render () {
     var classString = classNames('puck-port',
-                                 'puck-port-' + this.props.port.get('number'),
-                                 'puck-port-' + this.props.port.get('state'))
+                                 'puck-port-' + this.props.port.number,
+                                 'puck-port-' + this.props.port.state)
     return (
       <div className={classString} onClick={this.onClick.bind(this)}>
-        {this.props.slot}{this.props.port.get('number')}
+        {this.props.slot}{this.props.port.number}
       </div>
     )
   }
@@ -76,10 +76,10 @@ class Port extends Component {
 class PortToggleButtons extends Component {
   togglePorts (first, last) {
     const numbers = Array.apply(0, Array(last - first + 1)).map((o, i) => i + first)
-    const firstPortKey = List.of(this.props.puck.get('name'), first)
+    const firstPortKey = List.of(this.props.puck.name, first)
     const newState = nextState(this.props.ports.getIn([firstPortKey, 'state']))
     this.props.setMultiplePortStates(
-      this.props.puck.get('name'), numbers, newState
+      this.props.puck.name, numbers, newState
     )
   }
   render () {

@@ -14,23 +14,22 @@ export class AdaptorTypeReceptacle extends React.Component {
   pucksForSelectedReceptacle () {
     if (!this.props.selectedReceptacle) return Map()
     return this.props.pucks.filter(puck =>
-      puck.get('receptacleType') === 'adaptor'
-      && puck.get('receptacle') === this.props.selectedReceptacle
+      puck.receptacleType === 'adaptor'
+      && puck.receptacle === this.props.selectedReceptacle
     )
   }
   portsForPuck (puck) {
     if (!puck) { return Map() }
     return this.props.ports.filter(port =>
-      port.get('containerType') === 'puck'
-      && port.get('container') === puck.get('name')
+      port.containerType === 'puck' && port.container === puck.name
     )
   }
   render () {
     const pucks = this.pucksForSelectedReceptacle()
-    const puck_a = pucks.find(puck => puck.get('slot') === 'A')
-    const puck_b = pucks.find(puck => puck.get('slot') === 'B')
-    const puck_c = pucks.find(puck => puck.get('slot') === 'C')
-    const puck_d = pucks.find(puck => puck.get('slot') === 'D')
+    const puck_a = pucks.find(puck => puck.slot === 'A')
+    const puck_b = pucks.find(puck => puck.slot === 'B')
+    const puck_c = pucks.find(puck => puck.slot === 'C')
+    const puck_d = pucks.find(puck => puck.slot === 'D')
     return (
       <div>
         <h1>
@@ -42,8 +41,8 @@ export class AdaptorTypeReceptacle extends React.Component {
                      onChange={this.onChange.bind(this)}>
                 <option></option>
                 {this.props.adaptors.sort().toList().map(adaptor => (
-                  <option key={adaptor.get('name')} value={adaptor.get('name')}>
-                    {adaptor.get('name')}
+                  <option key={adaptor.name} value={adaptor.name}>
+                    {adaptor.name}
                   </option>
                 ))}
               </Input>
