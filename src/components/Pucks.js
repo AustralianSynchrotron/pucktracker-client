@@ -2,29 +2,21 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Input, Button, Table } from 'react-bootstrap'
 import EditableCell from './EditableCell'
-// import { setNewPuckText } from '../actions/app'
 import { addPuck, updatePuck } from '../actions/pucks'
 
-        // <form style={{maxWidth: '300px'}} onSubmit={this.addPuck.bind(this)}>
-        //   <Input type="text"
-        //          value={this.props.newPuckText}
-        //          placeholder="New puck name"
-        //          onChange={this.onNewPuckChange.bind(this)}
-        //          buttonAfter={
-        //            <Button onClick={this.addPuck.bind(this)}>Add puck</Button>
-        //          }
-        //   />
-        // </form>
-
 export class Pucks extends Component {
-  // addPuck () {
-  //   if (!this.props.newPuckText) return
-  //   this.props.addPuck({name: this.props.newPuckText})
-  //   this.props.setNewPuckText('')
-  // }
-  // onNewPuckChange (event) {
-  //   this.props.setNewPuckText(event.target.value)
-  // }
+  constructor (props) {
+    super(props)
+    this.state = {newPuckText: ''}
+  }
+  onNewPuckChange (event) {
+    this.setState({newPuckText: event.target.value})
+  }
+  addPuck () {
+    if (!this.state.newPuckText) return
+    this.props.addPuck({name: this.state.newPuckText})
+    this.setState({newPuckText: ''})
+  }
   attributeChange (puck, attribute, value) {
     this.props.updatePuck(puck, {[attribute]: value})
   }
@@ -33,10 +25,21 @@ export class Pucks extends Component {
     return (
       <div>
         <h1>Pucks</h1>
+        <form style={{maxWidth: '300px'}} onSubmit={this.addPuck.bind(this)}>
+          <Input type="text"
+                 value={this.state.newPuckText}
+                 placeholder="New puck name"
+                 onChange={this.onNewPuckChange.bind(this)}
+                 buttonAfter={
+                   <Button onClick={this.addPuck.bind(this)}>Add puck</Button>
+                 }
+          />
+        </form>
         <Table striped bordered condensed hover>
           <thead>
             <tr>
               <th>Puck</th>
+              <th>Location</th>
               <th>Note</th>
               <th>Owner</th>
             </tr>
@@ -45,6 +48,7 @@ export class Pucks extends Component {
             {this.props.pucks.sort().toList().map(puck =>
               <tr key={puck.name}>
                 <th>{puck.name}</th>
+                <th>{puck.receptacle}</th>
                 <EditableCell
                   value={puck.note}
                   onChange={this.attributeChange.bind(this, puck.name, 'note')}

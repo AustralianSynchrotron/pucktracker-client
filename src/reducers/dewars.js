@@ -3,6 +3,7 @@ import { Map, Record } from 'immutable'
 export const Dewar = Record({
   name: null,
   epn: '',
+  note: '',
 })
 
 export default function reducer(state=Map(), action) {

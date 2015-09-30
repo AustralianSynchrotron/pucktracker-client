@@ -37,16 +37,17 @@ export class Dewars extends Component {
             <tr>
               <th>Dewar</th>
               <th>EPN</th>
+              <th>Note</th>
             </tr>
           </thead>
           <tbody>
             {this.props.dewars.sort().toList().map(dewar =>
               <tr key={dewar.name}>
                 <th>{dewar.name}</th>
-                <EditableCell
-                  value={dewar.epn}
-                  onChange={this.attributeChange.bind(this, dewar.name, 'epn')}
-                />
+                <EditableCell value={dewar.epn}
+                  onChange={this.attributeChange.bind(this, dewar.name, 'epn')} />
+                <EditableCell value={dewar.note}
+                  onChange={this.attributeChange.bind(this, dewar.name, 'note')} />
               </tr>
             )}
           </tbody>

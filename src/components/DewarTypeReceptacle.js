@@ -49,7 +49,7 @@ export class DewarTypeReceptacle extends React.Component {
                 <option></option>
                 {this.props.dewars.toList().map(dewar => (
                   <option key={dewar.name} value={dewar.name}>
-                    {dewar.name}
+                    EPN: {dewar.epn} – ID: {dewar.name}
                   </option>
                 ))}
               </Input>

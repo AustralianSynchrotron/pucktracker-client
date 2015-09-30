@@ -10,6 +10,14 @@ describe('puck actions', () => {
     })
   })
 
+  it('addPuck should return an action to add a puck', () => {
+    expect(actions.addPuck({name: 'ASP001'})).to.eql({
+      type: 'ADD_PUCK',
+      puck: {name: 'ASP001'},
+      broadcast: true,
+    })
+  })
+
   it('setPuckReceptacle should return an action to set the puck receptacle', () => {
     const action = actions.setPuckReceptacle('ASP001', 'adaptor', 'AS-01', 'A')
     expect(action).to.eql({

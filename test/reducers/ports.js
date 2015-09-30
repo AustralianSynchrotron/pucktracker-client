@@ -55,4 +55,20 @@ describe('ports reducer', () => {
     expect(state.getIn([List.of('ASP001', 3), 'state'])).to.equal('unknown')
   })
 
+  it('adds ports when a puck is added', () => {
+    const initialState = Map()
+    const action = {
+      type: 'ADD_PUCK',
+      puck: {name: 'ASP001'},
+    }
+    const state = reducer(initialState, action)
+    expect(state.size).to.equal(16)
+    const firstPort = state.get(List.of('ASP001', 1))
+    expect(firstPort.containerType).to.equal('puck')
+    expect(firstPort.container).to.equal('ASP001')
+    expect(firstPort.number).to.equal(1)
+    const lastPort = state.get(List.of('ASP001', 16))
+    expect(lastPort.number).to.equal(16)
+  })
+
 })

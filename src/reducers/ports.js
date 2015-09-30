@@ -17,6 +17,19 @@ export default function reducer(state=Map(), action) {
         })
       })
     }
+    case 'ADD_PUCK': {
+      const container = action.puck.name
+      return state.withMutations(state => {
+        for (let number = 1; number <= 16; number += 1) {
+          const key = List.of(container, number)
+          state.set(key, new Port({
+            containerType: 'puck',
+            container,
+            number,
+          }))
+        }
+      })
+    }
     case 'SET_PORT_STATE': {
       const path = [List.of(action.container, action.number), 'state']
       return state.setIn(path, action.state)

@@ -18,6 +18,9 @@ export default function reducer(state=Map(), action) {
         })
       })
     }
+    case 'ADD_PUCK': {
+      return state.set(action.puck.name, new Puck(action.puck))
+    }
     case 'SET_PUCK_RECEPTACLE': {
       return state.withMutations(state => {
         state.setIn([action.puck, 'receptacle'], action.receptacle)

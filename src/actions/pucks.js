@@ -1,7 +1,15 @@
-export function setPucks(pucks) {
+export function setPucks (pucks) {
   return {
     type: 'SET_PUCKS',
     pucks,
+  }
+}
+
+export function addPuck (puck) {
+  return {
+    type: 'ADD_PUCK',
+    puck,
+    broadcast: true,
   }
 }
 
