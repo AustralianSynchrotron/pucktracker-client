@@ -31,4 +31,16 @@ describe('pucks reducer', () => {
     expect(puck.slot).to.equal('A')
   })
 
+  it('updates pucks', () => {
+    const initialState = Map({'ASP001': Puck({note: 'Nada'})})
+    const action = {
+      type: 'UPDATE_PUCK',
+      puck: 'ASP001',
+      update: {note: 'Test'},
+    }
+    const state = reducer(initialState, action)
+    const puck = state.get('ASP001')
+    expect(puck.note).to.equal('Test')
+  })
+
 })

@@ -10,6 +10,7 @@ import rootReducer from './reducers'
 import { ConnectedAdaptorLocations } from './components/AdaptorLocations'
 import { ConnectedPuckTransfer } from './components/PuckTransfer'
 import { ConnectedDewars } from './components/Dewars'
+import { ConnectedPucks } from './components/Pucks'
 import { setAdaptors } from './actions/adaptors'
 import './styles/pucks.less'
 
@@ -40,14 +41,17 @@ class App extends React.Component {
         <Navbar brand="Puck Tracker" toggleNavKey={0}>
           <CollapsibleNav eventKey={0}>
             <Nav navbar>
-              <LinkContainer to="/adaptors">
-                <NavItem>Adaptors</NavItem>
+              <LinkContainer to="/adaptor-locations">
+                <NavItem>Adaptor Locations</NavItem>
               </LinkContainer>
-              <LinkContainer to="/pucks">
-                <NavItem>Pucks</NavItem>
+              <LinkContainer to="/puck-transfer">
+                <NavItem>Puck Tranfer</NavItem>
               </LinkContainer>
               <LinkContainer to="/dewars">
                 <NavItem>Dewars</NavItem>
+              </LinkContainer>
+              <LinkContainer to="/pucks">
+                <NavItem>Pucks</NavItem>
               </LinkContainer>
             </Nav>
           </CollapsibleNav>
@@ -61,7 +65,7 @@ class App extends React.Component {
 }
 
 function redirectToChild(location, replaceWith) {
-  replaceWith(null, '/adaptors')
+  replaceWith(null, '/adaptor-locations')
 }
 
 React.render(
@@ -71,9 +75,10 @@ React.render(
         <Router>
           <Route path="/" component={App}>
             <IndexRoute onEnter={redirectToChild}/>
-            <Route path="adaptors" component={ConnectedAdaptorLocations}/>
-            <Route path="pucks" component={ConnectedPuckTransfer}/>
+            <Route path="adaptor-locations" component={ConnectedAdaptorLocations}/>
+            <Route path="puck-transfer" component={ConnectedPuckTransfer}/>
             <Route path="dewars" component={ConnectedDewars}/>
+            <Route path="pucks" component={ConnectedPucks}/>
           </Route>
         </Router>
       }

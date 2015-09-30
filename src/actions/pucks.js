@@ -15,3 +15,12 @@ export function setPuckReceptacle(puck, receptacleType, receptacle, slot=null) {
     broadcast: true,
   }
 }
+
+export function updatePuck (puck, update) {
+  return {
+    type: 'UPDATE_PUCK',
+    puck,
+    update,
+    broadcast: true,
+  }
+}

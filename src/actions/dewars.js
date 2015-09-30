@@ -13,11 +13,11 @@ export function addDewar (dewar) {
   }
 }
 
-export function setDewarEpn (dewar, epn) {
+export function updateDewar (dewar, update) {
   return {
     type: 'UPDATE_DEWAR',
     dewar,
-    update: {epn},
+    update,
     broadcast: true,
   }
 }

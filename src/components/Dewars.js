@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Input, Button, Table } from 'react-bootstrap'
 import EditableCell from './EditableCell'
 import { setNewDewarText } from '../actions/app'
-import { addDewar, setDewarEpn } from '../actions/dewars'
+import { addDewar, updateDewar } from '../actions/dewars'
 
 export class Dewars extends Component {
   addDewar () {
@@ -15,9 +15,7 @@ export class Dewars extends Component {
     this.props.setNewDewarText(event.target.value)
   }
   attributeChange (dewar, attribute, value) {
-    if (attribute === 'epn') {
-      this.props.setDewarEpn(dewar, value)
-    }
+    this.props.updateDewar(dewar, {[attribute]: value})
   }
   render () {
     const dewars = this.props.dewars.sort().toArray()
@@ -67,5 +65,5 @@ function mapStateToProps(state) {
 
 export const ConnectedDewars = connect(
   mapStateToProps,
-  {addDewar, setNewDewarText, setDewarEpn}
+  {addDewar, setNewDewarText, updateDewar}
 )(Dewars)

@@ -22,4 +22,14 @@ describe('puck actions', () => {
     })
   })
 
+  it('updatePuck should create an action to update pucks', () => {
+    const action = actions.updatePuck('ASP001', {note: 'Test'})
+    expect(action).to.eql({
+      type: 'UPDATE_PUCK',
+      puck: 'ASP001',
+      update: {note: 'Test'},
+      broadcast: true,
+    })
+  })
+
 })

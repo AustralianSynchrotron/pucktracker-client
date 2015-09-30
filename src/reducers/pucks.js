@@ -5,6 +5,8 @@ export const Puck = Record({
   receptacle: null,
   receptacleType: null,
   slot: null,
+  note: '',
+  owner: '',
 })
 
 export default function reducer(state=Map(), action) {
@@ -22,6 +24,9 @@ export default function reducer(state=Map(), action) {
         state.setIn([action.puck, 'receptacleType'], action.receptacleType)
         state.setIn([action.puck, 'slot'], action.slot)
       })
+    }
+    case 'UPDATE_PUCK': {
+      return state.mergeIn([action.puck], action.update)
     }
   }
   return state
