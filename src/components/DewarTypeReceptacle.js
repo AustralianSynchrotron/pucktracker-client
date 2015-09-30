@@ -1,12 +1,16 @@
-import React from 'react/addons'
-import {List} from 'immutable'
+import React, { Component } from 'react/addons'
+import { List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { Row, Col, Input, Table } from 'react-bootstrap'
+import { Row, Col, Input, Table, Button, ButtonInput } from 'react-bootstrap'
 import { TargetPosition } from './TargetPosition'
 import { PuckSelector } from './PuckSelector'
+import TypeaheadInput from './TypeaheadInput'
 
-
-export class DewarTypeReceptacle extends React.Component {
+export class DewarTypeReceptacle extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {addPuckInputValue: ''}
+  }
   shouldComponentUpdate () {
     return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
   }
@@ -26,12 +30,22 @@ export class DewarTypeReceptacle extends React.Component {
       port.containerType === 'puck' && port.container === puck.name
     )
   }
+  onAddPuckInputChange (value) {
+    this.setState({addPuckInputValue: value})
+  }
+  addPuck () {
+    this.props.setPuckReceptacle(
+      this.state.addPuckInputValue,
+      'dewar',
+      this.props.selectedReceptacle
+    )
+    this.setState({addPuckInputValue: ''})
+  }
   receivePuck () {
     this.props.setPuckReceptacle(
       this.props.selectedPuck,
       'dewar',
-      this.props.selectedReceptacle,
-      null
+      this.props.selectedReceptacle
     )
     this.props.setSelectedPuck(null)
   }
@@ -64,9 +78,18 @@ export class DewarTypeReceptacle extends React.Component {
                 Move puck here
               </TargetPosition>
             </div>
+            <TypeaheadInput
+              value={this.state.addPuckInputValue}
+              placeholder="Puck name"
+              options={this.props.pucks.sort().map(puck => puck.name).toArray()}
+              onChange={this.onAddPuckInputChange.bind(this)}
+              buttonAfter={
+                <Button onClick={this.addPuck.bind(this)}>Add puck</Button>
+              }
+            />
             <Table striped condensed>
               <tbody>
-              {pucks.toList().map(puck =>
+              {pucks.sort().toList().map(puck =>
                 <tr key={puck.name}>
                   <td>
                     <PuckSelector {...this.props} puck={puck} />
