@@ -18,12 +18,16 @@ export class AdaptorSlot extends Component {
     )
     this.props.setSelectedPuck(null)
   }
+  removePuck (puckName) {
+    this.props.setPuckReceptacle(puckName, null, null)
+  }
   render () {
     return (
       <div>
         <div style={{'paddingBottom': '6px'}}>
           {this.props.puck ? (
-            <PuckSelector {...this.props}/>
+            <PuckSelector {...this.props}
+              onDelete={() => this.removePuck(this.props.puck.name)}/>
           ) : (
             <TargetPosition isDisabled={!this.props.selectedPuck}
                             onClick={this.receivePuck.bind(this)}>

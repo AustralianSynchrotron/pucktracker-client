@@ -1,7 +1,7 @@
 import React, { Component } from 'react/addons'
 import { List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { Row, Col, Input, Table, Button, ButtonInput } from 'react-bootstrap'
+import { Row, Col, Input, Button, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { TargetPosition } from './TargetPosition'
 import { PuckSelector } from './PuckSelector'
 import TypeaheadInput from './TypeaheadInput'
@@ -41,6 +41,9 @@ export class DewarTypeReceptacle extends Component {
     )
     this.setState({addPuckInputValue: ''})
   }
+  removePuck (puckName) {
+    this.props.setPuckReceptacle(puckName, null, null)
+  }
   receivePuck () {
     this.props.setPuckReceptacle(
       this.props.selectedPuck,
@@ -71,34 +74,31 @@ export class DewarTypeReceptacle extends Component {
           </Row>
         </h1>
         {this.props.selectedReceptacle ? (
-          <div>
-            <div className="form-group">
+          <ListGroup>
+            <ListGroupItem>
+              <TypeaheadInput
+                value={this.state.addPuckInputValue}
+                placeholder="Puck name"
+                options={this.props.pucks.sort().map(puck => puck.name).toArray()}
+                onChange={this.onAddPuckInputChange.bind(this)}
+                buttonAfter={
+                  <Button onClick={this.addPuck.bind(this)}>Add puck</Button>
+                }
+              />
+            </ListGroupItem>
+            <ListGroupItem>
               <TargetPosition isDisabled={!this.props.selectedPuck}
                               onClick={this.receivePuck.bind(this)}>
                 Move puck here
               </TargetPosition>
-            </div>
-            <TypeaheadInput
-              value={this.state.addPuckInputValue}
-              placeholder="Puck name"
-              options={this.props.pucks.sort().map(puck => puck.name).toArray()}
-              onChange={this.onAddPuckInputChange.bind(this)}
-              buttonAfter={
-                <Button onClick={this.addPuck.bind(this)}>Add puck</Button>
-              }
-            />
-            <Table striped condensed>
-              <tbody>
-              {pucks.sort().toList().map(puck =>
-                <tr key={puck.name}>
-                  <td>
-                    <PuckSelector {...this.props} puck={puck} />
-                  </td>
-                </tr>
-              )}
-              </tbody>
-            </Table>
-          </div>
+            </ListGroupItem>
+            {pucks.sort().toList().map(puck =>
+             <ListGroupItem key={puck.name}>
+               <PuckSelector {...this.props} puck={puck}
+                 onDelete={() => this.removePuck(puck.name)}/>
+             </ListGroupItem>
+            )}
+          </ListGroup>
         ) :  (
           null
         )}

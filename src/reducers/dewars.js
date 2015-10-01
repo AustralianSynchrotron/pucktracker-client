@@ -3,6 +3,7 @@ import { Map, Record } from 'immutable'
 export const Dewar = Record({
   name: null,
   epn: '',
+  owner: '',
   note: '',
 })
 

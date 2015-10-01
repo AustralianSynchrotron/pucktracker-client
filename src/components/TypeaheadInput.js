@@ -29,9 +29,9 @@ export default class TypeaheadInput extends Component {
         <Input type="text" value={this.props.value}
                placeholder={this.props.placeholder}
                onChange={this.onInputChange.bind(this)}
-               buttonAfter={this.props.buttonAfter} />
+               buttonAfter={this.props.buttonAfter} standalone />
         <Input type="select" multiple value={[]} className={{hide}}
-               onChange={this.onSelect.bind(this)}>
+               onChange={this.onSelect.bind(this)} standalone>
           {this.filteredOptions().map(option => (
             <option key={option}>{option}</option>
           ))}

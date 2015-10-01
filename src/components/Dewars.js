@@ -37,6 +37,7 @@ export class Dewars extends Component {
             <tr>
               <th>Dewar</th>
               <th>EPN</th>
+              <th>Owner</th>
               <th>Note</th>
             </tr>
           </thead>
@@ -46,6 +47,8 @@ export class Dewars extends Component {
                 <th>{dewar.name}</th>
                 <EditableCell value={dewar.epn}
                   onChange={this.attributeChange.bind(this, dewar.name, 'epn')} />
+                <EditableCell value={dewar.owner}
+                  onChange={this.attributeChange.bind(this, dewar.name, 'owner')} />
                 <EditableCell value={dewar.note}
                   onChange={this.attributeChange.bind(this, dewar.name, 'note')} />
               </tr>

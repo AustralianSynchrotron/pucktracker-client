@@ -14,7 +14,7 @@ export class Holder extends React.Component {
   }
 
   render () {
-    const checkbox = <input type="checkbox"
+    const checkbox = <input type="radio"
                             onChange={this.onSelection.bind(this)}
                             checked={this.isSelected()} />
     return (

@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react/addons'
-import { ButtonInput, ButtonGroup, Button } from 'react-bootstrap'
+import { ButtonInput, ButtonGroup, Button, Glyphicon } from 'react-bootstrap'
 import { Puck } from '../reducers/pucks'
+
 
 export class PuckSelector extends Component {
   onSelection (event) {
@@ -12,12 +13,17 @@ export class PuckSelector extends Component {
   }
   render () {
     const checkbox = (
-      <input type="checkbox"
+      <input type="radio"
              onChange={this.onSelection.bind(this)}
              checked={this.isSelected()} />
     )
     return (
-      <ButtonInput className="form-control" standalone addonBefore={checkbox}>
+      <ButtonInput className="form-control" standalone addonBefore={checkbox}
+        buttonAfter={
+          <Button onClick={this.props.onDelete}>
+            <Glyphicon glyph="remove" />
+          </Button>
+        }>
         {this.props.puck.name}
       </ButtonInput>
     )
@@ -28,4 +34,5 @@ PuckSelector.propTypes = {
   puck: PropTypes.instanceOf(Puck),
   selectedPuck: PropTypes.string,
   setSelectedPuck: PropTypes.func,
+  onDelete: PropTypes.func,
 }
