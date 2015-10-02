@@ -45,7 +45,7 @@ class App extends React.Component {
                 <NavItem>Adaptor Locations</NavItem>
               </LinkContainer>
               <LinkContainer to="/puck-transfer">
-                <NavItem>Puck Tranfer</NavItem>
+                <NavItem>Puck Transfer</NavItem>
               </LinkContainer>
               <LinkContainer to="/dewars">
                 <NavItem>Dewars</NavItem>
