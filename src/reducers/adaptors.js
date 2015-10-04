@@ -1,4 +1,4 @@
-import { Map, Record } from 'immutable'
+import { OrderedMap, Record } from 'immutable'
 
 export const Adaptor = Record({
   name: null,
@@ -6,9 +6,9 @@ export const Adaptor = Record({
   position: null,
 })
 
-export default function reducer(state=Map(), action) {
+export default function reducer(state=OrderedMap(), action) {
   if (action.type === 'SET_ADAPTORS') {
-    return Map().withMutations(state => {
+    return OrderedMap().withMutations(state => {
       action.adaptors.forEach(adaptor => {
         state.set(adaptor.name, new Adaptor(adaptor))
       })

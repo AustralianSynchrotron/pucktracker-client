@@ -40,7 +40,7 @@ export class AdaptorTypeReceptacle extends React.Component {
                      value={this.props.selectedReceptacle}
                      onChange={this.onChange.bind(this)}>
                 <option></option>
-                {this.props.adaptors.sort().toList().map(adaptor => (
+                {this.props.adaptors.toList().map(adaptor => (
                   <option key={adaptor.name} value={adaptor.name}>
                     {adaptor.name}
                   </option>

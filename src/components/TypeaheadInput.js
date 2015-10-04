@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react/addons'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Input } from 'react-bootstrap'
 
 export default class TypeaheadInput extends Component {
@@ -20,7 +21,7 @@ export default class TypeaheadInput extends Component {
   filteredOptions () {
     return this.props.options.filter(
       option => option.includes(this.props.value)
-    )
+    ).slice(0, 4).toList()
   }
   render () {
     const hide = (this.state.hideSelect || this.props.value.length === 0)
@@ -43,7 +44,7 @@ export default class TypeaheadInput extends Component {
 
 TypeaheadInput.propTypes = {
   value: PropTypes.string.isRequired,
-  options: PropTypes.array.isRequired,
+  options: ImmutablePropTypes.map,
   onChange: PropTypes.func.isRequired,
   placeholder: PropTypes.string,
   buttonAfter: PropTypes.object,

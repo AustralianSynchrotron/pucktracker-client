@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Input, Button, Table } from 'react-bootstrap'
 import EditableCell from './EditableCell'
 import { setNewDewarText } from '../actions/app'
-import { addDewar, updateDewar } from '../actions/dewars'
+import { addDewar, updateDewar, setDewarOffsite } from '../actions/dewars'
 
 export class Dewars extends Component {
   addDewar () {
@@ -17,8 +17,10 @@ export class Dewars extends Component {
   attributeChange (dewar, attribute, value) {
     this.props.updateDewar(dewar, {[attribute]: value})
   }
+  shipDewar (dewarName) {
+    this.props.setDewarOffsite(dewarName)
+  }
   render () {
-    const dewars = this.props.dewars.sort().toArray()
     return (
       <div>
         <h1>Dewars</h1>
@@ -39,10 +41,11 @@ export class Dewars extends Component {
               <th>EPN</th>
               <th>Owner</th>
               <th>Note</th>
+              <th>Ship</th>
             </tr>
           </thead>
           <tbody>
-            {this.props.dewars.sort().toList().map(dewar =>
+            {this.props.dewars.toList().map(dewar =>
               <tr key={dewar.name}>
                 <th>{dewar.name}</th>
                 <EditableCell value={dewar.epn}
@@ -51,6 +54,11 @@ export class Dewars extends Component {
                   onChange={this.attributeChange.bind(this, dewar.name, 'owner')} />
                 <EditableCell value={dewar.note}
                   onChange={this.attributeChange.bind(this, dewar.name, 'note')} />
+                <td>
+                  <Button block onClick={this.shipDewar.bind(this, dewar.name)}>
+                    Ship
+                  </Button>
+                </td>
               </tr>
             )}
           </tbody>
@@ -69,5 +77,5 @@ function mapStateToProps(state) {
 
 export const ConnectedDewars = connect(
   mapStateToProps,
-  {addDewar, setNewDewarText, updateDewar}
+  {addDewar, setNewDewarText, updateDewar, setDewarOffsite}
 )(Dewars)

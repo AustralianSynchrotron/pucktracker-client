@@ -1,10 +1,13 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react/addons'
 import { connect } from 'react-redux'
-import { Input, Button, Table } from 'react-bootstrap'
-import EditableCell from './EditableCell'
+import { Input, Button } from 'react-bootstrap'
 import { addPuck, updatePuck } from '../actions/pucks'
+import { PuckTable } from './PuckTable'
 
 export class Pucks extends Component {
+  shouldComponentUpdate () {
+    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
+  }
   constructor (props) {
     super(props)
     this.state = {newPuckText: ''}
@@ -17,11 +20,7 @@ export class Pucks extends Component {
     this.props.addPuck({name: this.state.newPuckText})
     this.setState({newPuckText: ''})
   }
-  attributeChange (puck, attribute, value) {
-    this.props.updatePuck(puck, {[attribute]: value})
-  }
   render () {
-    const pucks = this.props.pucks.sort().toArray()
     return (
       <div>
         <h1>Pucks</h1>
@@ -35,32 +34,7 @@ export class Pucks extends Component {
                  }
           />
         </form>
-        <Table striped bordered condensed hover>
-          <thead>
-            <tr>
-              <th>Puck</th>
-              <th>Location</th>
-              <th>Note</th>
-              <th>Owner</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.pucks.sort().toList().map(puck =>
-              <tr key={puck.name}>
-                <th>{puck.name}</th>
-                <th>{puck.receptacle}</th>
-                <EditableCell
-                  value={puck.note}
-                  onChange={this.attributeChange.bind(this, puck.name, 'note')}
-                />
-                <EditableCell
-                  value={puck.owner}
-                  onChange={this.attributeChange.bind(this, puck.name, 'owner')}
-                />
-              </tr>
-            )}
-          </tbody>
-        </Table>
+        <PuckTable pucks={this.props.pucks} updatePuck={this.props.updatePuck} />
       </div>
     )
   }
@@ -69,12 +43,10 @@ export class Pucks extends Component {
 function mapStateToProps(state) {
   return {
     pucks: state.pucks,
-    // newPuckText: state.app.get('newPuckText'),
   }
 }
 
 export const ConnectedPucks = connect(
   mapStateToProps,
   {addPuck, updatePuck}
-  // {addPuck, setNewPuckText, setPuckEpn}
 )(Pucks)

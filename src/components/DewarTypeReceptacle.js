@@ -79,7 +79,7 @@ export class DewarTypeReceptacle extends Component {
               <TypeaheadInput
                 value={this.state.addPuckInputValue}
                 placeholder="Puck name"
-                options={this.props.pucks.sort().map(puck => puck.name).toArray()}
+                options={this.props.pucks.map(puck => puck.name)}
                 onChange={this.onAddPuckInputChange.bind(this)}
                 buttonAfter={
                   <Button onClick={this.addPuck.bind(this)}>Add puck</Button>
@@ -92,7 +92,7 @@ export class DewarTypeReceptacle extends Component {
                 Move puck here
               </TargetPosition>
             </ListGroupItem>
-            {pucks.sort().toList().map(puck =>
+            {pucks.toList().map(puck =>
              <ListGroupItem key={puck.name}>
                <PuckSelector {...this.props} puck={puck}
                  onDelete={() => this.removePuck(puck.name)}/>

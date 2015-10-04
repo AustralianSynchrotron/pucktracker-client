@@ -5,8 +5,14 @@ import { Puck } from '../reducers/pucks'
 
 export class PuckSelector extends Component {
   onSelection (event) {
-    const selectedPuck = event.target.checked ? this.props.puck.name : null
+    let selectedPuck = null
+    if (this.props.selectedPuck !== this.props.puck.name) {
+      selectedPuck = this.props.puck.name
+    }
     this.props.setSelectedPuck(selectedPuck)
+  }
+  select () {
+    console.log('select')
   }
   isSelected () {
     return this.props.puck.name === this.props.selectedPuck
@@ -18,7 +24,8 @@ export class PuckSelector extends Component {
              checked={this.isSelected()} />
     )
     return (
-      <ButtonInput className="form-control" standalone addonBefore={checkbox}
+      <ButtonInput onClick={this.onSelection.bind(this)}
+                   className="form-control" standalone addonBefore={checkbox}
         buttonAfter={
           <Button onClick={this.props.onDelete}>
             <Glyphicon glyph="remove" />

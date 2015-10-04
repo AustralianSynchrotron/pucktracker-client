@@ -1,16 +1,17 @@
-import { Map, Record } from 'immutable'
+import { OrderedMap, Record } from 'immutable'
 
 export const Dewar = Record({
   name: null,
   epn: '',
   owner: '',
   note: '',
+  onsite: null,
 })
 
-export default function reducer(state=Map(), action) {
+export default function reducer(state=OrderedMap(), action) {
   switch (action.type) {
     case 'SET_DEWARS': {
-      return Map().withMutations(state => {
+      return OrderedMap().withMutations(state => {
         action.dewars.forEach(dewar => {
           state.set(dewar.name, new Dewar(dewar))
         })
@@ -22,6 +23,9 @@ export default function reducer(state=Map(), action) {
     }
     case 'UPDATE_DEWAR': {
       return state.mergeIn([action.dewar], action.update)
+    }
+    case 'SET_DEWAR_OFFSITE': {
+      return state.setIn([action.dewar, 'onsite'], false)
     }
   }
   return state

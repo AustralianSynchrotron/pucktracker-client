@@ -20,12 +20,19 @@ describe('dewar actions', () => {
     })
   })
 
-
   it('updateDewar should create an action to update the dewar', () => {
     expect(actions.updateDewar('1001', {epn: '123a'})).to.eql({
       type: 'UPDATE_DEWAR',
       dewar: '1001',
       update: {epn: '123a'},
+      broadcast: true,
+    })
+  })
+
+  it('setDewarOffsite should create an action', () => {
+    expect(actions.setDewarOffsite('1001')).to.eql({
+      type: 'SET_DEWAR_OFFSITE',
+      dewar: '1001',
       broadcast: true,
     })
   })

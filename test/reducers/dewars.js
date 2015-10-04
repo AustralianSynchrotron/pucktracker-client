@@ -40,4 +40,16 @@ describe('dewars reducer', () => {
     expect(state.getIn(['1001', 'epn'])).to.equal('456b')
   })
 
+  it('sets dewars as offsite', () => {
+    const initialState = Map({
+      '1001': Dewar({onsite: true})
+    })
+    const action = {
+      type: 'SET_DEWAR_OFFSITE',
+      dewar: '1001',
+    }
+    const state = reducer(initialState, action)
+    expect(state.getIn(['1001', 'onsite'])).to.equal(false)
+  })
+
 })

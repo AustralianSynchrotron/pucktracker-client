@@ -21,3 +21,11 @@ export function updateDewar (dewar, update) {
     broadcast: true,
   }
 }
+
+export function setDewarOffsite (dewar) {
+  return {
+    type: 'SET_DEWAR_OFFSITE',
+    dewar,
+    broadcast: true,
+  }
+}
