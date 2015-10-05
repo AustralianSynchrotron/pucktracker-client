@@ -20,7 +20,7 @@ export default class TypeaheadInput extends Component {
   }
   filteredOptions () {
     return this.props.options.filter(
-      option => option.includes(this.props.value)
+      option => option.indexOf(this.props.value) > -1
     ).slice(0, 4).toList()
   }
   render () {
