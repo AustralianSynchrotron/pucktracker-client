@@ -20,10 +20,3 @@ export function setSelectedPuck (puck) {
       puck,
     }
 }
-
-export function setNewDewarText (text) {
-  return {
-    type: 'SET_NEW_DEWAR_TEXT',
-    text,
-  }
-}

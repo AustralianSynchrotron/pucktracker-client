@@ -13,7 +13,7 @@ export function addPuck (puck) {
   }
 }
 
-export function setPuckReceptacle(puck, receptacleType, receptacle, slot=null) {
+export function setPuckReceptacle (puck, receptacleType, receptacle, slot=null) {
   return {
     type: 'SET_PUCK_RECEPTACLE',
     puck,

@@ -54,6 +54,7 @@ export class DewarTypeReceptacle extends Component {
   }
   render () {
     const pucks = this.pucksForSelectedReceptacle()
+    const dewars = this.props.dewars.filter(dewar => dewar.onsite)
     return (
       <div>
         <h1>
@@ -64,7 +65,7 @@ export class DewarTypeReceptacle extends Component {
                      value={this.props.selectedReceptacle}
                      onChange={this.onChange.bind(this)}>
                 <option></option>
-                {this.props.dewars.toList().map(dewar => (
+                {dewars.toList().map(dewar => (
                   <option key={dewar.name} value={dewar.name}>
                     EPN: {dewar.epn} – ID: {dewar.name}
                   </option>
