@@ -4,7 +4,7 @@
   "description": "Frontend for puck tracking system",
   "private": true,
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --hot --inline --host 0.0.0.0",
+    "start": "node_modules/.bin/webpack-dev-server --hot --inline --host 0.0.0.0 --port 5900",
     "test": "mocha --compilers js:babel-core/register --require ./test/helper.js --recursive",
     "test:watch": "npm run test -- --watch"
   },

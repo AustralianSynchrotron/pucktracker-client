@@ -15,7 +15,7 @@ import { setAdaptors } from './actions/adaptors'
 import './styles/pucks.less'
 
 
-const socket = io(`${location.protocol}//${location.hostname}:8090`)
+const socket = io(`${location.protocol}//${location.hostname}:5901`)
 
 const remoteActionMiddleware = socket => store => next => action => {
   if (action.broadcast) {
