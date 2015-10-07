@@ -43,6 +43,10 @@ export class AdaptorTypeReceptacle extends React.Component {
                 {this.props.adaptors.toList().map(adaptor => (
                   <option key={adaptor.name} value={adaptor.name}>
                     {adaptor.name}
+                    {adaptor.location ?
+                      ` – ${adaptor.location} / ${adaptor.position}`
+                      : ''
+                    }
                   </option>
                 ))}
               </Input>
