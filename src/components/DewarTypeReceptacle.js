@@ -7,21 +7,33 @@ import { PuckSelector } from './PuckSelector'
 import TypeaheadInput from './TypeaheadInput'
 
 export class DewarTypeReceptacle extends Component {
-  constructor (props) {
-    super(props)
-    this.state = {addPuckInputValue: ''}
+  constructor (props, context) {
+    super(props, context)
+    const receptacleKey = this.props.side + 'Dewar'
+    const {[receptacleKey]: selectedReceptacle=null} = this.props.location.query
+    this.state = {
+      addPuckInputValue: '',
+      selectedReceptacle
+    }
   }
   shouldComponentUpdate () {
     return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
   }
   onChange (event) {
-    this.props.setSelectedReceptacle(this.props.side, 'dewar', event.target.value)
+    const { history, location } = this.props
+    const selectedReceptacle = event.target.value
+    const newQuery = Object.assign(
+      location.query,
+      {[this.props.side + 'Dewar']: selectedReceptacle}
+    )
+    this.props.history.pushState(null, location.pathname, newQuery)
+    this.setState({selectedReceptacle})
   }
   pucksForSelectedReceptacle () {
-    if (!this.props.selectedReceptacle) return List()
+    if (!this.state.selectedReceptacle) return List()
     return this.props.pucks.filter(puck =>
       puck.receptacleType === 'dewar'
-      && puck.receptacle === this.props.selectedReceptacle
+      && puck.receptacle === this.state.selectedReceptacle
     )
   }
   portsForPuck (puck) {
@@ -37,7 +49,7 @@ export class DewarTypeReceptacle extends Component {
     this.props.setPuckReceptacle(
       this.state.addPuckInputValue,
       'dewar',
-      this.props.selectedReceptacle
+      this.state.selectedReceptacle
     )
     this.setState({addPuckInputValue: ''})
   }
@@ -48,7 +60,7 @@ export class DewarTypeReceptacle extends Component {
     this.props.setPuckReceptacle(
       this.props.selectedPuck,
       'dewar',
-      this.props.selectedReceptacle
+      this.state.selectedReceptacle
     )
     this.props.setSelectedPuck(null)
   }
@@ -62,7 +74,7 @@ export class DewarTypeReceptacle extends Component {
             <Col md={6}>Dewar:</Col>
             <Col md={6} className="form-group form-group-lg">
               <Input type="select"
-                     value={this.props.selectedReceptacle}
+                     value={this.state.selectedReceptacle}
                      onChange={this.onChange.bind(this)}>
                 <option></option>
                 {dewars.toList().map(dewar => (
@@ -74,7 +86,7 @@ export class DewarTypeReceptacle extends Component {
             </Col>
           </Row>
         </h1>
-        {this.props.selectedReceptacle ? (
+        {this.state.selectedReceptacle ? (
           <ListGroup>
             <ListGroupItem>
               <TypeaheadInput
@@ -106,8 +118,4 @@ export class DewarTypeReceptacle extends Component {
     </div>
     )
   }
-}
-
-DewarTypeReceptacle.propTypes = {
-  selectedReceptacle: React.PropTypes.string,
 }

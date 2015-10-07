@@ -25,7 +25,7 @@ export class PuckSelector extends Component {
     )
     return (
       <ButtonInput onClick={this.onSelection.bind(this)}
-                   className="form-control" standalone addonBefore={checkbox}
+        className="form-control" standalone addonBefore={checkbox}
         buttonAfter={
           <Button onClick={this.props.onDelete}>
             <Glyphicon glyph="remove" />

@@ -5,17 +5,30 @@ import { Row, Col, Input } from 'react-bootstrap'
 import { AdaptorSlot } from './AdaptorSlot'
 
 export class AdaptorTypeReceptacle extends React.Component {
+  constructor (props, context) {
+    super(props, context)
+    const receptacleKey = this.props.side + 'Adaptor'
+    const {[receptacleKey]: selectedReceptacle=null} = this.props.location.query
+    this.state = { selectedReceptacle }
+  }
   shouldComponentUpdate () {
     return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
   }
   onChange (event) {
-    this.props.setSelectedReceptacle(this.props.side, 'adaptor', event.target.value)
+    const { history, location } = this.props
+    const selectedReceptacle = event.target.value
+    const newQuery = Object.assign(
+      location.query,
+      {[this.props.side + 'Adaptor']: selectedReceptacle}
+    )
+    this.props.history.pushState(null, location.pathname, newQuery)
+    this.setState({selectedReceptacle})
   }
   pucksForSelectedReceptacle () {
-    if (!this.props.selectedReceptacle) return Map()
+    if (!this.state.selectedReceptacle) return Map()
     return this.props.pucks.filter(puck =>
       puck.receptacleType === 'adaptor'
-      && puck.receptacle === this.props.selectedReceptacle
+      && puck.receptacle === this.state.selectedReceptacle
     )
   }
   portsForPuck (puck) {
@@ -37,7 +50,7 @@ export class AdaptorTypeReceptacle extends React.Component {
             <Col md={6}>Adaptor:</Col>
             <Col md={6} className="form-group form-group-lg">
               <Input type="select"
-                     value={this.props.selectedReceptacle}
+                     value={this.state.selectedReceptacle}
                      onChange={this.onChange.bind(this)}>
                 <option></option>
                 {this.props.adaptors.toList().map(adaptor => (
@@ -53,21 +66,25 @@ export class AdaptorTypeReceptacle extends React.Component {
             </Col>
           </Row>
         </h1>
-        {this.props.selectedReceptacle ? (
+        {this.state.selectedReceptacle ? (
           <Row>
             <Col md={6}>
               <AdaptorSlot {...this.props} puck={puck_a} slot="A"
+                           selectedReceptacle={this.state.selectedReceptacle}
                            ports={this.portsForPuck(puck_a)}
               />
               <AdaptorSlot {...this.props} puck={puck_b} slot="B"
+                           selectedReceptacle={this.state.selectedReceptacle}
                            ports={this.portsForPuck(puck_b)}
               />
             </Col>
             <Col md={6}>
               <AdaptorSlot {...this.props} puck={puck_c} slot="C"
+                           selectedReceptacle={this.state.selectedReceptacle}
                            ports={this.portsForPuck(puck_c)}
               />
               <AdaptorSlot {...this.props} puck={puck_d} slot="D"
+                           selectedReceptacle={this.state.selectedReceptacle}
                            ports={this.portsForPuck(puck_d)}
               />
             </Col>
@@ -78,8 +95,4 @@ export class AdaptorTypeReceptacle extends React.Component {
     </div>
     )
   }
-}
-
-AdaptorTypeReceptacle.propTypes = {
-  selectedReceptacle: React.PropTypes.string,
 }

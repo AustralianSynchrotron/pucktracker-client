@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'
 import { DewarTypeReceptacle } from './DewarTypeReceptacle'
-import { setSelectedPuck, setSelectedReceptacle } from '../actions/app'
+import { setSelectedPuck } from '../actions/app'
 import { setPuckReceptacle } from '../actions/pucks'
 import { setPortState, setMultiplePortStates } from '../actions/ports'
 
@@ -13,16 +13,10 @@ export class PuckTransfer extends React.Component {
       <Grid>
         <Row>
           <Col md={6}>
-            <ReceptaclesPanel
-              side="left" {...this.props}
-              selectedReceptacles={this.props.selectedReceptacles.get('left')}
-            />
+            <ReceptaclesPanel side="left" {...this.props} />
           </Col>
           <Col md={6}>
-            <ReceptaclesPanel
-              side="right" {...this.props}
-              selectedReceptacles={this.props.selectedReceptacles.get('right')}
-            />
+            <ReceptaclesPanel side="right" {...this.props} />
           </Col>
         </Row>
       </Grid>
@@ -31,42 +25,31 @@ export class PuckTransfer extends React.Component {
 }
 
 class ReceptaclesPanel extends React.Component {
-
   constructor (props, context) {
     super(props, context)
     const query = this.context.location.query
     const key = query[props.side] || (props.side == 'left' ? 'adaptor' : 'dewar')
     this.state = { key }
   }
-
   handleSelect (key) {
     const { history, location } = this.context
-    const { side } = this.props
-    const newQuery = Object.assign(location.query, {[side]: key})
+    const newQuery = Object.assign(location.query, {[this.props.side]: key})
     history.pushState(null, location.pathname, newQuery)
-    this.setState({ key })
+    this.setState({key})
   }
-
   render () {
     return (
       <Tabs justified activeKey={this.state.key}
             onSelect={this.handleSelect.bind(this)}>
         <Tab eventKey={'adaptor'} title='Adaptor'>
-          <AdaptorTypeReceptacle
-            {...this.props}
-            selectedReceptacle={this.props.selectedReceptacles.get('adaptor')}
-          />
+          <AdaptorTypeReceptacle {...this.props} />
         </Tab>
         <Tab eventKey={'dewar'} title='Dewar'>
-          <DewarTypeReceptacle
-            {...this.props}
-            selectedReceptacle={this.props.selectedReceptacles.get('dewar')}
-          />
+          <DewarTypeReceptacle {...this.props} />
         </Tab>
       </Tabs>
     )
   }
-
 }
 
 ReceptaclesPanel.contextTypes = {
@@ -76,7 +59,6 @@ ReceptaclesPanel.contextTypes = {
 
 function mapStateToProps(state) {
   return {
-    selectedReceptacles: state.app.get('selectedReceptacles'),
     selectedPuck: state.app.get('selectedPuck'),
     adaptors: state.adaptors,
     dewars: state.dewars,
@@ -88,7 +70,6 @@ function mapStateToProps(state) {
 export const ConnectedPuckTransfer = connect(
   mapStateToProps,
   {
-    setSelectedReceptacle,
     setSelectedPuck,
     setPuckReceptacle,
     setPortState,

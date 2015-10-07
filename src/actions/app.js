@@ -5,18 +5,9 @@ export function setSelectedHolder (holder) {
   }
 }
 
-export function setSelectedReceptacle (side, receptacleType, receptacleName) {
-  return {
-      type: 'SET_SELECTED_RECEPTACLE',
-      side,
-      receptacleType,
-      receptacleName,
-    }
-}
-
 export function setSelectedPuck (puck) {
   return {
       type: 'SET_SELECTED_PUCK',
       puck,
-    }
+  }
 }

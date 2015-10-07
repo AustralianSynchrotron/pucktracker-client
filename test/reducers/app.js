@@ -16,20 +16,6 @@ describe('app state reducer', () => {
     }))
   })
 
-  it('sets selected receptacle', () => {
-    const initialState = Map()
-    const action = {
-      type: 'SET_SELECTED_RECEPTACLE',
-      side: 'left',
-      receptacleType: 'adaptor',
-      receptacleName: 'AS-01',
-    }
-    const state = reducer(initialState, action)
-    expect(state.getIn(['selectedReceptacles', 'left', 'adaptor'])).to.equal(
-      'AS-01'
-    )
-  })
-
   it('sets selected puck', () => {
     const initialState = Map()
     const action = {

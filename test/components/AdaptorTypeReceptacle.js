@@ -17,7 +17,7 @@ describe('AdaptorTypeReceptacle', () => {
       'AS-02': Adaptor({name: 'AS-02'}),
     })
     const component = renderIntoDocument(
-      <AdaptorTypeReceptacle adaptors={adaptors}/>
+      <AdaptorTypeReceptacle adaptors={adaptors} location={{query: {}}}/>
     )
     const options = scryRenderedDOMComponentsWithTag(component, 'option')
     expect(options).to.have.length(3)
