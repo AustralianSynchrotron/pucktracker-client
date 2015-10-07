@@ -16,11 +16,20 @@ class Row extends Component {
       this.props.setDewarOffsite(dewarName)
     }
   }
+  onDewarClick (e) {
+    const query = {
+      left: 'dewar',
+      right: 'adaptor',
+      leftDewar: this.props.dewar.name,
+    }
+    this.context.history.pushState(null, '/puck-transfer', query)
+    e.preventDefault()
+  }
   render () {
     const { dewar } = this.props
     return (
       <tr key={dewar.name}>
-        <th>{dewar.name}</th>
+        <th><a href="#" onClick={this.onDewarClick.bind(this)}>{dewar.name}</a></th>
         <EditableCell value={dewar.epn}
           onChange={this.attributeChange.bind(this, dewar.name, 'epn')} />
         <EditableCell value={dewar.owner}
@@ -36,6 +45,10 @@ class Row extends Component {
       </tr>
     )
   }
+}
+
+Row.contextTypes = {
+  history: React.PropTypes.object.isRequired,
 }
 
 export class DewarTable extends Component {
