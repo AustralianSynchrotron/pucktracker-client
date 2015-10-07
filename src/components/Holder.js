@@ -26,6 +26,7 @@ export class Holder extends React.Component {
     )
     return (
       <ButtonInput className="form-control holder" standalone
+        active={this.isSelected()}
         onClick={this.onSelection.bind(this)}
         addonBefore={checkbox}
         buttonAfter={editButton}>
