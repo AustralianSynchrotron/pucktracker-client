@@ -36,6 +36,8 @@ class Row extends Component {
           onChange={this.attributeChange.bind(this, dewar.name, 'owner')} />
         <EditableCell value={dewar.note}
           onChange={this.attributeChange.bind(this, dewar.name, 'note')} />
+        <td>{dewar.containerType}</td>
+        <td>{dewar.expectedContainers}</td>
         <td>
           <Button block
             onClick={this.changeDewarSite.bind(this, dewar.name, !dewar.onsite)}>
@@ -64,6 +66,8 @@ export class DewarTable extends Component {
               <th>EPN</th>
               <th>Owner</th>
               <th>Note</th>
+              <th>Type</th>
+              <th>Expected Pucks</th>
               <th>Ship</th>
             </tr>
           </thead>

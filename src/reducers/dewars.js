@@ -5,6 +5,8 @@ export const Dewar = Record({
   epn: '',
   owner: '',
   note: '',
+  containerType: '',
+  expectedContainers: '',
   onsite: null,
 })
 
