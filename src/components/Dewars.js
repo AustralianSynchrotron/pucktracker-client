@@ -2,11 +2,14 @@ import React, { Component } from 'react/addons'
 import { connect } from 'react-redux'
 import { Input, Button, Table } from 'react-bootstrap'
 import { addDewar, updateDewar, setDewarOffsite } from '../actions/dewars'
+import Disconnected from './Disconnected'
 import { DewarTable } from './DewarTable'
 
 export class Dewars extends Component {
   shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
+    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(
+      this, arguments
+    )
   }
   constructor (props) {
     super(props)
@@ -21,6 +24,7 @@ export class Dewars extends Component {
     this.setState({newDewarText: ''})
   }
   render () {
+    if (!this.props.connected) return (<Disconnected />)
     return (
       <div>
         <h1>Dewars</h1>
@@ -53,6 +57,7 @@ export class Dewars extends Component {
 
 function mapStateToProps(state) {
   return {
+    connected: state.app.get('connected'),
     dewars: state.dewars,
     newDewarText: state.app.get('newDewarText'),
   }

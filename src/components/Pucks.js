@@ -2,11 +2,14 @@ import React, { Component } from 'react/addons'
 import { connect } from 'react-redux'
 import { Input, Button } from 'react-bootstrap'
 import { addPuck, updatePuck } from '../actions/pucks'
+import Disconnected from './Disconnected'
 import { PuckTable } from './PuckTable'
 
 export class Pucks extends Component {
   shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
+    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(
+      this, arguments
+    )
   }
   constructor (props) {
     super(props)
@@ -21,6 +24,7 @@ export class Pucks extends Component {
     this.setState({newPuckText: ''})
   }
   render () {
+    if (!this.props.connected) return (<Disconnected />)
     return (
       <div>
         <h1>Pucks</h1>
@@ -42,6 +46,7 @@ export class Pucks extends Component {
 
 function mapStateToProps(state) {
   return {
+    connected: state.app.get('connected'),
     pucks: state.pucks,
   }
 }

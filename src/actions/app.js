@@ -1,3 +1,10 @@
+export function setConnected (connected) {
+  return {
+    type: 'SET_CONNECTED',
+    connected,
+  }
+}
+
 export function setSelectedHolder (holder) {
   return {
     type: 'SET_SELECTED_HOLDER',

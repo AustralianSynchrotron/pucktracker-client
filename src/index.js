@@ -11,7 +11,7 @@ import { ConnectedAdaptorLocations } from './components/AdaptorLocations'
 import { ConnectedPuckTransfer } from './components/PuckTransfer'
 import { ConnectedDewars } from './components/Dewars'
 import { ConnectedPucks } from './components/Pucks'
-import { setAdaptors } from './actions/adaptors'
+import { setConnected } from './actions/app'
 import './styles/pucks.less'
 
 
@@ -29,6 +29,14 @@ const createStoreWithMiddleware = applyMiddleware(
 )(createStore)
 
 const store = createStoreWithMiddleware(rootReducer)
+
+socket.on('connect', () => {
+  store.dispatch(setConnected(true))
+})
+
+socket.on('disconnect', () => {
+  store.dispatch(setConnected(false))
+})
 
 socket.on('action', action => {
   store.dispatch(action)
@@ -69,20 +77,18 @@ function redirectToChild(location, replaceWith) {
 }
 
 React.render(
-  (
-    <Provider store={store}>
-      {() =>
-        <Router>
-          <Route path="/" component={App}>
-            <IndexRoute onEnter={redirectToChild}/>
-            <Route path="adaptor-locations" component={ConnectedAdaptorLocations}/>
-            <Route path="puck-transfer" component={ConnectedPuckTransfer}/>
-            <Route path="dewars" component={ConnectedDewars}/>
-            <Route path="pucks" component={ConnectedPucks}/>
-          </Route>
-        </Router>
-      }
-    </Provider>
-  ),
+  <Provider store={store}>
+    {() =>
+      <Router>
+        <Route path="/" component={App}>
+          <IndexRoute onEnter={redirectToChild}/>
+          <Route path="adaptor-locations" component={ConnectedAdaptorLocations}/>
+          <Route path="puck-transfer" component={ConnectedPuckTransfer}/>
+          <Route path="dewars" component={ConnectedDewars}/>
+          <Route path="pucks" component={ConnectedPucks}/>
+        </Route>
+      </Router>
+    }
+  </Provider>,
   document.body
 )

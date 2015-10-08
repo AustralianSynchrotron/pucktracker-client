@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react/addons'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'
@@ -6,9 +6,11 @@ import { DewarTypeReceptacle } from './DewarTypeReceptacle'
 import { setSelectedPuck } from '../actions/app'
 import { setPuckReceptacle } from '../actions/pucks'
 import { setPortState, setMultiplePortStates } from '../actions/ports'
+import Disconnected from './Disconnected'
 
-export class PuckTransfer extends React.Component {
+export class PuckTransfer extends Component {
   render () {
+    if (!this.props.connected) return (<Disconnected />)
     return (
       <Grid>
         <Row>
@@ -59,6 +61,7 @@ ReceptaclesPanel.contextTypes = {
 
 function mapStateToProps(state) {
   return {
+    connected: state.app.get('connected'),
     selectedPuck: state.app.get('selectedPuck'),
     adaptors: state.adaptors,
     dewars: state.dewars,
