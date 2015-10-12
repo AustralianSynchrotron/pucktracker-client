@@ -7,8 +7,9 @@ class PuckRow extends Component {
   shouldComponentUpdate () {
     return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
   }
-  attributeChange (puck, attribute, value) {
-    this.props.updatePuck(puck, {[attribute]: value})
+  attributeChange (attribute, value) {
+    const { name } = this.props.puck
+    this.props.updatePuck(name, {[attribute]: value})
   }
   render () {
     const { puck } = this.props
@@ -17,12 +18,20 @@ class PuckRow extends Component {
         <th>{puck.name}</th>
         <th>{puck.receptacle}</th>
         <EditableCell
-          value={puck.note}
-          onChange={this.attributeChange.bind(this, puck.name, 'note')}
+          value={puck.owner}
+          onChange={this.attributeChange.bind(this, 'owner')}
         />
         <EditableCell
-          value={puck.owner}
-          onChange={this.attributeChange.bind(this, puck.name, 'owner')}
+          value={puck.institute}
+          onChange={this.attributeChange.bind(this, 'institute')}
+        />
+        <EditableCell
+          value={puck.email}
+          onChange={this.attributeChange.bind(this, 'email')}
+        />
+        <EditableCell
+          value={puck.note}
+          onChange={this.attributeChange.bind(this, 'note')}
         />
       </tr>
     )
@@ -41,8 +50,10 @@ export class PuckTable extends Component {
           <tr>
             <th>Puck</th>
             <th>Location</th>
-            <th>Note</th>
             <th>Owner</th>
+            <th>Insitute</th>
+            <th>Email</th>
+            <th>Note</th>
           </tr>
         </thead>
         <tbody>

@@ -8,6 +8,8 @@ export const Puck = Record({
   lastDewar: null,
   note: '',
   owner: '',
+  institute: '',
+  email: '',
 })
 
 export default function reducer(state=OrderedMap(), action) {
