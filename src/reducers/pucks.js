@@ -5,6 +5,7 @@ export const Puck = Record({
   receptacle: null,
   receptacleType: null,
   slot: null,
+  lastDewar: null,
   note: '',
   owner: '',
 })
@@ -23,11 +24,15 @@ export default function reducer(state=OrderedMap(), action) {
     }
     case 'SET_PUCK_RECEPTACLE': {
       if (!state.has(action.puck)) { return state }
-      return state.mergeIn([action.puck], {
+      var state = state.mergeIn([action.puck], {
         receptacle: action.receptacle,
         receptacleType: action.receptacleType,
         slot: action.slot,
       })
+      if (action.receptacleType === 'dewar') {
+        state = state.setIn([action.puck, 'lastDewar'], action.receptacle)
+      }
+      return state
     }
     case 'UPDATE_PUCK': {
       return state.mergeIn([action.puck], action.update)

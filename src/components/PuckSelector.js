@@ -20,6 +20,9 @@ export class PuckSelector extends Component {
              onChange={this.onSelection.bind(this)}
              checked={this.isSelected()} />
     )
+    let { lastDewar } = this.props.puck
+    let buttonText = this.props.puck.name
+    if (lastDewar) { buttonText += ` (Dewar ${lastDewar})` }
     return (
       <ButtonInput onClick={this.onSelection.bind(this)}
         className="form-control" standalone addonBefore={checkbox}
@@ -29,7 +32,7 @@ export class PuckSelector extends Component {
             <Glyphicon glyph="remove" />
           </Button>
         }>
-        {this.props.puck.name}
+        {buttonText}
       </ButtonInput>
     )
   }
