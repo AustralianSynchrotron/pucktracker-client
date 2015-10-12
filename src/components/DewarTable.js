@@ -6,14 +6,16 @@ class Row extends Component {
   shouldComponentUpdate () {
     return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
   }
-  attributeChange (dewar, attribute, value) {
-    this.props.updateDewar(dewar, {[attribute]: value})
+  attributeChange (attribute, value) {
+    const { name } = this.props.dewar
+    this.props.updateDewar(name, {[attribute]: value})
   }
-  changeDewarSite (dewarName, onsite) {
+  changeDewarSite (onsite) {
+    const { name } = this.props.dewar
     if (onsite) {
-      this.props.updateDewar(dewarName, {onsite})
+      this.props.updateDewar(name, {onsite})
     } else {
-      this.props.setDewarOffsite(dewarName)
+      this.props.setDewarOffsite(name)
     }
   }
   onDewarClick (e) {
@@ -31,16 +33,20 @@ class Row extends Component {
       <tr key={dewar.name}>
         <th><a href="#" onClick={this.onDewarClick.bind(this)}>{dewar.name}</a></th>
         <EditableCell value={dewar.epn}
-          onChange={this.attributeChange.bind(this, dewar.name, 'epn')} />
+          onChange={this.attributeChange.bind(this, 'epn')} />
         <EditableCell value={dewar.owner}
-          onChange={this.attributeChange.bind(this, dewar.name, 'owner')} />
+          onChange={this.attributeChange.bind(this, 'owner')} />
+        <EditableCell value={dewar.institute}
+          onChange={this.attributeChange.bind(this, 'institute')}/>
+        <EditableCell value={dewar.containerType}
+          onChange={this.attributeChange.bind(this, 'containerType')}/>
+        <EditableCell value={dewar.expectedContainers}
+          onChange={this.attributeChange.bind(this, 'expectedContainers')}/>
         <EditableCell value={dewar.note}
-          onChange={this.attributeChange.bind(this, dewar.name, 'note')} />
-        <td>{dewar.containerType}</td>
-        <td>{dewar.expectedContainers}</td>
+          onChange={this.attributeChange.bind(this, 'note')} />
         <td>
           <Button block
-            onClick={this.changeDewarSite.bind(this, dewar.name, !dewar.onsite)}>
+            onClick={this.changeDewarSite.bind(this, !dewar.onsite)}>
             { dewar.onsite ? 'Move Off Site' : 'Move On Site' }
           </Button>
         </td>
@@ -64,10 +70,11 @@ export class DewarTable extends Component {
             <tr>
               <th>Dewar</th>
               <th>EPN</th>
-              <th>Owner</th>
-              <th>Note</th>
+              <th>Name</th>
+              <th>Institute</th>
               <th>Type</th>
               <th>Expected Pucks</th>
+              <th>Note</th>
               <th>Ship</th>
             </tr>
           </thead>
