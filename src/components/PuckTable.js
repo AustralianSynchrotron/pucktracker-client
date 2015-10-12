@@ -51,7 +51,7 @@ export class PuckTable extends Component {
             <th>Puck</th>
             <th>Location</th>
             <th>Owner</th>
-            <th>Insitute</th>
+            <th>Institute</th>
             <th>Email</th>
             <th>Note</th>
           </tr>
