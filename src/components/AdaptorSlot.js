@@ -10,6 +10,7 @@ import { Puck } from '../reducers/pucks'
 
 export class AdaptorSlot extends Component {
   receivePuck () {
+    if (this.props.puck) { return }
     this.props.setPuckReceptacle(
       this.props.selectedPuck,
       'adaptor',
@@ -24,7 +25,7 @@ export class AdaptorSlot extends Component {
   render () {
     return (
       <div>
-        <div style={{'paddingBottom': '6px'}}>
+        <div style={{paddingBottom: '6px'}}>
           {this.props.puck ? (
             <PuckSelector {...this.props}
               onDelete={() => this.removePuck(this.props.puck.name)}/>
@@ -36,7 +37,9 @@ export class AdaptorSlot extends Component {
           )}
         </div>
         <PortToggleButtons {...this.props} disabled={!this.props.puck}/>
-        <div className="puck">
+        <div className="puck" onClick={
+          this.props.puck ? undefined : this.receivePuck.bind(this)
+        }>
           {this.props.ports.toList().map(
             port => <Port {...this.props} key={port.number} port={port} />
           )}

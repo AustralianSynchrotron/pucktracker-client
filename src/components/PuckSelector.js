@@ -11,9 +11,6 @@ export class PuckSelector extends Component {
     }
     this.props.setSelectedPuck(selectedPuck)
   }
-  select () {
-    console.log('select')
-  }
   isSelected () {
     return this.props.puck.name === this.props.selectedPuck
   }
