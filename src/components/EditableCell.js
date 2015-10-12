@@ -9,6 +9,7 @@ export default class EditableCell extends Component {
         onChange={this.props.onChange}
         html={this.props.value}
         editing={true}
+        style={{whiteSpace: 'pre-wrap'}}
         preventStyling
         noLinebreaks
       />
