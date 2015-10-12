@@ -79,7 +79,7 @@ export class DewarTypeReceptacle extends Component {
                 <option></option>
                 {dewars.toList().map(dewar => (
                   <option key={dewar.name} value={dewar.name}>
-                    EPN: {dewar.epn} – ID: {dewar.name}
+                    {dewar.name} – EPN: {dewar.epn}
                   </option>
                 ))}
               </Input>
