@@ -43,7 +43,7 @@ export class PuckSelector extends Component {
           {buttonText}
         </ButtonInput>
         <Input type="text" standalone style={{marginTop: '6px'}}
-          value={note} placeholder="Note" onChange={this.onNoteChange.bind(this)} />
+          value={note} placeholder="Notes" onChange={this.onNoteChange.bind(this)} />
       </div>
     )
   }

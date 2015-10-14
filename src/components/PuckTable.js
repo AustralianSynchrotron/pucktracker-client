@@ -17,6 +17,7 @@ class PuckRow extends Component {
       <tr>
         <th>{puck.name}</th>
         <th>{puck.receptacle}</th>
+        <th>{puck.lastDewar}</th>
         <EditableCell
           value={puck.owner}
           onChange={this.attributeChange.bind(this, 'owner')}
@@ -50,10 +51,11 @@ export class PuckTable extends Component {
           <tr>
             <th>Puck</th>
             <th>Location</th>
+            <th>Dewar</th>
             <th>Owner</th>
             <th>Institute</th>
             <th>Email</th>
-            <th>Note</th>
+            <th>Notes</th>
           </tr>
         </thead>
         <tbody>

@@ -74,7 +74,7 @@ export class DewarTable extends Component {
               <th>Institute</th>
               <th>Type</th>
               <th>Expected Pucks</th>
-              <th>Note</th>
+              <th>Notes</th>
               <th>Ship</th>
             </tr>
           </thead>
