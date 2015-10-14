@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react/addons'
 import { Map, List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames'
-import { ButtonInput, ButtonGroup, Button } from 'react-bootstrap'
+import { ButtonInput, ButtonGroup, Button, Input } from 'react-bootstrap'
 import { PuckSelector } from './PuckSelector'
 import { TargetPosition } from './TargetPosition'
 import { Puck } from '../reducers/pucks'
@@ -30,10 +30,13 @@ export class AdaptorSlot extends Component {
             <PuckSelector {...this.props}
               onDelete={() => this.removePuck(this.props.puck.name)}/>
           ) : (
-            <TargetPosition isDisabled={!this.props.selectedPuck}
-                            onClick={this.receivePuck.bind(this)}>
-              Empty
-            </TargetPosition>
+            <div>
+              <TargetPosition isDisabled={!this.props.selectedPuck}
+                              onClick={this.receivePuck.bind(this)}>
+                Empty
+              </TargetPosition>
+              <Input type="text" standalone style={{marginTop: '6px'}} disabled />
+            </div>
           )}
         </div>
         <PortToggleButtons {...this.props} disabled={!this.props.puck}/>
@@ -94,14 +97,14 @@ class PortToggleButtons extends Component {
       <ButtonGroup justified>
         <ButtonGroup bsSize="xsmall">
           <Button disabled={this.props.disabled}
-                  onClick={() => this.togglePorts(1, 8)}>
-            Toggle 1-8
+                  onClick={() => this.togglePorts(1, 5)}>
+            Toggle Inner
           </Button>
         </ButtonGroup>
         <ButtonGroup bsSize="xsmall">
           <Button disabled={this.props.disabled}
-                  onClick={() => this.togglePorts(9, 16)}>
-            Toggle 9-16
+                  onClick={() => this.togglePorts(6, 16)}>
+            Toggle Outer
           </Button>
         </ButtonGroup>
         <ButtonGroup bsSize="xsmall">

@@ -4,7 +4,7 @@ import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'
 import { DewarTypeReceptacle } from './DewarTypeReceptacle'
 import { setSelectedPuck } from '../actions/app'
-import { setPuckReceptacle } from '../actions/pucks'
+import { setPuckReceptacle, updatePuck } from '../actions/pucks'
 import { setPortState, setMultiplePortStates } from '../actions/ports'
 import Disconnected from './Disconnected'
 
@@ -75,6 +75,7 @@ export const ConnectedPuckTransfer = connect(
   {
     setSelectedPuck,
     setPuckReceptacle,
+    updatePuck,
     setPortState,
     setMultiplePortStates,
   }

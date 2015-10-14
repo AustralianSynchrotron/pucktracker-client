@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react/addons'
-import { ButtonInput, ButtonGroup, Button, Glyphicon } from 'react-bootstrap'
+import { ButtonInput, Button, Input, Glyphicon } from 'react-bootstrap'
 import { Puck } from '../reducers/pucks'
 
 
@@ -14,26 +14,37 @@ export class PuckSelector extends Component {
   isSelected () {
     return this.props.puck.name === this.props.selectedPuck
   }
+  onNoteChange (event) {
+    const { value } = event.target
+    const { name } = this.props.puck
+    this.props.updatePuck(name, {note: value})
+  }
   render () {
     const checkbox = (
       <input type="radio"
              onChange={this.onSelection.bind(this)}
              checked={this.isSelected()} />
     )
-    let { lastDewar } = this.props.puck
     let buttonText = this.props.puck.name
+    const { lastDewar } = this.props.puck
     if (lastDewar) { buttonText += ` (Dewar ${lastDewar})` }
+    const { note } = this.props.puck
     return (
-      <ButtonInput onClick={this.onSelection.bind(this)}
-        className="form-control" standalone addonBefore={checkbox}
-        active={this.isSelected()}
-        buttonAfter={
-          <Button onClick={this.props.onDelete}>
-            <Glyphicon glyph="remove" />
-          </Button>
-        }>
-        {buttonText}
-      </ButtonInput>
+      <div style={{paddingBottom: '6px'}}>
+        <ButtonInput onClick={this.onSelection.bind(this)}
+          className="form-control" standalone
+          addonBefore={checkbox}
+          active={this.isSelected()}
+          buttonAfter={
+            <Button onClick={this.props.onDelete}>
+              <Glyphicon glyph="remove" />
+            </Button>
+          }>
+          {buttonText}
+        </ButtonInput>
+        <Input type="text" standalone style={{marginTop: '6px'}}
+          value={note} placeholder="Note" onChange={this.onNoteChange.bind(this)} />
+      </div>
     )
   }
 }
