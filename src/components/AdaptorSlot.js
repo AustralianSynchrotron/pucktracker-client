@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react/addons'
 import { Map, List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import classNames from 'classnames'
 import { ButtonInput, ButtonGroup, Button, Input } from 'react-bootstrap'
 import { PuckSelector } from './PuckSelector'
 import { TargetPosition } from './TargetPosition'
+import { Slot } from './Slot'
 import { Puck } from '../reducers/pucks'
 
 
@@ -21,6 +21,13 @@ export class AdaptorSlot extends Component {
   }
   removePuck (puckName) {
     this.props.setPuckReceptacle(puckName, null, null)
+  }
+  togglePortState (port) {
+    this.props.setPortState(
+      port.container,
+      port.number,
+      nextState(port.state)
+    )
   }
   render () {
     return (
@@ -40,13 +47,13 @@ export class AdaptorSlot extends Component {
           )}
         </div>
         <PortToggleButtons {...this.props} disabled={!this.props.puck}/>
-        <div className="puck" onClick={
-          this.props.puck ? undefined : this.receivePuck.bind(this)
-        }>
-          {this.props.ports.toList().map(
-            port => <Port {...this.props} key={port.number} port={port} />
-          )}
-        </div>
+        <Slot
+          name={this.props.slot}
+          puck={this.props.puck}
+          ports={this.props.ports}
+          onSlotClick={this.receivePuck.bind(this)}
+          onPortClick={this.togglePortState.bind(this)}
+        />
       </div>
     )
   }
@@ -60,27 +67,6 @@ AdaptorSlot.propTypes = {
 
 AdaptorSlot.defaultProps = {
   ports: Map(),
-}
-
-class Port extends Component {
-  onClick (event) {
-    const {port} = this.props
-    this.props.setPortState(
-      port.container,
-      port.number,
-      nextState(port.state)
-   )
-  }
-  render () {
-    var classString = classNames('puck-port',
-                                 'puck-port-' + this.props.port.number,
-                                 'puck-port-' + this.props.port.state)
-    return (
-      <div className={classString} onClick={this.onClick.bind(this)}>
-        {this.props.slot}{this.props.port.number}
-      </div>
-    )
-  }
 }
 
 class PortToggleButtons extends Component {
