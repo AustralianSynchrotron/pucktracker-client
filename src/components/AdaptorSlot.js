@@ -9,6 +9,11 @@ import { Puck } from '../reducers/pucks'
 
 
 export class AdaptorSlot extends Component {
+  constructor(props) {
+    super(props)
+    this.receivePuck = this.receivePuck.bind(this)
+    this.togglePortState = this.togglePortState.bind(this)
+  }
   receivePuck () {
     if (this.props.puck) { return }
     this.props.setPuckReceptacle(
@@ -23,11 +28,7 @@ export class AdaptorSlot extends Component {
     this.props.setPuckReceptacle(puckName, null, null)
   }
   togglePortState (port) {
-    this.props.setPortState(
-      port.container,
-      port.number,
-      nextState(port.state)
-    )
+    this.props.setPortState(port.container, port.number, nextState(port.state))
   }
   render () {
     return (
@@ -39,7 +40,7 @@ export class AdaptorSlot extends Component {
           ) : (
             <div>
               <TargetPosition isDisabled={!this.props.selectedPuck}
-                              onClick={this.receivePuck.bind(this)}>
+                              onClick={this.receivePuck}>
                 Empty
               </TargetPosition>
               <Input type="text" standalone style={{marginTop: '6px'}} disabled />
@@ -51,22 +52,17 @@ export class AdaptorSlot extends Component {
           name={this.props.slot}
           puck={this.props.puck}
           ports={this.props.ports}
-          onSlotClick={this.receivePuck.bind(this)}
-          onPortClick={this.togglePortState.bind(this)}
+          onSlotClick={this.receivePuck}
+          onPortClick={this.togglePortState}
         />
       </div>
     )
   }
 }
-
 AdaptorSlot.propTypes = {
   selectedPuck: PropTypes.string,
   puck: PropTypes.instanceOf(Puck),
   ports: ImmutablePropTypes.map,
-}
-
-AdaptorSlot.defaultProps = {
-  ports: Map(),
 }
 
 class PortToggleButtons extends Component {
@@ -74,9 +70,7 @@ class PortToggleButtons extends Component {
     const numbers = Array.apply(0, Array(last - first + 1)).map((o, i) => i + first)
     const firstPortKey = List.of(this.props.puck.name, first)
     const newState = nextState(this.props.ports.getIn([firstPortKey, 'state']))
-    this.props.setMultiplePortStates(
-      this.props.puck.name, numbers, newState
-    )
+    this.props.setMultiplePortStates(this.props.puck.name, numbers, newState)
   }
   render () {
     return (
@@ -103,14 +97,16 @@ class PortToggleButtons extends Component {
     )
   }
 }
+PortToggleButtons.propTypes = {
+  puck: PropTypes.instanceOf(Puck),
+  ports: ImmutablePropTypes.map,
+  disabled: PropTypes.bool,
+}
 
 function nextState (currentState) {
   switch (currentState) {
-    case 'full':
-      return 'empty'
-    case 'empty':
-      return 'unknown'
-    default:
-      return 'full'
+    case 'full': return 'empty'
+    case 'empty': return 'unknown'
+    default: return 'full'
   }
 }

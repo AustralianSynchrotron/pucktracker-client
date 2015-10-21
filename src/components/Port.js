@@ -11,12 +11,12 @@ export class Port extends Component {
     this.props.onPortClick(this.props.port)
   }
   render () {
-    var classString = classNames('puck-port',
-                                 'puck-port-' + this.props.port.number,
-                                 'puck-port-' + this.props.port.state)
+    const { slotName, port } = this.props
+    var classString = classNames('puck-port', `puck-port-${port.number}`,
+                                 `puck-port-${port.state}`)
     return (
       <div className={classString} onClick={this.handleClick.bind(this)}>
-        {this.props.slotName}{this.props.port.number}
+        {slotName}{port.number}
       </div>
     )
   }

@@ -22,7 +22,7 @@ describe('AdaptorSlot', () => {
 
   it('displays a move target button when there is no puck', () => {
     const component = renderIntoDocument(
-      <AdaptorSlot />
+      <AdaptorSlot puck={undefined} ports={Map()} />
     )
     const button = scryRenderedDOMComponentsWithTag(component, 'input')[0]
     expect(findDOMNode(button).value).to.equal('Empty')
