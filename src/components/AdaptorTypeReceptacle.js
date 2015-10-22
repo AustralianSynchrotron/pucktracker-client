@@ -1,5 +1,6 @@
-import React from 'react/addons'
+import React from 'react'
 import { Map } from 'immutable'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Row, Col, Input } from 'react-bootstrap'
 import { AdaptorSlot } from './AdaptorSlot'
@@ -11,9 +12,7 @@ export class AdaptorTypeReceptacle extends React.Component {
     const {[receptacleKey]: selectedReceptacle=null} = this.props.location.query
     this.state = { selectedReceptacle }
   }
-  shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
   onChange (event) {
     const { history, location } = this.props
     const selectedReceptacle = event.target.value

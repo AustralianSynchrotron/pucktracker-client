@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react/addons'
+import React, { Component, PropTypes } from 'react'
 import { ButtonInput, Button, Input, Glyphicon } from 'react-bootstrap'
 import { Puck } from '../reducers/pucks'
 

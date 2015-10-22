@@ -1,4 +1,4 @@
-import React, { Component } from 'react/addons'
+import React, { Component } from 'react'
 
 export default class Disconnected extends Component {
   render () {

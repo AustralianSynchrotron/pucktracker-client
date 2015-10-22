@@ -1,4 +1,4 @@
-import React, { Component } from 'react/addons'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'

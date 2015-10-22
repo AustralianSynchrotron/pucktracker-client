@@ -1,4 +1,4 @@
-import React, { Component } from 'react/addons'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap'
 import { setSelectedHolder } from '../actions/app'

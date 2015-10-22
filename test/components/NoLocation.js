@@ -1,4 +1,5 @@
-import React from 'react/addons'
+import React from 'react'
+import ReactTestUtils from 'react-addons-test-utils'
 import { Map } from 'immutable'
 import { expect } from 'chai'
 import { NoLocation } from '../../src/components/NoLocation'
@@ -7,7 +8,7 @@ import { Adaptor } from '../../src/reducers/adaptors'
 const {
   renderIntoDocument,
   scryRenderedDOMComponentsWithClass,
-} = React.addons.TestUtils
+} = ReactTestUtils
 
 
 describe('NoLocation', () => {

@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react/addons'
+import React, { Component, PropTypes } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Input } from 'react-bootstrap'
 
@@ -7,9 +8,7 @@ export default class TypeaheadInput extends Component {
     super(props)
     this.state = {hideSelect: true}
   }
-  shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
   onInputChange (event) {
     this.setState({hideSelect: false})
     this.props.onChange(event.target.value)

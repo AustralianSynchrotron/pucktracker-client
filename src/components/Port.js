@@ -1,12 +1,11 @@
-import React, { Component, PropTypes } from 'react/addons'
+import React, { Component, PropTypes } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames'
 import { Port as PortModel } from '../reducers/ports'
 
 export class Port extends Component {
-  shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
   handleClick () {
     this.props.onPortClick(this.props.port)
   }

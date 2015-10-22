@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import Router, { Route, IndexRoute } from 'react-router'
 import {Provider} from 'react-redux'
 import {createStore, applyMiddleware} from 'redux'
 import io from 'socket.io-client'
 import 'bootstrap/less/bootstrap.less'
-import { Navbar, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
+import { Navbar, NavBrand, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import rootReducer from './reducers'
 import { ConnectedAdaptorLocations } from './components/AdaptorLocations'
@@ -42,11 +43,12 @@ socket.on('action', action => {
   store.dispatch(action)
 })
 
-class App extends React.Component {
+class App extends Component {
   render () {
     return (
       <div>
-        <Navbar brand="Puck Tracker" toggleNavKey={0}>
+        <Navbar toggleNavKey={0}>
+          <NavBrand>Puck Tracker</NavBrand>
           <CollapsibleNav eventKey={0}>
             <Nav navbar>
               <LinkContainer to="/adaptor-locations">
@@ -76,9 +78,8 @@ function redirectToChild(location, replaceWith) {
   replaceWith(null, '/adaptor-locations')
 }
 
-React.render(
+ReactDOM.render(
   <Provider store={store}>
-    {() =>
       <Router>
         <Route path="/" component={App}>
           <IndexRoute onEnter={redirectToChild}/>
@@ -88,7 +89,6 @@ React.render(
           <Route path="pucks" component={ConnectedPucks}/>
         </Route>
       </Router>
-    }
   </Provider>,
-  document.body
+  document.getElementById('app')
 )

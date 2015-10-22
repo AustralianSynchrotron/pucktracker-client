@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react/addons'
+import React, { Component, PropTypes } from 'react'
 import { Map, List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { ButtonInput, ButtonGroup, Button, Input } from 'react-bootstrap'

@@ -1,11 +1,10 @@
-import React, { Component } from 'react/addons'
+import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { Input, Button, Table } from 'react-bootstrap'
 import EditableCell from './EditableCell'
 
 class Row extends Component {
-  shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
   attributeChange (attribute, value) {
     const { name } = this.props.dewar
     this.props.updateDewar(name, {[attribute]: value})
@@ -60,9 +59,7 @@ Row.contextTypes = {
 }
 
 export class DewarTable extends Component {
-  shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
   render () {
     return (
         <Table striped bordered condensed hover>

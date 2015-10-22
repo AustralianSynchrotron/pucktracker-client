@@ -1,4 +1,5 @@
-import React, { Component } from 'react/addons'
+import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { connect } from 'react-redux'
 import { Row, Col, Input, Button } from 'react-bootstrap'
 import { addPuck, updatePuck } from '../actions/pucks'
@@ -6,11 +7,7 @@ import Disconnected from './Disconnected'
 import { PuckTable } from './PuckTable'
 
 export class Pucks extends Component {
-  shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(
-      this, arguments
-    )
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
   constructor (props) {
     super(props)
     this.state = {newPuckText: '', searchText: ''}

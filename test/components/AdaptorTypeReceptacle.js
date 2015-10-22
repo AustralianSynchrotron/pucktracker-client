@@ -1,4 +1,6 @@
-import React, {findDOMNode} from 'react/addons'
+import React from 'react'
+import { findDOMNode } from 'react-dom'
+import ReactTestUtils from 'react-addons-test-utils'
 import { Map } from 'immutable'
 import { expect } from 'chai'
 import { AdaptorTypeReceptacle } from '../../src/components/AdaptorTypeReceptacle'
@@ -7,7 +9,7 @@ import { Adaptor } from '../../src/reducers/adaptors'
 const {
   renderIntoDocument,
   scryRenderedDOMComponentsWithTag,
-} = React.addons.TestUtils
+} = ReactTestUtils
 
 describe('AdaptorTypeReceptacle', () => {
 

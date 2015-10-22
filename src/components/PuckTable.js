@@ -1,12 +1,11 @@
-import React, { Component } from 'react/addons'
+import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { Table } from 'react-bootstrap'
 import EditableCell from './EditableCell'
 
 
 class PuckRow extends Component {
-  shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
   attributeChange (attribute, value) {
     const { name } = this.props.puck
     this.props.updatePuck(name, {[attribute]: value})
@@ -41,9 +40,7 @@ class PuckRow extends Component {
 
 
 export class PuckTable extends Component {
-  shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
   render () {
     return (
       <Table striped bordered condensed hover>

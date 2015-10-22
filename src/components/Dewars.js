@@ -1,4 +1,5 @@
-import React, { Component } from 'react/addons'
+import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { connect } from 'react-redux'
 import { Input, Button, Table } from 'react-bootstrap'
 import { addDewar, updateDewar, setDewarOffsite } from '../actions/dewars'
@@ -6,11 +7,7 @@ import Disconnected from './Disconnected'
 import { DewarTable } from './DewarTable'
 
 export class Dewars extends Component {
-  shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(
-      this, arguments
-    )
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
   constructor (props) {
     super(props)
     this.state = {newDewarText: ''}

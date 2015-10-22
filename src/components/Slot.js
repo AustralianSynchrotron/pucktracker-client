@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react/addons'
+import React, { Component, PropTypes } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Port } from './Port'
 import { Puck } from '../reducers/pucks'

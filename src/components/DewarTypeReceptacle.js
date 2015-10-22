@@ -1,4 +1,5 @@
-import React, { Component } from 'react/addons'
+import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Row, Col, Input, Button, ListGroup, ListGroupItem } from 'react-bootstrap'
@@ -16,9 +17,7 @@ export class DewarTypeReceptacle extends Component {
       selectedReceptacle
     }
   }
-  shouldComponentUpdate () {
-    return React.addons.PureRenderMixin.shouldComponentUpdate.apply(this, arguments)
-  }
+  shouldComponentUpdate = shouldPureComponentUpdate
   onChange (event) {
     const { history, location } = this.props
     const selectedReceptacle = event.target.value
