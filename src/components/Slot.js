@@ -10,10 +10,13 @@ export class Slot extends Component {
         onPortClick={this.props.onPortClick} />
     ))
   }
+  renderName () {
+    return <span className='puck-name'>{this.props.name}</span>
+  }
   render () {
     return (
       <div className="puck" onClick={this.props.onSlotClick}>
-        {this.renderPorts()}
+        {this.props.puck ? this.renderPorts() : this.renderName()}
       </div>
     )
   }
