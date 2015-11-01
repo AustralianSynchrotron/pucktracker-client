@@ -35,7 +35,8 @@ class ReceptaclesPanel extends React.Component {
   }
   handleSelect (key) {
     const { history, location } = this.context
-    const newQuery = Object.assign(location.query, {[this.props.side]: key})
+    let newQuery = location.query
+    newQuery[this.props.side] = key
     history.pushState(null, location.pathname, newQuery)
     this.setState({key})
   }

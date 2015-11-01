@@ -16,10 +16,8 @@ export class AdaptorTypeReceptacle extends React.Component {
   onChange (event) {
     const { history, location } = this.props
     const selectedReceptacle = event.target.value
-    const newQuery = Object.assign(
-      location.query,
-      {[this.props.side + 'Adaptor']: selectedReceptacle}
-    )
+    let newQuery = location.query
+    newQuery[this.props.side + 'Adaptor'] = selectedReceptacle
     this.props.history.pushState(null, location.pathname, newQuery)
     this.setState({selectedReceptacle})
   }
