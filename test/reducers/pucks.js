@@ -24,6 +24,18 @@ describe('pucks reducer', () => {
     expect(state.getIn(['ASP001', 'name'])).to.equal('ASP001')
   })
 
+  it('deletes pucks', () => {
+    const initialState = Map({
+      'ASP001': Puck()
+    })
+    const action = {
+      type: 'DELETE_PUCK',
+      puck: 'ASP001',
+    }
+    const state = reducer(initialState, action)
+    expect(state.size).to.equal(0)
+  })
+
   it('sets puck receptacle', () => {
     const initialState = Map({'ASP001': Puck({receptacle: '1001'})})
     const action = {

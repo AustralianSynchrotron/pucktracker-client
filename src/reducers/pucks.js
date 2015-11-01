@@ -24,6 +24,9 @@ export default function reducer(state=OrderedMap(), action) {
     case 'ADD_PUCK': {
       return state.set(action.puck.name, new Puck(action.puck))
     }
+    case 'DELETE_PUCK': {
+      return state.delete(action.puck)
+    }
     case 'SET_PUCK_RECEPTACLE': {
       if (!state.has(action.puck)) { return state }
       var state = state.mergeIn([action.puck], {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
-import { Table } from 'react-bootstrap'
+import { Table, Button, Glyphicon } from 'react-bootstrap'
 import EditableCell from './EditableCell'
 
 
@@ -9,6 +9,12 @@ class PuckRow extends Component {
   attributeChange (attribute, value) {
     const { name } = this.props.puck
     this.props.updatePuck(name, {[attribute]: value})
+  }
+  handleRemoveClick (puck) {
+    const doDelete = confirm(`Permanently delete puck ${puck.name}?`)
+    if (doDelete) {
+      this.props.deletePuck(puck.name)
+    }
   }
   render () {
     const { puck } = this.props
@@ -33,6 +39,11 @@ class PuckRow extends Component {
           value={puck.note}
           onChange={this.attributeChange.bind(this, 'note')}
         />
+        <td>
+          <Button block onClick={this.handleRemoveClick.bind(this, puck)}>
+            <Glyphicon glyph="remove" />
+          </Button>
+        </td>
       </tr>
     )
   }
@@ -53,11 +64,13 @@ export class PuckTable extends Component {
             <th>Institute</th>
             <th>Email</th>
             <th>Notes</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {this.props.pucks.toList().map(puck =>
             <PuckRow key={puck.name} puck={puck}
+                     deletePuck={this.props.deletePuck}
                      updatePuck={this.props.updatePuck} />
           )}
         </tbody>

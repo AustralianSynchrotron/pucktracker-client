@@ -13,6 +13,14 @@ export function addPuck (puck) {
   }
 }
 
+export function deletePuck (puck) {
+  return {
+    type: 'DELETE_PUCK',
+    puck,
+    broadcast: true,
+  }
+}
+
 export function setPuckReceptacle (puck, receptacleType, receptacle, slot=null) {
   return {
     type: 'SET_PUCK_RECEPTACLE',

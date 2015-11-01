@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import { connect } from 'react-redux'
 import { Row, Col, Input, Button } from 'react-bootstrap'
-import { addPuck, updatePuck } from '../actions/pucks'
+import { addPuck, deletePuck, updatePuck } from '../actions/pucks'
 import Disconnected from './Disconnected'
 import { PuckTable } from './PuckTable'
 
@@ -67,7 +67,10 @@ export class Pucks extends Component {
             </form>
           </Col>
         </Row>
-        <PuckTable pucks={pucks} updatePuck={this.props.updatePuck} />
+        <PuckTable
+          pucks={pucks}
+          deletePuck={this.props.deletePuck}
+          updatePuck={this.props.updatePuck} />
       </div>
     )
   }
@@ -82,5 +85,5 @@ function mapStateToProps(state) {
 
 export const ConnectedPucks = connect(
   mapStateToProps,
-  {addPuck, updatePuck}
+  {addPuck, deletePuck, updatePuck}
 )(Pucks)

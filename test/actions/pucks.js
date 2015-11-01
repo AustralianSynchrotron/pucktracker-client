@@ -18,6 +18,14 @@ describe('puck actions', () => {
     })
   })
 
+  it('deletePuck should return an action to delete a puck', () => {
+    expect(actions.deletePuck('ASP001')).to.eql({
+      type: 'DELETE_PUCK',
+      puck: 'ASP001',
+      broadcast: true,
+    })
+  })
+
   it('setPuckReceptacle should return an action to set the puck receptacle', () => {
     const action = actions.setPuckReceptacle('ASP001', 'adaptor', 'AS-01', 'A')
     expect(action).to.eql({
