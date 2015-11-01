@@ -63,6 +63,15 @@ class App extends Component {
               <LinkContainer to="/pucks">
                 <NavItem>Pucks</NavItem>
               </LinkContainer>
+              <NavItem href={`${location.protocol}//${location.hostname}:5902/mx1`}>
+                MX1
+              </NavItem>
+              <NavItem href={`${location.protocol}//${location.hostname}:5902/mx2`}>
+                MX2
+              </NavItem>
+              <NavItem href={`${location.protocol}//${location.hostname}:5902/ls3000`}>
+                LS3000
+              </NavItem>
             </Nav>
           </CollapsibleNav>
         </Navbar>
