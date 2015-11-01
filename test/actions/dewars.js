@@ -37,4 +37,12 @@ describe('dewar actions', () => {
     })
   })
 
+  it('deleteDewar should create an action to delete the dewar', () => {
+    expect(actions.deleteDewar('1001')).to.eql({
+      type: 'DELETE_DEWAR',
+      dewar: '1001',
+      broadcast: true,
+    })
+  })
+
 })

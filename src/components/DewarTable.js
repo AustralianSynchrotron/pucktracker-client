@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
-import { Input, Button, Table } from 'react-bootstrap'
+import { Input, Button, Table, Glyphicon } from 'react-bootstrap'
 import EditableCell from './EditableCell'
 
 class Row extends Component {
@@ -26,6 +26,12 @@ class Row extends Component {
     this.context.history.pushState(null, '/puck-transfer', query)
     e.preventDefault()
   }
+  handleRemoveClick (dewar) {
+    const doDelete = confirm(`Permanently delete dewar ${dewar.name}?`)
+    if (doDelete) {
+      this.props.deleteDewar(dewar.name)
+    }
+  }
   render () {
     const { dewar } = this.props
     return (
@@ -47,6 +53,11 @@ class Row extends Component {
           <Button block
             onClick={this.changeDewarSite.bind(this, !dewar.onsite)}>
             { dewar.onsite ? 'Move Off Site' : 'Move On Site' }
+          </Button>
+        </td>
+        <td>
+          <Button block onClick={this.handleRemoveClick.bind(this, dewar)}>
+            <Glyphicon glyph="remove" />
           </Button>
         </td>
       </tr>
@@ -73,11 +84,13 @@ export class DewarTable extends Component {
               <th>Expected Pucks</th>
               <th>Notes</th>
               <th>Ship</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {this.props.dewars.toList().map(dewar =>
               <Row key={dewar.name} dewar={dewar}
+                deleteDewar={this.props.deleteDewar}
                 updateDewar={this.props.updateDewar}
                 setDewarOffsite={this.props.setDewarOffsite}
               />

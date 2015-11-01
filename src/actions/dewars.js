@@ -13,6 +13,14 @@ export function addDewar (dewar) {
   }
 }
 
+export function deleteDewar (dewar) {
+  return {
+    type: 'DELETE_DEWAR',
+    dewar,
+    broadcast: true,
+  }
+}
+
 export function updateDewar (dewar, update) {
   return {
     type: 'UPDATE_DEWAR',

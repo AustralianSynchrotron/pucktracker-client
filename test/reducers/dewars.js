@@ -26,6 +26,18 @@ describe('dewars reducer', () => {
     expect(state.getIn(['1001', 'name'])).to.equal('1001')
   })
 
+  it('deletes dewars', () => {
+    const initialState = Map({
+      '1001': Dewar(),
+    })
+    const action = {
+      type: 'DELETE_DEWAR',
+      dewar: '1001',
+    }
+    const state = reducer(initialState, action)
+    expect(state.size).to.equal(0)
+  })
+
   it('updates dewars', () => {
     const initialState = Map({
       '1001': Dewar({name: '1001', epn: '123a'})

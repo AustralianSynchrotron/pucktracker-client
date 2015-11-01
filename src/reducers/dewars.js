@@ -24,6 +24,9 @@ export default function reducer(state=OrderedMap(), action) {
       if (state.has(action.dewar.name)) { return state }
       return state.set(action.dewar.name, new Dewar(action.dewar))
     }
+    case 'DELETE_DEWAR': {
+      return state.delete(action.dewar)
+    }
     case 'UPDATE_DEWAR': {
       return state.mergeIn([action.dewar], action.update)
     }
