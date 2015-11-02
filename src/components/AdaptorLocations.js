@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap'
 import { setSelectedHolder } from '../actions/app'
@@ -8,6 +9,7 @@ import Location from './Location'
 import { NoLocation } from './NoLocation'
 
 export class AdaptorLocations extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   render () {
     if (!this.props.connected) return (<Disconnected />)
     return (

@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { ButtonInput, Button, Input, Glyphicon } from 'react-bootstrap'
 import { Puck } from '../reducers/pucks'
 
 
 export class PuckSelector extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   static propTypes = {
     puck: PropTypes.instanceOf(Puck),
     selectedPuck: PropTypes.string,

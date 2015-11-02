@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { connect } from 'react-redux'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'
@@ -9,6 +10,7 @@ import { setPortState, setMultiplePortStates } from '../actions/ports'
 import Disconnected from './Disconnected'
 
 export class PuckTransfer extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   render () {
     if (!this.props.connected) return (<Disconnected />)
     return (
@@ -26,7 +28,8 @@ export class PuckTransfer extends Component {
   }
 }
 
-class ReceptaclesPanel extends React.Component {
+class ReceptaclesPanel extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   constructor (props, context) {
     super(props, context)
     const query = this.context.location.query

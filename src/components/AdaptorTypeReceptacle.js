@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Map } from 'immutable'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Row, Col, Input } from 'react-bootstrap'
 import { AdaptorSlot } from './AdaptorSlot'
 
-export class AdaptorTypeReceptacle extends React.Component {
+export class AdaptorTypeReceptacle extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
   constructor (props, context) {
     super(props, context)

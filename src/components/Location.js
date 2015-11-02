@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { Table } from 'react-bootstrap'
 import Position from './Position'
 
@@ -8,7 +9,8 @@ const POSITIONS = {
   'MX2': ['Left', 'Middle', 'Right'],
 }
 
-export default class Location extends React.Component {
+export default class Location extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   render () {
     const positions = POSITIONS[this.props.holderLocation]
     return (

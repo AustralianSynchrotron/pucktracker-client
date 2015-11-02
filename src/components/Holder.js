@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { ButtonInput, Button, Glyphicon } from 'react-bootstrap'
 
-export class Holder extends React.Component {
+export class Holder extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   onSelection () {
     const checked = !this.isSelected()
     this.props.onSelection(this.props.type, this.props.name, checked)
@@ -36,7 +38,8 @@ export class Holder extends React.Component {
   }
 }
 
-export class HolderContainer extends React.Component {
+export class HolderContainer extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   onSelection (type, name, checked) {
     this.props.setSelectedHolder(checked ? name : null)
   }

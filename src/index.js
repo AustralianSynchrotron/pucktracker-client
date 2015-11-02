@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import ReactDOM from 'react-dom'
 import Router, { Route, IndexRoute } from 'react-router'
 import {Provider} from 'react-redux'
@@ -44,6 +45,7 @@ socket.on('action', action => {
 })
 
 class App extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   render () {
     return (
       <div>

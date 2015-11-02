@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { ButtonInput } from 'react-bootstrap'
 
-export class TargetPosition extends React.Component {
+export class TargetPosition extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   render () {
     return (
       <ButtonInput block disabled={this.props.isDisabled} standalone

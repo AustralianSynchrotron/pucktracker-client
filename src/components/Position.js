@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { Map } from 'immutable'
 import { HolderContainer } from './Holder'
 import { TargetPosition } from './TargetPosition'
 
-class EmptyPosition extends React.Component {
+class EmptyPosition extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   onClick () {
     const {selectedHolder, holderLocation, holderPosition} = this.props
     this.props.setAdaptorPlace(selectedHolder, holderLocation, holderPosition)
@@ -19,7 +21,8 @@ class EmptyPosition extends React.Component {
   }
 }
 
-export default class Position extends React.Component {
+export default class Position extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   render () {
     const {holderLocation, holderPosition} = this.props
     const adaptor = this.props.adaptors.find(adaptor => {

@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { Component } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { Table } from 'react-bootstrap'
 import { HolderContainer } from './Holder'
 import { TargetPosition } from './TargetPosition'
 
-export class NoLocation extends React.Component {
+export class NoLocation extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   holders () {
     return this.props.adaptors.filter(holder => !holder.get('location'))
   }

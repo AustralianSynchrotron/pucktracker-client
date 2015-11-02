@@ -68,6 +68,7 @@ export class AdaptorSlot extends Component {
 }
 
 class PortToggleButtons extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   static propTypes = {
     puck: PropTypes.instanceOf(Puck),
     ports: ImmutablePropTypes.map,
