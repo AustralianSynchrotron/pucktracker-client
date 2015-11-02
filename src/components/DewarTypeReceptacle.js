@@ -8,6 +8,7 @@ import { PuckSelector } from './PuckSelector'
 import TypeaheadInput from './TypeaheadInput'
 
 export class DewarTypeReceptacle extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   constructor (props, context) {
     super(props, context)
     const receptacleKey = this.props.side + 'Dewar'
@@ -17,7 +18,6 @@ export class DewarTypeReceptacle extends Component {
       selectedReceptacle
     }
   }
-  shouldComponentUpdate = shouldPureComponentUpdate
   onChange (event) {
     const { history, location } = this.props
     const selectedReceptacle = event.target.value

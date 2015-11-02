@@ -4,6 +4,13 @@ import { Port } from './Port'
 import { Puck } from '../reducers/pucks'
 
 export class Slot extends Component {
+  static propTypes = {
+    name: PropTypes.string,
+    puck: PropTypes.instanceOf(Puck),
+    ports: ImmutablePropTypes.map,
+    onSlotClick: PropTypes.func,
+    onPortClick: PropTypes.func,
+  }
   renderPorts () {
     return this.props.ports.toList().map(port => (
       <Port key={port.number} port={port} slotName={this.props.name}
@@ -20,12 +27,4 @@ export class Slot extends Component {
       </div>
     )
   }
-}
-
-Slot.propTypes = {
-  name: PropTypes.string,
-  puck: PropTypes.instanceOf(Puck),
-  ports: ImmutablePropTypes.map,
-  onSlotClick: PropTypes.func,
-  onPortClick: PropTypes.func,
 }

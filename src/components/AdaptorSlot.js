@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import shouldPureComponentUpdate from 'react-pure-render/function'
 import { Map, List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { ButtonInput, ButtonGroup, Button, Input } from 'react-bootstrap'
@@ -9,6 +10,12 @@ import { Puck } from '../reducers/pucks'
 
 
 export class AdaptorSlot extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
+  static propTypes = {
+    selectedPuck: PropTypes.string,
+    puck: PropTypes.instanceOf(Puck),
+    ports: ImmutablePropTypes.map,
+  }
   constructor(props) {
     super(props)
     this.receivePuck = this.receivePuck.bind(this)
@@ -59,13 +66,13 @@ export class AdaptorSlot extends Component {
     )
   }
 }
-AdaptorSlot.propTypes = {
-  selectedPuck: PropTypes.string,
-  puck: PropTypes.instanceOf(Puck),
-  ports: ImmutablePropTypes.map,
-}
 
 class PortToggleButtons extends Component {
+  static propTypes = {
+    puck: PropTypes.instanceOf(Puck),
+    ports: ImmutablePropTypes.map,
+    disabled: PropTypes.bool,
+  }
   togglePorts (first, last) {
     const numbers = Array.apply(0, Array(last - first + 1)).map((o, i) => i + first)
     const firstPortKey = List.of(this.props.puck.name, first)
@@ -96,11 +103,6 @@ class PortToggleButtons extends Component {
       </ButtonGroup>
     )
   }
-}
-PortToggleButtons.propTypes = {
-  puck: PropTypes.instanceOf(Puck),
-  ports: ImmutablePropTypes.map,
-  disabled: PropTypes.bool,
 }
 
 function nextState (currentState) {

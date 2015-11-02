@@ -6,6 +6,11 @@ import { Port as PortModel } from '../reducers/ports'
 
 export class Port extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
+  static propTypes = {
+    port: PropTypes.instanceOf(PortModel),
+    slotName: PropTypes.string,
+    onPortClick: PropTypes.func,
+  }
   handleClick () {
     this.props.onPortClick(this.props.port)
   }
@@ -19,10 +24,4 @@ export class Port extends Component {
       </div>
     )
   }
-}
-
-Port.propTypes = {
-  port: PropTypes.instanceOf(PortModel),
-  slotName: PropTypes.string,
-  onPortClick: PropTypes.func,
 }

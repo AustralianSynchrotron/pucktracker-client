@@ -6,13 +6,13 @@ import { Row, Col, Input } from 'react-bootstrap'
 import { AdaptorSlot } from './AdaptorSlot'
 
 export class AdaptorTypeReceptacle extends React.Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
   constructor (props, context) {
     super(props, context)
     const receptacleKey = this.props.side + 'Adaptor'
     const {[receptacleKey]: selectedReceptacle=null} = this.props.location.query
     this.state = { selectedReceptacle }
   }
-  shouldComponentUpdate = shouldPureComponentUpdate
   onChange (event) {
     const { history, location } = this.props
     const selectedReceptacle = event.target.value

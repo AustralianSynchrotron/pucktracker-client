@@ -4,11 +4,18 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Input } from 'react-bootstrap'
 
 export default class TypeaheadInput extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate
+  static propTypes = {
+    value: PropTypes.string.isRequired,
+    options: ImmutablePropTypes.map,
+    onChange: PropTypes.func.isRequired,
+    placeholder: PropTypes.string,
+    buttonAfter: PropTypes.object,
+  }
   constructor (props) {
     super(props)
     this.state = {hideSelect: true}
   }
-  shouldComponentUpdate = shouldPureComponentUpdate
   onInputChange (event) {
     this.setState({hideSelect: false})
     this.props.onChange(event.target.value)
@@ -39,12 +46,4 @@ export default class TypeaheadInput extends Component {
       </form>
     )
   }
-}
-
-TypeaheadInput.propTypes = {
-  value: PropTypes.string.isRequired,
-  options: ImmutablePropTypes.map,
-  onChange: PropTypes.func.isRequired,
-  placeholder: PropTypes.string,
-  buttonAfter: PropTypes.object,
 }

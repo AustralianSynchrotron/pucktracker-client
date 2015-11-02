@@ -4,6 +4,12 @@ import { Puck } from '../reducers/pucks'
 
 
 export class PuckSelector extends Component {
+  static propTypes = {
+    puck: PropTypes.instanceOf(Puck),
+    selectedPuck: PropTypes.string,
+    setSelectedPuck: PropTypes.func,
+    onDelete: PropTypes.func,
+  }
   onSelection (event) {
     let selectedPuck = null
     if (this.props.selectedPuck !== this.props.puck.name) {
@@ -42,16 +48,12 @@ export class PuckSelector extends Component {
           }>
           {buttonText}
         </ButtonInput>
-        <Input type="text" standalone style={{marginTop: '6px'}}
-          value={note} placeholder="Notes" onChange={this.onNoteChange.bind(this)} />
+        <Input
+          type="text" standalone style={{marginTop: '6px'}}
+          value={note} placeholder="Notes"
+          onChange={this.onNoteChange.bind(this)}
+        />
       </div>
     )
   }
-}
-
-PuckSelector.propTypes = {
-  puck: PropTypes.instanceOf(Puck),
-  selectedPuck: PropTypes.string,
-  setSelectedPuck: PropTypes.func,
-  onDelete: PropTypes.func,
 }
