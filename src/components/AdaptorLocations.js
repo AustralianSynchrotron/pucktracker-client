@@ -36,6 +36,7 @@ function mapStateToProps(state) {
     connected: state.app.get('connected'),
     selectedHolder: state.app.get('selectedHolder'),
     adaptors: state.adaptors,
+    pucks: state.pucks,
   }
 }
 

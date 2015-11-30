@@ -13,10 +13,13 @@ export class NoLocation extends Component {
     this.props.setAdaptorPlace(this.props.selectedHolder, null, null)
     this.props.setSelectedHolder(null)
   }
+  hasPucks (holder) {
+    return !!this.props.pucks.find(puck => puck.receptacle === holder.name)
+  }
   render () {
     return (
       <div>
-        <h1>Other</h1>
+        <h1>Wall</h1>
         <Table striped>
           <thead>
             <tr><th>Holder</th></tr>
@@ -31,10 +34,12 @@ export class NoLocation extends Component {
               </td>
             </tr>
             {this.holders().toList().map(holder => (
-              <tr key={holder.get('name')}>
+              <tr key={holder.name}>
                 <td>
-                  <HolderContainer type='adaptor' name={holder.get('name')}
-                                   {...this.props}/>
+                  <HolderContainer type='adaptor' name={holder.name}
+                    className={this.hasPucks(holder) ? 'btn-danger' : ''}
+                    {...this.props}
+                  />
                 </td>
               </tr>
             ))}

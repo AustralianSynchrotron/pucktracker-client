@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import { ButtonInput, Button, Glyphicon } from 'react-bootstrap'
+import classNames from 'classnames'
 
 export class Holder extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -26,8 +27,9 @@ export class Holder extends Component {
         <Glyphicon glyph="edit" />
       </Button>
     )
+    const className = classNames('form-control', 'holder', this.props.className)
     return (
-      <ButtonInput className="form-control holder" standalone
+      <ButtonInput className={className} standalone
         active={this.isSelected()}
         onClick={this.onSelection.bind(this)}
         addonBefore={checkbox}
@@ -45,6 +47,7 @@ export class HolderContainer extends Component {
   }
   render () {
     return <Holder onSelection={this.onSelection.bind(this)}
+                   className={this.props.className}
                    {...this.props} />
   }
 }
