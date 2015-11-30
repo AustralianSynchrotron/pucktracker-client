@@ -18,7 +18,7 @@ describe('NoLocation', () => {
       'AS-01': Adaptor({name: 'AS-01'}),
     })
     const component = renderIntoDocument(
-      <NoLocation adaptors={adaptors}/>
+      <NoLocation adaptors={adaptors} pucks={Map()}/>
     )
     const cells = scryRenderedDOMComponentsWithClass(component, 'holder')
     expect(cells).to.have.length(1)
@@ -29,7 +29,7 @@ describe('NoLocation', () => {
       'AS-01': Adaptor({name: 'AS-01', location: 'MX1'}),
     })
     const component = renderIntoDocument(
-      <NoLocation adaptors={adaptors}/>
+      <NoLocation adaptors={adaptors} pucks={Map()}/>
     )
     const cells = scryRenderedDOMComponentsWithClass(component, 'holder')
     expect(cells).to.have.length(0)
