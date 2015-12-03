@@ -40,3 +40,12 @@ export function updatePuck (puck, update) {
     broadcast: true,
   }
 }
+
+export function clearPucksForReceptacle (receptacle, receptacleType) {
+  return {
+    type: 'CLEAR_PUCKS_FOR_RECEPTACLE',
+    receptacle,
+    receptacleType,
+    broadcast: true,
+  }
+}

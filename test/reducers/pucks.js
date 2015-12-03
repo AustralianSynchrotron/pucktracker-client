@@ -1,5 +1,5 @@
 import { Map } from 'immutable'
-import {expect} from 'chai'
+import { expect } from 'chai'
 import reducer, { Puck } from '../../src/reducers/pucks'
 
 describe('pucks reducer', () => {
@@ -79,6 +79,22 @@ describe('pucks reducer', () => {
     expect(state.get('ASP001').receptacle).to.equal(null)
     expect(state.get('ASP002').receptacle).to.equal('1002')
 
+  })
+
+  it('clears receptacle', () => {
+    const initialState = Map({
+      'ASP001': Puck({receptacle: 'AS-01', receptacleType: 'adaptor'}),
+      'ASP002': Puck({receptacle: 'AS-02', receptacleType: 'adaptor'}),
+    })
+    const action = {
+      type: 'CLEAR_PUCKS_FOR_RECEPTACLE',
+      receptacle: 'AS-01',
+      receptacleType: 'adaptor',
+    }
+    const state = reducer(initialState, action)
+    expect(state.get('ASP001').receptacle).to.equal(null)
+    expect(state.get('ASP001').receptacleType).to.equal(null)
+    expect(state.get('ASP002').receptacle).to.equal('AS-02')
   })
 
 })

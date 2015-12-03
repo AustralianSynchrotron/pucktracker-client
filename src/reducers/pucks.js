@@ -51,6 +51,16 @@ export default function reducer(state=OrderedMap(), action) {
         }
       })
     }
+    case 'CLEAR_PUCKS_FOR_RECEPTACLE': {
+      return state.map(puck => {
+        if (puck.receptacle === action.receptacle
+            && puck.receptacleType === action.receptacleType) {
+          return puck.merge({receptacle: null, receptacleType: null})
+        } else {
+          return puck
+        }
+      })
+    }
   }
   return state
 }

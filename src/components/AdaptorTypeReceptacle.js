@@ -1,9 +1,8 @@
-import React, { Component } from 'react'
-import { Map } from 'immutable'
+import React, { Component, PropTypes } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { Row, Col, Input } from 'react-bootstrap'
-import { AdaptorSlot } from './AdaptorSlot'
+import { Adaptor } from './Adaptor'
 
 export class AdaptorTypeReceptacle extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate
@@ -22,24 +21,12 @@ export class AdaptorTypeReceptacle extends Component {
     this.setState({selectedReceptacle})
   }
   pucksForSelectedReceptacle () {
-    if (!this.state.selectedReceptacle) return Map()
     return this.props.pucks.filter(puck =>
       puck.receptacleType === 'adaptor'
       && puck.receptacle === this.state.selectedReceptacle
     )
   }
-  portsForPuck (puck) {
-    if (!puck) { return Map() }
-    return this.props.ports.filter(port =>
-      port.containerType === 'puck' && port.container === puck.name
-    )
-  }
   render () {
-    const pucks = this.pucksForSelectedReceptacle()
-    const puck_a = pucks.find(puck => puck.slot === 'A')
-    const puck_b = pucks.find(puck => puck.slot === 'B')
-    const puck_c = pucks.find(puck => puck.slot === 'C')
-    const puck_d = pucks.find(puck => puck.slot === 'D')
     return (
       <div>
         <h1>
@@ -64,32 +51,22 @@ export class AdaptorTypeReceptacle extends Component {
           </Row>
         </h1>
         {this.state.selectedReceptacle ? (
-          <Row>
-            <Col md={6}>
-              <AdaptorSlot {...this.props} puck={puck_a} slot="A"
-                           selectedReceptacle={this.state.selectedReceptacle}
-                           ports={this.portsForPuck(puck_a)}
-              />
-              <AdaptorSlot {...this.props} puck={puck_b} slot="B"
-                           selectedReceptacle={this.state.selectedReceptacle}
-                           ports={this.portsForPuck(puck_b)}
-              />
-            </Col>
-            <Col md={6}>
-              <AdaptorSlot {...this.props} puck={puck_c} slot="C"
-                           selectedReceptacle={this.state.selectedReceptacle}
-                           ports={this.portsForPuck(puck_c)}
-              />
-              <AdaptorSlot {...this.props} puck={puck_d} slot="D"
-                           selectedReceptacle={this.state.selectedReceptacle}
-                           ports={this.portsForPuck(puck_d)}
-              />
-            </Col>
-          </Row>
+          <Adaptor
+            selectedReceptacle={this.state.selectedReceptacle}
+            selectedPuck={this.props.selectedPuck}
+            pucks={this.pucksForSelectedReceptacle()}
+            ports={this.props.ports}
+            setSelectedPuck={this.props.setSelectedPuck}
+            setPuckReceptacle={this.props.setPuckReceptacle}
+            updatePuck={this.props.updatePuck}
+            setPortState={this.props.setPortState}
+            setMultiplePortStates={this.props.setMultiplePortStates}
+            clearPucksForReceptacle={this.props.clearPucksForReceptacle}
+          />
         ) : (
           null
         )}
-    </div>
+      </div>
     )
   }
 }

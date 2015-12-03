@@ -48,4 +48,14 @@ describe('puck actions', () => {
     })
   })
 
+  it('clearPucksForReceptacle', () => {
+    const action = actions.clearPucksForReceptacle('AS-01', 'adaptor')
+    expect(action).to.eql({
+      type: 'CLEAR_PUCKS_FOR_RECEPTACLE',
+      receptacle: 'AS-01',
+      receptacleType: 'adaptor',
+      broadcast: true,
+    })
+  })
+
 })

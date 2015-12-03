@@ -55,6 +55,8 @@
     "react-transform-catch-errors": "1.0.0",
     "react-transform-hmr": "1.0.1",
     "redbox-react": "1.1.1",
+    "sinon": "1.17.2",
+    "sinon-chai": "2.8.0",
     "style-loader": "0.13.0",
     "webpack": "1.12.4",
     "webpack-dev-server": "1.12.1"
