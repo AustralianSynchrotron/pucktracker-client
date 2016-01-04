@@ -15,9 +15,9 @@ export class AdaptorTypeReceptacle extends Component {
   onChange (event) {
     const { history, location } = this.props
     const selectedReceptacle = event.target.value
-    let newQuery = location.query
-    newQuery[this.props.side + 'Adaptor'] = selectedReceptacle
-    this.props.history.pushState(null, location.pathname, newQuery)
+    let { pathname, query } = location
+    query[this.props.side + 'Adaptor'] = selectedReceptacle
+    this.context.router.push({pathname, query})
     this.setState({selectedReceptacle})
   }
   pucksForSelectedReceptacle () {
@@ -69,4 +69,7 @@ export class AdaptorTypeReceptacle extends Component {
       </div>
     )
   }
+}
+AdaptorTypeReceptacle.contextTypes = {
+  router: React.PropTypes.object
 }

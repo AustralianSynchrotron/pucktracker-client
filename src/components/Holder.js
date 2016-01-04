@@ -14,7 +14,7 @@ export class Holder extends Component {
   }
   goToAdaptor () {
     const query = { left: 'adaptor', leftAdaptor: this.props.name }
-    this.props.history.pushState(null, '/puck-transfer', query)
+    this.context.router.push({pathname: '/puck-transfer', query})
   }
   render () {
     const checkbox = (
@@ -38,6 +38,9 @@ export class Holder extends Component {
       </ButtonInput>
     )
   }
+}
+Holder.contextTypes = {
+  router: React.PropTypes.object
 }
 
 export class HolderContainer extends Component {

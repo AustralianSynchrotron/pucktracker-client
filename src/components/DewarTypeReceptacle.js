@@ -19,11 +19,10 @@ export class DewarTypeReceptacle extends Component {
     }
   }
   onChange (event) {
-    const { history, location } = this.props
     const selectedReceptacle = event.target.value
-    let newQuery = location.query
-    newQuery[this.props.side + 'Dewar'] = selectedReceptacle
-    this.props.history.pushState(null, location.pathname, newQuery)
+    let { pathname, query } = this.props.location
+    query[this.props.side + 'Dewar'] = selectedReceptacle
+    this.context.router.push({pathname, query})
     this.setState({selectedReceptacle})
   }
   pucksForSelectedReceptacle () {
@@ -115,4 +114,7 @@ export class DewarTypeReceptacle extends Component {
     </div>
     )
   }
+}
+DewarTypeReceptacle.contextTypes = {
+  router: React.PropTypes.object
 }

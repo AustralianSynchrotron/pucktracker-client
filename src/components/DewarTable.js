@@ -23,7 +23,7 @@ class Row extends Component {
       right: 'adaptor',
       leftDewar: this.props.dewar.name,
     }
-    this.context.history.pushState(null, '/puck-transfer', query)
+    this.context.router.push({pathname: '/puck-transfer', query})
     e.preventDefault()
   }
   handleRemoveClick (dewar) {
@@ -64,9 +64,8 @@ class Row extends Component {
     )
   }
 }
-
 Row.contextTypes = {
-  history: React.PropTypes.object.isRequired,
+  router: React.PropTypes.object.isRequired,
 }
 
 export class DewarTable extends Component {

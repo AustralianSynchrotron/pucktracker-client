@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import ReactDOM from 'react-dom'
-import Router, { Route, IndexRoute } from 'react-router'
-import {Provider} from 'react-redux'
-import {createStore, applyMiddleware} from 'redux'
+import Router, { Route, IndexRoute, hashHistory } from 'react-router'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
 import io from 'socket.io-client'
 import 'bootstrap/less/bootstrap.less'
-import { Navbar, NavBrand, Nav, NavItem, CollapsibleNav } from 'react-bootstrap'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import rootReducer from './reducers'
 import { ConnectedAdaptorLocations } from './components/AdaptorLocations'
@@ -49,10 +49,13 @@ class App extends Component {
   render () {
     return (
       <div>
-        <Navbar toggleNavKey={0}>
-          <NavBrand>Puck Tracker</NavBrand>
-          <CollapsibleNav eventKey={0}>
-            <Nav navbar>
+        <Navbar fluid>
+          <Navbar.Header>
+            <Navbar.Brand>Puck Tracker</Navbar.Brand>
+            <Navbar.Toggle/>
+          </Navbar.Header>
+          <Navbar.Collapse>
+            <Nav>
               <LinkContainer to="/adaptor-locations">
                 <NavItem>Adaptor Locations</NavItem>
               </LinkContainer>
@@ -75,7 +78,7 @@ class App extends Component {
                 LS3000
               </NavItem>
             </Nav>
-          </CollapsibleNav>
+          </Navbar.Collapse>
         </Navbar>
         <div className="container">
           {this.props.children}
@@ -91,7 +94,7 @@ function redirectToChild(location, replaceWith) {
 
 ReactDOM.render(
   <Provider store={store}>
-      <Router>
+      <Router history={hashHistory}>
         <Route path="/" component={App}>
           <IndexRoute onEnter={redirectToChild}/>
           <Route path="adaptor-locations" component={ConnectedAdaptorLocations}/>
