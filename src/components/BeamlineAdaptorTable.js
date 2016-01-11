@@ -3,7 +3,7 @@ import { Table } from 'react-bootstrap'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 
 export class BeamlineAdaptorTable extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   renderSlot (slot) {
     const puck = this.props.pucks.find(puck => puck.slot === slot)
     const { name: puckName, lastDewar: dewarName, note } = puck || {}

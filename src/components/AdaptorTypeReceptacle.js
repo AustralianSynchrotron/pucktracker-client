@@ -5,7 +5,7 @@ import { Row, Col, Input } from 'react-bootstrap'
 import { Adaptor } from './Adaptor'
 
 export class AdaptorTypeReceptacle extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   constructor (props, context) {
     super(props, context)
     const receptacleKey = this.props.side + 'Adaptor'

@@ -11,7 +11,7 @@ import { setPortState, setMultiplePortStates } from '../actions/ports'
 import Disconnected from './Disconnected'
 
 export class PuckTransfer extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
     if (!this.props.connected) return (<Disconnected />)
     return (
@@ -30,7 +30,7 @@ export class PuckTransfer extends Component {
 }
 
 class ReceptaclesPanel extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   constructor (props, context) {
     super(props, context)
     const { query } = this.props.location

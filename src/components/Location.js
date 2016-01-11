@@ -10,7 +10,7 @@ const POSITIONS = {
 }
 
 export default class Location extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
     const positions = POSITIONS[this.props.holderLocation]
     return (

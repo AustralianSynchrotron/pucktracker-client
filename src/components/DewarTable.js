@@ -4,7 +4,7 @@ import { Input, Button, Table, Glyphicon } from 'react-bootstrap'
 import EditableCell from './EditableCell'
 
 class Row extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   attributeChange (attribute, value) {
     const { name } = this.props.dewar
     this.props.updateDewar(name, {[attribute]: value})
@@ -69,7 +69,7 @@ Row.contextTypes = {
 }
 
 export class DewarTable extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
     return (
         <Table striped bordered condensed hover>

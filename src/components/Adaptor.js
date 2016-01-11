@@ -6,7 +6,7 @@ import { Row, Col, Button } from 'react-bootstrap'
 import { AdaptorSlot } from './AdaptorSlot'
 
 export class Adaptor extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   static propTypes = {
     pucks: ImmutablePropTypes.map.isRequired,
     ports: ImmutablePropTypes.map.isRequired,
@@ -18,7 +18,7 @@ export class Adaptor extends Component {
     setPortState: PropTypes.func.isRequired,
     setMultiplePortStates: PropTypes.func.isRequired,
     clearPucksForReceptacle: PropTypes.func.isRequired,
-  }
+  };
   portsForPuck (puck) {
     if (!puck) { return Map() }
     return this.props.ports.filter(port =>

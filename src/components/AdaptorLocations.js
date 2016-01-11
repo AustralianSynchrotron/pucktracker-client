@@ -9,7 +9,7 @@ import Location from './Location'
 import { NoLocation } from './NoLocation'
 
 export class AdaptorLocations extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
     if (!this.props.connected) return (<Disconnected />)
     return (

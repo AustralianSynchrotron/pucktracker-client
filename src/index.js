@@ -46,7 +46,7 @@ socket.on('action', action => {
 })
 
 class App extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
     return (
       <div>

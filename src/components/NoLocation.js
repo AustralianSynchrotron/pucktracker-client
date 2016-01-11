@@ -5,7 +5,7 @@ import { HolderContainer } from './Holder'
 import { TargetPosition } from './TargetPosition'
 
 export class NoLocation extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   holders () {
     return this.props.adaptors.filter(holder => !holder.get('location'))
   }

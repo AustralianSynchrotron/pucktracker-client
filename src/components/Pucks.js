@@ -7,7 +7,7 @@ import Disconnected from './Disconnected'
 import { PuckTable } from './PuckTable'
 
 export class Pucks extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   constructor (props) {
     super(props)
     this.state = {newPuckText: '', searchText: ''}

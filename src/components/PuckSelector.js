@@ -5,13 +5,13 @@ import { Puck } from '../reducers/pucks'
 
 
 export class PuckSelector extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   static propTypes = {
     puck: PropTypes.instanceOf(Puck),
     selectedPuck: PropTypes.string,
     setSelectedPuck: PropTypes.func,
     onDelete: PropTypes.func,
-  }
+  };
   onSelection (event) {
     let selectedPuck = null
     if (this.props.selectedPuck !== this.props.puck.name) {

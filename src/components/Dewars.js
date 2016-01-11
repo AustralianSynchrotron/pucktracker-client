@@ -9,7 +9,7 @@ import Disconnected from './Disconnected'
 import { DewarTable } from './DewarTable'
 
 export class Dewars extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   constructor (props) {
     super(props)
     this.state = {newDewarText: ''}

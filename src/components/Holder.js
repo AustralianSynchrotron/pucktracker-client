@@ -4,7 +4,7 @@ import { ButtonInput, Button, Glyphicon } from 'react-bootstrap'
 import classNames from 'classnames'
 
 export class Holder extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   onSelection () {
     const checked = !this.isSelected()
     this.props.onSelection(this.props.type, this.props.name, checked)
@@ -44,7 +44,7 @@ Holder.contextTypes = {
 }
 
 export class HolderContainer extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   onSelection (type, name, checked) {
     this.props.setSelectedHolder(checked ? name : null)
   }

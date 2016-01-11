@@ -5,7 +5,7 @@ import EditableCell from './EditableCell'
 
 
 class PuckRow extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   attributeChange (attribute, value) {
     const { name } = this.props.puck
     this.props.updatePuck(name, {[attribute]: value})
@@ -51,7 +51,7 @@ class PuckRow extends Component {
 
 
 export class PuckTable extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
     return (
       <Table striped bordered condensed hover>

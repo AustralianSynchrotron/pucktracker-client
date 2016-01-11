@@ -6,7 +6,7 @@ import { BeamlineAdaptorTable } from './BeamlineAdaptorTable'
 
 
 export class Beamline extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   findAdaptor (position, adaptors) {
     return adaptors.find(adaptor => adaptor.position === position)
   }

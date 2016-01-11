@@ -5,7 +5,7 @@ import { HolderContainer } from './Holder'
 import { TargetPosition } from './TargetPosition'
 
 class EmptyPosition extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   onClick () {
     const {selectedHolder, holderLocation, holderPosition} = this.props
     this.props.setAdaptorPlace(selectedHolder, holderLocation, holderPosition)
@@ -22,7 +22,7 @@ class EmptyPosition extends Component {
 }
 
 export default class Position extends Component {
-  shouldComponentUpdate = shouldPureComponentUpdate
+  shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
     const {holderLocation, holderPosition} = this.props
     const adaptor = this.props.adaptors.find(adaptor => {
