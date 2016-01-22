@@ -11,6 +11,13 @@ describe('app state reducer', () => {
     expect(state.get('connected')).to.equal(true)
   })
 
+  it('sets the database connected status', () => {
+    const initialState = Map()
+    const action = { type: 'SET_DATABASE_CONNECTED', connected: true }
+    const state = reducer(initialState, action)
+    expect(state.get('databaseConnected')).to.equal(true)
+  })
+
   it('sets selected holder', () => {
     const initialState = Map()
     const action = { type: 'SET_SELECTED_HOLDER', holder: 'AS-01' }

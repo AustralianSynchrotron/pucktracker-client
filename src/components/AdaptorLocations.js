@@ -4,14 +4,12 @@ import { connect } from 'react-redux'
 import { Grid, Row, Col } from 'react-bootstrap'
 import { setSelectedHolder } from '../actions/app'
 import { setAdaptorPlace } from '../actions/adaptors'
-import Disconnected from './Disconnected'
 import Location from './Location'
 import { NoLocation } from './NoLocation'
 
 export class AdaptorLocations extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
-    if (!this.props.connected) return (<Disconnected />)
     return (
       <Grid>
         <Row>
@@ -33,7 +31,6 @@ export class AdaptorLocations extends Component {
 
 function mapStateToProps(state) {
   return {
-    connected: state.app.get('connected'),
     selectedHolder: state.app.get('selectedHolder'),
     adaptors: state.adaptors,
     pucks: state.pucks,

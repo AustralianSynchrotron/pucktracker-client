@@ -5,6 +5,13 @@ export function setConnected (connected) {
   }
 }
 
+export function setDatabaseConnected (connected) {
+  return {
+    type: 'SET_DATABASE_CONNECTED',
+    connected,
+  }
+}
+
 export function setSelectedHolder (holder) {
   return {
     type: 'SET_SELECTED_HOLDER',

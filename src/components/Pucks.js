@@ -3,7 +3,6 @@ import shouldPureComponentUpdate from 'react-pure-render/function'
 import { connect } from 'react-redux'
 import { Row, Col, Input, Button } from 'react-bootstrap'
 import { addPuck, deletePuck, updatePuck } from '../actions/pucks'
-import Disconnected from './Disconnected'
 import { PuckTable } from './PuckTable'
 
 export class Pucks extends Component {
@@ -24,7 +23,6 @@ export class Pucks extends Component {
     this.setState({newPuckText: ''})
   }
   render () {
-    if (!this.props.connected) return (<Disconnected />)
     const searchText = this.state.searchText.toLowerCase()
     let pucks = this.props.pucks
     if (searchText) {
@@ -78,7 +76,6 @@ export class Pucks extends Component {
 
 function mapStateToProps(state) {
   return {
-    connected: state.app.get('connected'),
     pucks: state.pucks,
   }
 }

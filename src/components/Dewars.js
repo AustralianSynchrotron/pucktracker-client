@@ -5,7 +5,6 @@ import { Input, Button, Table } from 'react-bootstrap'
 import {
   addDewar, deleteDewar, updateDewar, setDewarOffsite
 } from '../actions/dewars'
-import Disconnected from './Disconnected'
 import { DewarTable } from './DewarTable'
 
 export class Dewars extends Component {
@@ -23,7 +22,6 @@ export class Dewars extends Component {
     this.setState({newDewarText: ''})
   }
   render () {
-    if (!this.props.connected) return (<Disconnected />)
     return (
       <div>
         <h1>Dewars</h1>
@@ -58,7 +56,6 @@ export class Dewars extends Component {
 
 function mapStateToProps(state) {
   return {
-    connected: state.app.get('connected'),
     dewars: state.dewars,
     newDewarText: state.app.get('newDewarText'),
   }

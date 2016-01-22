@@ -8,12 +8,10 @@ import { setSelectedPuck } from '../actions/app'
 import { setPuckReceptacle, updatePuck,
          clearPucksForReceptacle } from '../actions/pucks'
 import { setPortState, setMultiplePortStates } from '../actions/ports'
-import Disconnected from './Disconnected'
 
 export class PuckTransfer extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
-    if (!this.props.connected) return (<Disconnected />)
     return (
       <Grid>
         <Row>
@@ -63,7 +61,6 @@ ReceptaclesPanel.contextTypes = {
 
 function mapStateToProps(state) {
   return {
-    connected: state.app.get('connected'),
     selectedPuck: state.app.get('selectedPuck'),
     adaptors: state.adaptors,
     dewars: state.dewars,

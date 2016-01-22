@@ -10,6 +10,13 @@ describe('app actions', () => {
     })
   })
 
+  it('setDatabaseConnected should create an action', () => {
+    expect(actions.setDatabaseConnected(true)).to.eql({
+      type: 'SET_DATABASE_CONNECTED',
+      connected: true,
+    })
+  })
+
   it('setSelectedHolder should create an action', () => {
     expect(actions.setSelectedHolder('AS-01')).to.eql({
       type: 'SET_SELECTED_HOLDER',

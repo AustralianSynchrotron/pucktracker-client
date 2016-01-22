@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import ReactDOM from 'react-dom'
 import Router, { Route, IndexRoute, hashHistory } from 'react-router'
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import io from 'socket.io-client'
 import 'bootstrap/less/bootstrap.less'
 import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import rootReducer from './reducers'
+import Disconnected from './components/Disconnected'
 import { ConnectedAdaptorLocations } from './components/AdaptorLocations'
 import { ConnectedPuckTransfer } from './components/PuckTransfer'
 import { ConnectedDewars } from './components/Dewars'
@@ -82,12 +83,28 @@ class App extends Component {
           </Navbar.Collapse>
         </Navbar>
         <div className="container">
-          {this.props.children}
+          {this.renderPageContent()}
         </div>
       </div>
     )
   }
+  renderPageContent () {
+    if (!this.props.connected || !this.props.databaseConnected) {
+      return (
+        <Disconnected serverConnected={this.props.connected}
+                      databaseConnected={this.props.databaseConnected} />
+      )
+    }
+    return this.props.children
+  }
 }
+
+export const ConnectedApp = connect(
+  state => ({
+    connected: state.app.get('connected'),
+    databaseConnected: state.app.get('databaseConnected')
+  })
+)(App)
 
 function redirectToChild(location, replaceWith) {
   replaceWith(null, '/adaptor-locations')
@@ -96,7 +113,7 @@ function redirectToChild(location, replaceWith) {
 ReactDOM.render(
   <Provider store={store}>
       <Router history={hashHistory}>
-        <Route path="/" component={App}>
+        <Route path="/" component={ConnectedApp}>
           <IndexRoute onEnter={redirectToChild}/>
           <Route path="adaptor-locations" component={ConnectedAdaptorLocations}/>
           <Route path="puck-transfer" component={ConnectedPuckTransfer}/>
