@@ -3,17 +3,9 @@ import chai from 'chai'
 import chaiImmutable from 'chai-immutable'
 import sinonChai from 'sinon-chai'
 
-const doc = jsdom.jsdom('<!DOCTYPE html><html><body></body></html>')
-const win = doc.defaultView
-
-global.document = doc
-global.window = win
-
-Object.keys(window).forEach((key) => {
-  if (!(key in global)) {
-    global[key] = window[key]
-  }
-})
+global.document = jsdom.jsdom('<!DOCTYPE html><html><body></body></html>')
+global.window = document.defaultView
+global.navigator = window.navigator
 
 chai.use(chaiImmutable)
 chai.use(sinonChai)

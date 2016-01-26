@@ -34,7 +34,7 @@
     "react-router": "2.0.0-rc5",
     "react-router-bootstrap": "0.20.1",
     "react-wysiwyg": "2.2.1",
-    "redux": "3.0.5",
+    "redux": "3.0.6",
     "socket.io-client": "1.4.4"
   },
   "devDependencies": {
@@ -59,7 +59,7 @@
     "sinon": "1.17.2",
     "sinon-chai": "2.8.0",
     "style-loader": "0.13.0",
-    "webpack": "1.12.11",
+    "webpack": "1.12.12",
     "webpack-dev-server": "1.14.1"
   }
 }
