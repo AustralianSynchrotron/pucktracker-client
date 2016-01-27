@@ -1,11 +1,10 @@
 var webpack = require('webpack')
 
 module.exports = {
-  context: __dirname + '/src',
-  entry: {
-    javascript: './index.js',
-    html: './index.html',
-  },
+  entry: [
+    'webpack-hot-middleware/client',
+    './src/index',
+  ],
   output: {
     filename: 'app.js',
     path: __dirname + '/dist',
