@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import ReactDOM from 'react-dom'
-import Router, { Route, IndexRoute, hashHistory } from 'react-router'
+import Router, { Route, IndexRoute, browserHistory } from 'react-router'
 import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import io from 'socket.io-client'
@@ -112,7 +112,7 @@ function redirectToChild(location, replaceWith) {
 
 ReactDOM.render(
   <Provider store={store}>
-      <Router history={hashHistory}>
+      <Router history={browserHistory}>
         <Route path="/" component={ConnectedApp}>
           <IndexRoute onEnter={redirectToChild}/>
           <Route path="adaptor-locations" component={ConnectedAdaptorLocations}/>
