@@ -18,8 +18,12 @@ import { ConnectedBeamline } from './components/Beamline'
 import { setConnected } from './actions/app'
 import './styles/pucks.less'
 
+import config from '../config'
 
-const socket = io(`${location.protocol}//${location.hostname}:5901`)
+const env = process.env.NODE_ENV || 'development'
+const serverPort = config[env].serverPort
+
+const socket = io(`${location.protocol}//${location.hostname}:${serverPort}`)
 
 const remoteActionMiddleware = socket => store => next => action => {
   if (action.broadcast) {
