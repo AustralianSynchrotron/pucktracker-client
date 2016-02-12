@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import ReactDOM from 'react-dom'
-import Router, { Route, IndexRoute, browserHistory } from 'react-router'
+import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import { Provider, connect } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import io from 'socket.io-client'
@@ -116,18 +116,18 @@ function redirectToChild(location, replaceWith) {
 
 ReactDOM.render(
   <Provider store={store}>
-      <Router history={browserHistory}>
-        <Route path="/" component={ConnectedApp}>
-          <IndexRoute onEnter={redirectToChild}/>
-          <Route path="adaptor-locations" component={ConnectedAdaptorLocations}/>
-          <Route path="puck-transfer" component={ConnectedPuckTransfer}/>
-          <Route path="dewars" component={ConnectedDewars}/>
-          <Route path="pucks" component={ConnectedPucks}/>
-          <Route path="mx1" component={ConnectedBeamline}/>
-          <Route path="mx2" component={ConnectedBeamline}/>
-          <Route path="ls3000" component={ConnectedBeamline}/>
-        </Route>
-      </Router>
+    <Router history={browserHistory}>
+      <Route path="/" component={ConnectedApp}>
+        <IndexRoute onEnter={redirectToChild}/>
+        <Route path="adaptor-locations" component={ConnectedAdaptorLocations}/>
+        <Route path="puck-transfer" component={ConnectedPuckTransfer}/>
+        <Route path="dewars" component={ConnectedDewars}/>
+        <Route path="pucks" component={ConnectedPucks}/>
+        <Route path="mx1" component={ConnectedBeamline}/>
+        <Route path="mx2" component={ConnectedBeamline}/>
+        <Route path="ls3000" component={ConnectedBeamline}/>
+      </Route>
+    </Router>
   </Provider>,
   document.getElementById('app')
 )
