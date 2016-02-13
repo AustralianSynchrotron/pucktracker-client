@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
-import { List } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { browserHistory } from 'react-router'
+import { List } from 'immutable'
 import { Row, Col, Input, Button, ListGroup, ListGroupItem } from 'react-bootstrap'
 import { TargetPosition } from './TargetPosition'
 import { PuckSelector } from './PuckSelector'
@@ -9,8 +10,8 @@ import TypeaheadInput from './TypeaheadInput'
 
 export class DewarTypeReceptacle extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
-  constructor (props, context) {
-    super(props, context)
+  constructor (props) {
+    super(props)
     const receptacleKey = this.props.side + 'Dewar'
     const {[receptacleKey]: selectedReceptacle=null} = this.props.location.query
     this.state = {
@@ -22,7 +23,7 @@ export class DewarTypeReceptacle extends Component {
     const selectedReceptacle = event.target.value
     let { pathname, query } = this.props.location
     query[this.props.side + 'Dewar'] = selectedReceptacle
-    this.context.router.push({pathname, query})
+    browserHistory.push({pathname, query})
     this.setState({selectedReceptacle})
   }
   pucksForSelectedReceptacle () {
@@ -114,7 +115,4 @@ export class DewarTypeReceptacle extends Component {
     </div>
     )
   }
-}
-DewarTypeReceptacle.contextTypes = {
-  router: React.PropTypes.object
 }

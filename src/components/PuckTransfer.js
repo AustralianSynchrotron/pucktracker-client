@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import { connect } from 'react-redux'
+import { browserHistory } from 'react-router'
 import { Grid, Row, Col, Tabs, Tab } from 'react-bootstrap'
 import { AdaptorTypeReceptacle } from './AdaptorTypeReceptacle'
 import { DewarTypeReceptacle } from './DewarTypeReceptacle'
@@ -29,8 +30,8 @@ export class PuckTransfer extends Component {
 
 class ReceptaclesPanel extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
-  constructor (props, context) {
-    super(props, context)
+  constructor (props) {
+    super(props)
     const { query } = this.props.location
     const key = query[props.side] || (props.side == 'left' ? 'adaptor' : 'dewar')
     this.state = { key }
@@ -38,7 +39,7 @@ class ReceptaclesPanel extends Component {
   handleSelect (key) {
     let { pathname, query } = this.props.location
     query[this.props.side] = key
-    this.context.router.push({pathname, query})
+    browserHistory.push({pathname, query})
     this.setState({key})
   }
   render () {
@@ -54,9 +55,6 @@ class ReceptaclesPanel extends Component {
       </Tabs>
     )
   }
-}
-ReceptaclesPanel.contextTypes = {
-  router: React.PropTypes.object,
 }
 
 function mapStateToProps(state) {

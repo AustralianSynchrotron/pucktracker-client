@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
+import { browserHistory } from 'react-router'
 import { Input, Button, Table, Glyphicon } from 'react-bootstrap'
 import EditableCell from './EditableCell'
 
@@ -23,7 +24,7 @@ class Row extends Component {
       right: 'adaptor',
       leftDewar: this.props.dewar.name,
     }
-    this.context.router.push({pathname: '/puck-transfer', query})
+    browserHistory.push({pathname: '/puck-transfer', query})
     e.preventDefault()
   }
   handleRemoveClick (dewar) {
@@ -63,9 +64,6 @@ class Row extends Component {
       </tr>
     )
   }
-}
-Row.contextTypes = {
-  router: React.PropTypes.object.isRequired,
 }
 
 export class DewarTable extends Component {

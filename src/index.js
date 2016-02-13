@@ -110,8 +110,8 @@ export const ConnectedApp = connect(
   })
 )(App)
 
-function redirectToChild(location, replaceWith) {
-  replaceWith(null, '/adaptor-locations')
+function redirectToChild(nextState, replace) {
+  replace('/adaptor-locations')
 }
 
 ReactDOM.render(

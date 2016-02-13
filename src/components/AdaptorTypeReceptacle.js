@@ -1,13 +1,14 @@
 import React, { Component, PropTypes } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { browserHistory } from 'react-router'
 import { Row, Col, Input } from 'react-bootstrap'
 import { Adaptor } from './Adaptor'
 
 export class AdaptorTypeReceptacle extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
-  constructor (props, context) {
-    super(props, context)
+  constructor (props) {
+    super(props)
     const receptacleKey = this.props.side + 'Adaptor'
     const {[receptacleKey]: selectedReceptacle=null} = this.props.location.query
     this.state = { selectedReceptacle }
@@ -17,7 +18,7 @@ export class AdaptorTypeReceptacle extends Component {
     const selectedReceptacle = event.target.value
     let { pathname, query } = location
     query[this.props.side + 'Adaptor'] = selectedReceptacle
-    this.context.router.push({pathname, query})
+    browserHistory.push({pathname, query})
     this.setState({selectedReceptacle})
   }
   pucksForSelectedReceptacle () {
@@ -69,7 +70,4 @@ export class AdaptorTypeReceptacle extends Component {
       </div>
     )
   }
-}
-AdaptorTypeReceptacle.contextTypes = {
-  router: React.PropTypes.object
 }

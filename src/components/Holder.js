@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
+import { browserHistory } from 'react-router'
 import { ButtonInput, Button, Glyphicon } from 'react-bootstrap'
 import classNames from 'classnames'
 
@@ -14,7 +15,7 @@ export class Holder extends Component {
   }
   goToAdaptor () {
     const query = { left: 'adaptor', leftAdaptor: this.props.name }
-    this.context.router.push({pathname: '/puck-transfer', query})
+    browserHistory.push({pathname: '/puck-transfer', query})
   }
   render () {
     const checkbox = (
@@ -38,9 +39,6 @@ export class Holder extends Component {
       </ButtonInput>
     )
   }
-}
-Holder.contextTypes = {
-  router: React.PropTypes.object
 }
 
 export class HolderContainer extends Component {
