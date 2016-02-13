@@ -9,6 +9,23 @@ export const Dewar = Record({
   containerType: '',
   expectedContainers: '',
   onsite: null,
+  department: '',
+  streetAddress: '',
+  city: '',
+  state: '',
+  postcode: '',
+  country: '',
+  phone: '',
+  email: '',
+  returnDewar: null,
+  courier: '',
+  courierAccount: '',
+  addedTime: null,
+  arrivedTime: null,
+  departedTime: null,
+  experimentStartTime: null,
+  experimentEndTime: null,
+  filledTime: null,
 })
 
 export default function reducer(state=OrderedMap(), action) {
@@ -32,6 +49,10 @@ export default function reducer(state=OrderedMap(), action) {
     }
     case 'SET_DEWAR_OFFSITE': {
       return state.setIn([action.dewar, 'onsite'], false)
+    }
+    case 'DEWAR_FILLED': {
+      const filledTime = action.time || new Date()
+      return state.setIn([action.dewar, 'filledTime'], filledTime)
     }
   }
   return state

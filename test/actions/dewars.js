@@ -1,4 +1,5 @@
-import {expect} from 'chai'
+import { expect } from 'chai'
+import sinon from 'sinon'
 import * as actions from '../../src/actions/dewars'
 
 describe('dewar actions', () => {
@@ -11,13 +12,23 @@ describe('dewar actions', () => {
   })
 
   it('addDewar should create an action to add dewars', () => {
-    expect(actions.addDewar({name: '1001'})).to.eql({
+    const now = new Date()
+    const action = actions.addDewar({name: '1001', addedTime: now})
+    expect(action).to.eql({
       type: 'ADD_DEWAR',
       dewar: {
         name: '1001',
+        addedTime: now,
       },
       broadcast: true,
     })
+  })
+
+  it('addDewar should assign a date if it is not given', () => {
+    const now = new Date()
+    sinon.useFakeTimers(now.getTime())
+    const action = actions.addDewar({name: '1001'})
+    expect(action.dewar.addedTime).to.eql(now)
   })
 
   it('updateDewar should create an action to update the dewar', () => {
@@ -41,6 +52,17 @@ describe('dewar actions', () => {
     expect(actions.deleteDewar('1001')).to.eql({
       type: 'DELETE_DEWAR',
       dewar: '1001',
+      broadcast: true,
+    })
+  })
+
+  it('addDewar should assign a date if it is not given', () => {
+    const now = new Date()
+    sinon.useFakeTimers(now.getTime())
+    expect(actions.setDewarFilled('1001')).to.eql({
+      type: 'DEWAR_FILLED',
+      dewar: '1001',
+      time: now,
       broadcast: true,
     })
   })

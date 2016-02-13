@@ -6,6 +6,9 @@ export function setDewars (dewars) {
 }
 
 export function addDewar (dewar) {
+  if (!dewar.addedTime) {
+    dewar.addedTime = new Date()
+  }
   return {
     type: 'ADD_DEWAR',
     dewar,
@@ -34,6 +37,15 @@ export function setDewarOffsite (dewar) {
   return {
     type: 'SET_DEWAR_OFFSITE',
     dewar,
+    broadcast: true,
+  }
+}
+
+export function setDewarFilled (dewar) {
+  return {
+    type: 'DEWAR_FILLED',
+    dewar,
+    time: new Date(),
     broadcast: true,
   }
 }

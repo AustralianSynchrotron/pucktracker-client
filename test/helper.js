@@ -6,6 +6,7 @@ import sinonChai from 'sinon-chai'
 global.document = jsdom.jsdom('<!DOCTYPE html><html><body></body></html>')
 global.window = document.defaultView
 global.navigator = window.navigator
+window.getSelection = () => {}
 
 chai.use(chaiImmutable)
 chai.use(sinonChai)

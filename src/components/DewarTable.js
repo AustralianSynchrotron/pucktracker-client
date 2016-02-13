@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import { browserHistory } from 'react-router'
-import { Input, Button, Table, Glyphicon } from 'react-bootstrap'
+import moment from 'moment'
+import { Input, Button, ButtonGroup, Table, Glyphicon } from 'react-bootstrap'
 import EditableCell from './EditableCell'
 
-class Row extends Component {
+export class DewarTableRow extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   attributeChange (attribute, value) {
     const { name } = this.props.dewar
@@ -51,49 +52,61 @@ class Row extends Component {
         <EditableCell value={dewar.note}
           onChange={this.attributeChange.bind(this, 'note')} />
         <td>
-          <Button block
-            onClick={this.changeDewarSite.bind(this, !dewar.onsite)}>
-            { dewar.onsite ? 'Move Off Site' : 'Move On Site' }
-          </Button>
+          <Time value={dewar.filledTime} format="YYYY-MM-DD HH:mm" />
         </td>
         <td>
-          <Button block onClick={this.handleRemoveClick.bind(this, dewar)}>
-            <Glyphicon glyph="remove" />
-          </Button>
+          <ButtonGroup>
+            <Button className='dewar-filled'
+                    onClick={() => this.props.setDewarFilled(dewar.name)}>
+              <Glyphicon glyph='tint' />
+            </Button>
+            <Button onClick={this.changeDewarSite.bind(this, !dewar.onsite)}>
+              <Glyphicon glyph={dewar.onsite ? 'export' : 'import'} />
+            </Button>
+            <Button onClick={this.handleRemoveClick.bind(this, dewar)}>
+              <Glyphicon glyph="remove" />
+            </Button>
+          </ButtonGroup>
         </td>
       </tr>
     )
   }
 }
 
+const Time = (props) => {
+  if (!props.value) return <span/>
+  return <time>{moment(props.value).format(props.format)}</time>
+}
+
 export class DewarTable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
     return (
-        <Table striped bordered condensed hover>
-          <thead>
-            <tr>
-              <th>Dewar</th>
-              <th>EPN</th>
-              <th>Name</th>
-              <th>Institute</th>
-              <th>Type</th>
-              <th>Expected Pucks</th>
-              <th>Notes</th>
-              <th>Ship</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.dewars.toList().map(dewar =>
-              <Row key={dewar.name} dewar={dewar}
-                deleteDewar={this.props.deleteDewar}
-                updateDewar={this.props.updateDewar}
-                setDewarOffsite={this.props.setDewarOffsite}
-              />
-            )}
-          </tbody>
-        </Table>
+      <Table striped bordered condensed hover>
+        <thead>
+          <tr>
+            <th>Dewar</th>
+            <th>EPN</th>
+            <th>Name</th>
+            <th>Institute</th>
+            <th>Type</th>
+            <th>Expected Pucks</th>
+            <th>Notes</th>
+            <th>Filled</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {this.props.dewars.toList().map(dewar =>
+            <DewarTableRow key={dewar.name} dewar={dewar}
+              deleteDewar={this.props.deleteDewar}
+              updateDewar={this.props.updateDewar}
+              setDewarOffsite={this.props.setDewarOffsite}
+              setDewarFilled={this.props.setDewarFilled}
+            />
+          )}
+        </tbody>
+      </Table>
     )
   }
 }
