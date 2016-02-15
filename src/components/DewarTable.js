@@ -36,6 +36,7 @@ export class DewarTableRow extends Component {
   }
   render () {
     const { dewar } = this.props
+    const expectedContainers = dewar.expectedContainers.replace(/,/g, ' ')
     return (
       <tr key={dewar.name}>
         <th><a href="#" onClick={this.onDewarClick.bind(this)}>{dewar.name}</a></th>
@@ -47,14 +48,13 @@ export class DewarTableRow extends Component {
           onChange={this.attributeChange.bind(this, 'institute')}/>
         <EditableCell value={dewar.containerType}
           onChange={this.attributeChange.bind(this, 'containerType')}/>
-        <EditableCell value={dewar.expectedContainers}
-          onChange={this.attributeChange.bind(this, 'expectedContainers')}/>
+        <td className='expected-containers'>{expectedContainers}</td>
         <EditableCell value={dewar.note}
           onChange={this.attributeChange.bind(this, 'note')} />
         <td>
           <Time value={dewar.filledTime} format="YYYY-MM-DD HH:mm" />
         </td>
-        <td>
+        <td style={{width: '150px'}}>
           <ButtonGroup>
             <Button className='dewar-filled'
                     onClick={() => this.props.setDewarFilled(dewar.name)}>
@@ -82,7 +82,7 @@ export class DewarTable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
     return (
-      <Table striped bordered condensed hover>
+      <Table striped bordered condensed hover style={{fontSize: '13px'}}>
         <thead>
           <tr>
             <th>Dewar</th>
