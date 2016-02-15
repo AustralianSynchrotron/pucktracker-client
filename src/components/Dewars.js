@@ -3,7 +3,8 @@ import shouldPureComponentUpdate from 'react-pure-render/function'
 import { connect } from 'react-redux'
 import { Input, Button, Table } from 'react-bootstrap'
 import {
-  addDewar, deleteDewar, updateDewar, setDewarOffsite, setDewarFilled
+  addDewar, deleteDewar, updateDewar, setDewarOffsite,
+  setDewarFilled, setDewarMissing
 } from '../actions/dewars'
 import { DewarTable } from './DewarTable'
 
@@ -42,6 +43,7 @@ export class Dewars extends Component {
           updateDewar={this.props.updateDewar}
           setDewarOffsite={this.props.setDewarOffsite}
           setDewarFilled={this.props.setDewarFilled}
+          setDewarMissing={this.props.setDewarMissing}
         />
         <h2>Off Site</h2>
         <DewarTable
@@ -50,6 +52,7 @@ export class Dewars extends Component {
           updateDewar={this.props.updateDewar}
           setDewarOffsite={this.props.setDewarOffsite}
           setDewarFilled={this.props.setDewarFilled}
+          setDewarMissing={this.props.setDewarMissing}
         />
       </div>
     )
@@ -65,5 +68,8 @@ function mapStateToProps(state) {
 
 export const ConnectedDewars = connect(
   mapStateToProps,
-  {addDewar, deleteDewar, updateDewar, setDewarOffsite, setDewarFilled}
+  {
+    addDewar, deleteDewar, updateDewar, setDewarOffsite,
+    setDewarFilled, setDewarMissing,
+  }
 )(Dewars)

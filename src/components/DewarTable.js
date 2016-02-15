@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import { browserHistory } from 'react-router'
 import moment from 'moment'
-import { Input, Button, ButtonGroup, Table, Glyphicon } from 'react-bootstrap'
+import {
+  Input, Button, ButtonGroup, Table, Glyphicon, OverlayTrigger, Tooltip
+} from 'react-bootstrap'
 import EditableCell from './EditableCell'
 
 export class DewarTableRow extends Component {
@@ -34,11 +36,15 @@ export class DewarTableRow extends Component {
       this.props.deleteDewar(dewar.name)
     }
   }
+  handleMissingClick () {
+    this.props.setDewarMissing(this.props.dewar.name, !this.props.dewar.missing)
+  }
   render () {
     const { dewar } = this.props
+    const { name } = dewar
     const expectedContainers = dewar.expectedContainers.replace(/,/g, ' ')
     return (
-      <tr key={dewar.name}>
+      <tr key={dewar.name} className={dewar.missing ? 'danger' : null}>
         <th><a href="#" onClick={this.onDewarClick.bind(this)}>{dewar.name}</a></th>
         <EditableCell value={dewar.epn}
           onChange={this.attributeChange.bind(this, 'epn')} />
@@ -54,24 +60,46 @@ export class DewarTableRow extends Component {
         <td>
           <Time value={dewar.filledTime} format="YYYY-MM-DD HH:mm" />
         </td>
-        <td style={{width: '150px'}}>
+        <td style={{width: '180px'}}>
           <ButtonGroup>
-            <Button className='dewar-filled'
-                    onClick={() => this.props.setDewarFilled(dewar.name)}>
-              <Glyphicon glyph='tint' />
-            </Button>
-            <Button onClick={this.changeDewarSite.bind(this, !dewar.onsite)}>
-              <Glyphicon glyph={dewar.onsite ? 'export' : 'import'} />
-            </Button>
-            <Button onClick={this.handleRemoveClick.bind(this, dewar)}>
-              <Glyphicon glyph="remove" />
-            </Button>
+            <Label text='Dewar filled' tipId={`${name}-filled`}>
+              <Button className='dewar-filled'
+                      onClick={() => this.props.setDewarFilled(dewar.name)}>
+                <Glyphicon glyph='tint' />
+              </Button>
+            </Label>
+            <Label text={`Set dewar ${dewar.onsite ? 'off site' : 'on site'}`}
+                   tipId={`${name}-onsite`}>
+              <Button onClick={this.changeDewarSite.bind(this, !dewar.onsite)}>
+                <Glyphicon glyph={dewar.onsite ? 'export' : 'import'} />
+              </Button>
+            </Label>
+            <Label text={`Flag dewar ${dewar.missing ? 'found' : 'missing'}`}
+                   tipId={`${name}-missing`}>
+              <Button className='dewar-missing'
+                onClick={() => this.handleMissingClick()}>
+                <Glyphicon glyph={dewar.missing ? 'ok-sign' : 'question-sign'} />
+              </Button>
+            </Label>
+            <Label text='Delete dewar' tipId={`${name}-delete`}>
+              <Button onClick={this.handleRemoveClick.bind(this, dewar)}>
+                <Glyphicon glyph="remove" />
+              </Button>
+            </Label>
           </ButtonGroup>
         </td>
       </tr>
     )
   }
 }
+
+const Label = (props) => (
+  <OverlayTrigger placement="top" overlay={
+    <Tooltip id={props.tipId}>{props.text}</Tooltip>
+  }>
+    {props.children}
+  </OverlayTrigger>
+)
 
 const Time = (props) => {
   if (!props.value) return <span/>
@@ -103,6 +131,7 @@ export class DewarTable extends Component {
               updateDewar={this.props.updateDewar}
               setDewarOffsite={this.props.setDewarOffsite}
               setDewarFilled={this.props.setDewarFilled}
+              setDewarMissing={this.props.setDewarMissing}
             />
           )}
         </tbody>

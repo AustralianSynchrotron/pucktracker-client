@@ -26,6 +26,7 @@ export const Dewar = Record({
   experimentStartTime: null,
   experimentEndTime: null,
   filledTime: null,
+  missing: false,
 })
 
 export default function reducer(state=OrderedMap(), action) {

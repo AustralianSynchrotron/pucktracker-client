@@ -57,6 +57,7 @@ describe('dewars reducer', () => {
         experimentStartTime: now,
         experimentEndTime: now,
         filledTime: now,
+        missing: false,
       },
     }
     const state = reducer(initialState, action)
@@ -86,6 +87,7 @@ describe('dewars reducer', () => {
     expect(dewar.experimentStartTime).to.eql(now)
     expect(dewar.experimentEndTime).to.eql(now)
     expect(dewar.filledTime).to.eql(now)
+    expect(dewar.missing).to.equal(false)
   })
 
   it('deletes dewars', () => {

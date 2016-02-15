@@ -1,8 +1,9 @@
 import React from 'react'
-import { render, mount } from 'enzyme'
+import { render, mount, shallow } from 'enzyme'
 import { expect } from 'chai'
 import sinon from 'sinon'
 import { Map } from 'immutable'
+import { Glyphicon } from 'react-bootstrap'
 import { DewarTableRow } from '../../src/components/DewarTable'
 import { Dewar } from '../../src/reducers/dewars'
 
@@ -60,6 +61,48 @@ describe('DewarTableRow', () => {
     )
     wrapper.find('.dewar-filled').simulate('click')
     expect(setDewarFilled).to.have.been.calledWith('d-123a-1')
+  })
+
+  describe('missing button', () => {
+
+    it('has a "set missing" icon when dewar is not missing', () => {
+      const wrapper = shallow(<DewarTableRow dewar={Dewar({missing: false})}/>)
+      expect(wrapper.contains(<Glyphicon glyph="question-sign"/>)).to.equal(true)
+    })
+
+    it('has a "set icon" icon when dewar is missing', () => {
+        const wrapper = shallow(<DewarTableRow dewar={Dewar({missing: true})}/>)
+        expect(wrapper.contains(<Glyphicon glyph="ok-sign"/>)).to.equal(true)
+    })
+
+    it('sets dewars missing if they are presently labeled not missing', () => {
+      const setDewarMissing = sinon.spy()
+      const wrapper = mount(
+        <table>
+          <tbody>
+            <DewarTableRow dewar={Dewar({name: 'd-123a-1', missing: false})}
+                           setDewarMissing={setDewarMissing} />
+          </tbody>
+        </table>
+      )
+      wrapper.find('.dewar-missing').simulate('click')
+      expect(setDewarMissing).to.have.been.calledWith('d-123a-1', true)
+    })
+
+    it('sets dewars not missing if they are presently labeled missing', () => {
+      const setDewarMissing = sinon.spy()
+      const wrapper = mount(
+        <table>
+          <tbody>
+            <DewarTableRow dewar={Dewar({name: 'd-123a-1', missing: true})}
+                           setDewarMissing={setDewarMissing} />
+          </tbody>
+        </table>
+      )
+      wrapper.find('.dewar-missing').simulate('click')
+      expect(setDewarMissing).to.have.been.calledWith('d-123a-1', false)
+    })
+
   })
 
 })

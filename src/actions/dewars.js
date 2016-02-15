@@ -49,3 +49,7 @@ export function setDewarFilled (dewar) {
     broadcast: true,
   }
 }
+
+export function setDewarMissing (dewar, missing) {
+  return updateDewar(dewar, {missing})
+}
