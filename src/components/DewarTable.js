@@ -109,6 +109,9 @@ const Time = (props) => {
 export class DewarTable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
+    const { dewars, displayNumber } = this.props
+    let dewarsToDisplay = dewars.toList().sortBy(dewar => dewar.addedTime)
+    if (displayNumber) { dewarsToDisplay = dewarsToDisplay.takeLast(displayNumber) }
     return (
       <Table striped bordered condensed hover style={{fontSize: '13px'}}>
         <thead>
@@ -125,7 +128,7 @@ export class DewarTable extends Component {
           </tr>
         </thead>
         <tbody>
-          {this.props.dewars.toList().map(dewar =>
+          {dewarsToDisplay.map(dewar =>
             <DewarTableRow key={dewar.name} dewar={dewar}
               deleteDewar={this.props.deleteDewar}
               updateDewar={this.props.updateDewar}

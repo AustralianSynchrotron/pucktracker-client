@@ -4,8 +4,26 @@ import { expect } from 'chai'
 import sinon from 'sinon'
 import { Map } from 'immutable'
 import { Glyphicon } from 'react-bootstrap'
-import { DewarTableRow } from '../../src/components/DewarTable'
+import { DewarTable, DewarTableRow } from '../../src/components/DewarTable'
 import { Dewar } from '../../src/reducers/dewars'
+
+
+describe('DewarTable', () => {
+
+  it('only renders "displayNumber" dewars', () => {
+    const dewars = Map({
+      'old': Dewar({name: 'old', addedTime: new Date(2015, 0, 1)}),
+      'new': Dewar({name: 'new', addedTime: new Date(2016, 0, 1)}),
+      'oldest': Dewar({name: 'oldest', addedTime: new Date(2014, 0, 1)}),
+    })
+    const wrapper = render(<DewarTable dewars={dewars} displayNumber={2}/>)
+    expect(wrapper.text()).to.contain('old')
+    expect(wrapper.text()).to.contain('new')
+    expect(wrapper.text()).not.to.contain('oldest')
+  })
+
+})
+
 
 describe('DewarTableRow', () => {
 

@@ -48,6 +48,7 @@ export class Dewars extends Component {
         <h2>Off Site</h2>
         <DewarTable
           dewars={this.props.dewars.filter(dewar => !dewar.onsite)}
+          displayNumber={10}
           deleteDewar={this.props.deleteDewar}
           updateDewar={this.props.updateDewar}
           setDewarOffsite={this.props.setDewarOffsite}
