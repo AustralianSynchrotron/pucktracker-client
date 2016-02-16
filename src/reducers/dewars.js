@@ -40,6 +40,7 @@ export default function reducer(state=OrderedMap(), action) {
     }
     case 'ADD_DEWAR': {
       if (state.has(action.dewar.name)) { return state }
+      if (!action.dewar.addedTime) { action.dewar.addedTime = new Date() }
       return state.set(action.dewar.name, new Dewar(action.dewar))
     }
     case 'DELETE_DEWAR': {

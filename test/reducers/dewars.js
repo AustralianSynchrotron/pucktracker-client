@@ -26,68 +26,79 @@ describe('dewars reducer', () => {
     expect(state.getIn(['1001', 'name'])).to.equal('1001')
   })
 
-  it('adds dewars', () => {
-    const now = new Date()
-    const initialState = Map()
-    const action = {
-      type: 'ADD_DEWAR',
-      dewar: {
-        name: '1001',
-        epn: '123a',
-        owner: 'Jane',
-        institute: 'Some University',
-        note: 'Keep onsite',
-        containerType: 'pucks',
-        expectedContainers: 'ASP001,ASP002',
-        onsite: true,
-        department: 'Chemistry',
-        streetAddress: '1 Main Rd',
-        city: 'Melbourne',
-        state: 'VIC',
-        postcode: '3000',
-        country: 'Australia',
-        phone: '123-456-789',
-        email: 'jane@example.com',
-        returnDewar: true,
-        courier: 'Fast Deliveries',
-        courierAccount: '122333',
-        addedTime: now,
-        arrivedTime: now,
-        departedTime: now,
-        experimentStartTime: now,
-        experimentEndTime: now,
-        filledTime: now,
-        missing: false,
-      },
-    }
-    const state = reducer(initialState, action)
-    const dewar = state.get('1001')
-    expect(dewar.name).to.equal('1001')
-    expect(dewar.epn).to.equal('123a')
-    expect(dewar.owner).to.equal('Jane')
-    expect(dewar.institute).to.equal('Some University')
-    expect(dewar.note).to.equal('Keep onsite')
-    expect(dewar.containerType).to.equal('pucks')
-    expect(dewar.expectedContainers).to.equal('ASP001,ASP002')
-    expect(dewar.onsite).to.equal(true)
-    expect(dewar.department).to.equal('Chemistry')
-    expect(dewar.streetAddress).to.equal('1 Main Rd')
-    expect(dewar.city).to.equal('Melbourne')
-    expect(dewar.state).to.equal('VIC')
-    expect(dewar.postcode).to.equal('3000')
-    expect(dewar.country).to.equal('Australia')
-    expect(dewar.phone).to.equal('123-456-789')
-    expect(dewar.email).to.equal('jane@example.com')
-    expect(dewar.returnDewar).to.equal(true)
-    expect(dewar.courier).to.equal('Fast Deliveries')
-    expect(dewar.courierAccount).to.equal('122333')
-    expect(dewar.addedTime).to.eql(now)
-    expect(dewar.arrivedTime).to.eql(now)
-    expect(dewar.departedTime).to.eql(now)
-    expect(dewar.experimentStartTime).to.eql(now)
-    expect(dewar.experimentEndTime).to.eql(now)
-    expect(dewar.filledTime).to.eql(now)
-    expect(dewar.missing).to.equal(false)
+  describe('ADD_DEWAR', () => {
+
+    it('adds dewars', () => {
+      const now = new Date()
+      const initialState = Map()
+      const action = {
+        type: 'ADD_DEWAR',
+        dewar: {
+          name: '1001',
+          epn: '123a',
+          owner: 'Jane',
+          institute: 'Some University',
+          note: 'Keep onsite',
+          containerType: 'pucks',
+          expectedContainers: 'ASP001,ASP002',
+          onsite: true,
+          department: 'Chemistry',
+          streetAddress: '1 Main Rd',
+          city: 'Melbourne',
+          state: 'VIC',
+          postcode: '3000',
+          country: 'Australia',
+          phone: '123-456-789',
+          email: 'jane@example.com',
+          returnDewar: true,
+          courier: 'Fast Deliveries',
+          courierAccount: '122333',
+          addedTime: now,
+          arrivedTime: now,
+          departedTime: now,
+          experimentStartTime: now,
+          experimentEndTime: now,
+          filledTime: now,
+          missing: false,
+        },
+      }
+      const state = reducer(initialState, action)
+      const dewar = state.get('1001')
+      expect(dewar.name).to.equal('1001')
+      expect(dewar.epn).to.equal('123a')
+      expect(dewar.owner).to.equal('Jane')
+      expect(dewar.institute).to.equal('Some University')
+      expect(dewar.note).to.equal('Keep onsite')
+      expect(dewar.containerType).to.equal('pucks')
+      expect(dewar.expectedContainers).to.equal('ASP001,ASP002')
+      expect(dewar.onsite).to.equal(true)
+      expect(dewar.department).to.equal('Chemistry')
+      expect(dewar.streetAddress).to.equal('1 Main Rd')
+      expect(dewar.city).to.equal('Melbourne')
+      expect(dewar.state).to.equal('VIC')
+      expect(dewar.postcode).to.equal('3000')
+      expect(dewar.country).to.equal('Australia')
+      expect(dewar.phone).to.equal('123-456-789')
+      expect(dewar.email).to.equal('jane@example.com')
+      expect(dewar.returnDewar).to.equal(true)
+      expect(dewar.courier).to.equal('Fast Deliveries')
+      expect(dewar.courierAccount).to.equal('122333')
+      expect(dewar.addedTime).to.eql(now)
+      expect(dewar.arrivedTime).to.eql(now)
+      expect(dewar.departedTime).to.eql(now)
+      expect(dewar.experimentStartTime).to.eql(now)
+      expect(dewar.experimentEndTime).to.eql(now)
+      expect(dewar.filledTime).to.eql(now)
+      expect(dewar.missing).to.equal(false)
+    })
+
+    it('sets the addedTime if not given', () => {
+      const initialState = Map()
+      const action = {type: 'ADD_DEWAR', dewar: {name: '1001'}}
+      const state = reducer(initialState, action)
+      expect(state.get('1001').addedTime).to.eql(TIME)
+    })
+
   })
 
   it('deletes dewars', () => {
