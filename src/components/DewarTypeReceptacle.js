@@ -75,9 +75,7 @@ export class DewarTypeReceptacle extends Component {
                      onChange={this.onChange.bind(this)}>
                 <option></option>
                 {dewars.toList().map(dewar => (
-                  <option key={dewar.name} value={dewar.name}>
-                    {dewar.name} – EPN: {dewar.epn}
-                  </option>
+                  <option key={dewar.name} value={dewar.name}>{dewar.name}</option>
                 ))}
               </Input>
             </Col>

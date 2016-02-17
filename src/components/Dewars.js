@@ -37,7 +37,7 @@ export class Dewars extends Component {
           />
         </form>
         <h2>On Site</h2>
-        <DewarTable
+        <DewarTable onsite={true}
           dewars={this.props.dewars.filter(dewar => dewar.onsite)}
           deleteDewar={this.props.deleteDewar}
           updateDewar={this.props.updateDewar}

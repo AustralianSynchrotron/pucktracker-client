@@ -27,16 +27,15 @@ describe('DewarTable', () => {
 
 describe('DewarTableRow', () => {
 
-    const NAME_CELL = 0
-    const EPN_CELL = 1
-    const OWNER_CELL = 2
-    const INSTITUTE_CELL = 3
-    const CONTAINER_TYPE_CELL = 4
-    const EXPECTED_CONTAINERS_CELL = 5
-    const NOTES_CELL = 6
-    const FILLED_CELL = 7
-    const SHIP_CELL = 8
-
+  const NAME_CELL = 0
+  const EPN_CELL = 1
+  const OWNER_CELL = 2
+  const INSTITUTE_CELL = 3
+  const CONTAINER_TYPE_CELL = 4
+  const EXPECTED_CONTAINERS_CELL = 5
+  const NOTES_CELL = 6
+  const FILLED_CELL = 7
+  const SHIP_CELL = 8
 
   it('shows the dewar name', () => {
     const wrapper = render(<DewarTableRow dewar={Dewar({name: 'd-123a-1'})}/>)
@@ -122,5 +121,41 @@ describe('DewarTableRow', () => {
     })
 
   })
+
+  describe('fill warning', () => {
+
+    let clock
+    const TIME = new Date('2016-01-20T00:00:00')
+    before(() => { clock = sinon.useFakeTimers(TIME.getTime()) })
+    after(() => { clock.restore() })
+
+    it('is present if dewars have not been filled in 3 days', () => {
+      const filledTime = new Date('2016-01-17T00:00:00')
+      const dewar = Dewar({name: 'd-123a-1', filledTime})
+      const wrapper = render(<DewarTableRow dewar={dewar} onsite={true}/>)
+      expect(wrapper.find('tr').hasClass('warning')).to.equal(true)
+    })
+
+    it('is present if dewars have not been filled at all', () => {
+      const dewar = Dewar({name: 'd-123a-1'})
+      const wrapper = render(<DewarTableRow dewar={dewar} onsite={true}/>)
+      expect(wrapper.find('tr').hasClass('warning')).to.equal(true)
+    })
+
+    it('is present if dewars have not been filled at all', () => {
+      const dewar = Dewar({name: 'd-123a-1'})
+      const wrapper = render(<DewarTableRow dewar={dewar} onsite={false}/>)
+      expect(wrapper.find('tr').hasClass('warning')).to.equal(false)
+    })
+
+    it('is not present if dewars have not been filled in 3 days', () => {
+      const filledTime = new Date('2016-01-17T00:00:01')
+      const dewar = Dewar({name: 'd-123a-1', filledTime})
+      const wrapper = render(<DewarTableRow dewar={dewar} onsite={true}/>)
+      expect(wrapper.find('tr').hasClass('warning')).to.equal(false)
+    })
+
+  })
+
 
 })

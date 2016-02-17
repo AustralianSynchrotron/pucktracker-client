@@ -2,10 +2,13 @@ import React, { Component } from 'react'
 import shouldPureComponentUpdate from 'react-pure-render/function'
 import { browserHistory } from 'react-router'
 import moment from 'moment'
+import classNames from 'classnames'
 import {
   Input, Button, ButtonGroup, Table, Glyphicon, OverlayTrigger, Tooltip
 } from 'react-bootstrap'
 import EditableCell from './EditableCell'
+
+const MAX_TIME_BETWEEN_FILLS = 3 * 86400 * 1000
 
 export class DewarTableRow extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
@@ -39,13 +42,25 @@ export class DewarTableRow extends Component {
   handleMissingClick () {
     this.props.setDewarMissing(this.props.dewar.name, !this.props.dewar.missing)
   }
+  dewarRequiresFill () {
+    const { dewar, onsite } = this.props
+    if (!onsite) return false
+    if (!dewar.filledTime) return true
+    return new Date() - dewar.filledTime >= MAX_TIME_BETWEEN_FILLS
+  }
   render () {
-    const { dewar } = this.props
+    const { dewar, onsite } = this.props
     const { name } = dewar
     const expectedContainers = dewar.expectedContainers.replace(/,/g, ' ')
+    const rowClassNames = classNames({
+      warning: this.dewarRequiresFill(),
+      danger: onsite && dewar.missing,
+    })
     return (
-      <tr key={dewar.name} className={dewar.missing ? 'danger' : null}>
-        <th><a href="#" onClick={this.onDewarClick.bind(this)}>{dewar.name}</a></th>
+      <tr key={dewar.name} className={rowClassNames}>
+        <th style={{width: '90px'}}>
+          <a href="#" onClick={this.onDewarClick.bind(this)}>{dewar.name}</a>
+        </th>
         <EditableCell value={dewar.epn}
           onChange={this.attributeChange.bind(this, 'epn')} />
         <EditableCell value={dewar.owner}
@@ -57,8 +72,11 @@ export class DewarTableRow extends Component {
         <td className='expected-containers'>{expectedContainers}</td>
         <EditableCell value={dewar.note}
           onChange={this.attributeChange.bind(this, 'note')} />
-        <td>
+        <td style={{width: '120px'}}>
           <Time value={dewar.filledTime} format="YYYY-MM-DD HH:mm" />
+        </td>
+        <td style={{width: '120px'}}>
+          <Time value={dewar.experimentEndTime} format="YYYY-MM-DD HH:mm" />
         </td>
         <td style={{width: '180px'}}>
           <ButtonGroup>
@@ -124,12 +142,15 @@ export class DewarTable extends Component {
             <th>Expected Pucks</th>
             <th>Notes</th>
             <th>Filled</th>
+            <th>Experiment Ends</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {dewarsToDisplay.map(dewar =>
-            <DewarTableRow key={dewar.name} dewar={dewar}
+            <DewarTableRow key={dewar.name}
+              onsite={this.props.onsite}
+              dewar={dewar}
               deleteDewar={this.props.deleteDewar}
               updateDewar={this.props.updateDewar}
               setDewarOffsite={this.props.setDewarOffsite}
