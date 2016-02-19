@@ -7,23 +7,47 @@ describe('dewars reducer', () => {
 
   let clock
   const TIME = new Date(2016, 0, 2, 3, 4, 5)
+  before(() => { clock = sinon.useFakeTimers(TIME.getTime()) })
+  after(() => { clock.restore() })
 
-  before(() => {
-    clock = sinon.useFakeTimers(TIME.getTime())
-  })
+  describe('SET_DEWARS', () => {
 
-  after(() => {
-    clock.restore()
-  })
+    it('sets dewars', () => {
+      const initialState = Map()
+      const action = {
+        type: 'SET_DEWARS',
+        dewars: [{name: '1001'}]
+      }
+      const state = reducer(initialState, action)
+      expect(state.get('1001').name).to.equal('1001')
+    })
 
-  it('sets dewars', () => {
-    const initialState = Map()
-    const action = {
-      type: 'SET_DEWARS',
-      dewars: [{name: '1001'}]
-    }
-    const state = reducer(initialState, action)
-    expect(state.getIn(['1001', 'name'])).to.equal('1001')
+    it('parses date strings', () => {
+      const now = new Date()
+      const nowString = now.toISOString()
+      const initialState = Map()
+      const action = {
+        type: 'SET_DEWARS',
+        dewars: [{
+          name: '1001',
+          addedTime: nowString,
+          arrivedTime: nowString,
+          departedTime: nowString,
+          experimentStartTime: nowString,
+          experimentEndTime: nowString,
+          filledTime: nowString,
+        }],
+      }
+      const state = reducer(initialState, action)
+      const dewar = state.get('1001')
+      expect(dewar.addedTime).to.eql(now)
+      expect(dewar.arrivedTime).to.eql(now)
+      expect(dewar.departedTime).to.eql(now)
+      expect(dewar.experimentStartTime).to.eql(now)
+      expect(dewar.experimentEndTime).to.eql(now)
+      expect(dewar.filledTime).to.eql(now)
+    })
+
   })
 
   describe('ADD_DEWAR', () => {
@@ -99,6 +123,26 @@ describe('dewars reducer', () => {
       expect(state.get('1001').addedTime).to.eql(TIME)
     })
 
+    it('parses date strings', () => {
+      const now = new Date()
+      const nowString = now.toISOString()
+      const initialState = Map()
+      const action = {
+        type: 'ADD_DEWAR',
+        dewar: {
+          name: '1001',
+          addedTime: nowString,
+          arrivedTime: nowString,
+          departedTime: nowString,
+          experimentStartTime: nowString,
+          experimentEndTime: nowString,
+          filledTime: nowString,
+        },
+      }
+      const state = reducer(initialState, action)
+      expect(state.get('1001').addedTime).to.eql(now)
+    })
+
   })
 
   it('deletes dewars', () => {
@@ -113,18 +157,22 @@ describe('dewars reducer', () => {
     expect(state.size).to.equal(0)
   })
 
-  it('updates dewars', () => {
-    const initialState = Map({
-      '1001': Dewar({name: '1001', epn: '123a'})
+  describe('UPDATE_DEWAR', () => {
+
+    it('updates dewars', () => {
+      const initialState = Map({
+        '1001': Dewar({name: '1001', epn: '123a'})
+      })
+      const action = {
+        type: 'UPDATE_DEWAR',
+        dewar: '1001',
+        update: {epn: '456b'},
+      }
+      const state = reducer(initialState, action)
+      expect(state.get('1001').name).to.equal('1001')
+      expect(state.get('1001').epn).to.equal('456b')
     })
-    const action = {
-      type: 'UPDATE_DEWAR',
-      dewar: '1001',
-      update: {epn: '456b'},
-    }
-    const state = reducer(initialState, action)
-    expect(state.getIn(['1001', 'name'])).to.equal('1001')
-    expect(state.getIn(['1001', 'epn'])).to.equal('456b')
+
   })
 
   it('sets dewars as offsite', () => {
@@ -136,7 +184,7 @@ describe('dewars reducer', () => {
       dewar: '1001',
     }
     const state = reducer(initialState, action)
-    expect(state.getIn(['1001', 'onsite'])).to.equal(false)
+    expect(state.get('1001').onsite).to.equal(false)
   })
 
   it('sets dewar filled time when time is given', () => {
@@ -148,7 +196,7 @@ describe('dewars reducer', () => {
     }
     const initialState = Map({'1001': Dewar()})
     const state = reducer(initialState, action)
-    expect(state.getIn(['1001', 'filledTime'])).to.eql(time)
+    expect(state.get('1001').filledTime).to.eql(time)
   })
 
   it('sets dewar filled time when time is not given', () => {
@@ -158,7 +206,7 @@ describe('dewars reducer', () => {
     }
     const initialState = Map({'1001': Dewar()})
     const state = reducer(initialState, action)
-    expect(state.getIn(['1001', 'filledTime'])).to.eql(TIME)
+    expect(state.get('1001').filledTime).to.eql(TIME)
   })
 
 })

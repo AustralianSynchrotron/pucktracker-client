@@ -73,7 +73,7 @@ export class DewarTableRow extends Component {
         <EditableCell value={dewar.note}
           onChange={this.attributeChange.bind(this, 'note')} />
         <td style={{width: '120px'}}>
-          <Time value={dewar.filledTime} format="YYYY-MM-DD HH:mm" />
+          <Time value={dewar.filledTime} relative={true} />
         </td>
         <td style={{width: '120px'}}>
           <Time value={dewar.experimentEndTime} format="YYYY-MM-DD HH:mm" />
@@ -121,7 +121,9 @@ const Label = (props) => (
 
 const Time = (props) => {
   if (!props.value) return <span/>
-  return <time>{moment(props.value).format(props.format)}</time>
+  const timeString = !!props.relative ? moment(props.value).fromNow()
+                       : moment(props.value).format(props.format)
+  return <time>{timeString}</time>
 }
 
 export class DewarTable extends Component {

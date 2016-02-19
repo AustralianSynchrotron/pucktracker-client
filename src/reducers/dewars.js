@@ -29,11 +29,25 @@ export const Dewar = Record({
   missing: false,
 })
 
+const TIME_FIELDS = [
+  'addedTime', 'arrivedTime', 'departedTime','experimentStartTime',
+  'experimentEndTime', 'filledTime'
+]
+
+function parseTimeFields(obj) {
+  TIME_FIELDS.forEach(field => parseDateString(obj, field))
+}
+
+function parseDateString(obj, field) {
+  if (obj[field]) { obj[field] = new Date(obj[field]) }
+}
+
 export default function reducer(state=OrderedMap(), action) {
   switch (action.type) {
     case 'SET_DEWARS': {
       return OrderedMap().withMutations(state => {
         action.dewars.forEach(dewar => {
+          parseTimeFields(dewar)
           state.set(dewar.name, new Dewar(dewar))
         })
       })
@@ -41,6 +55,7 @@ export default function reducer(state=OrderedMap(), action) {
     case 'ADD_DEWAR': {
       if (state.has(action.dewar.name)) { return state }
       if (!action.dewar.addedTime) { action.dewar.addedTime = new Date() }
+      parseTimeFields(action.dewar)
       return state.set(action.dewar.name, new Dewar(action.dewar))
     }
     case 'DELETE_DEWAR': {

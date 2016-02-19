@@ -4,6 +4,11 @@ import * as actions from '../../src/actions/dewars'
 
 describe('dewar actions', () => {
 
+  let clock
+  const TIME = new Date('2016-01-20T00:00:00')
+  before(() => { clock = sinon.useFakeTimers(TIME.getTime()) })
+  after(() => { clock.restore() })
+
   it('setDewars should create a set dewars action', () => {
     expect(actions.setDewars([{name: 'd-123a-1'}])).to.eql({
       type: 'SET_DEWARS',
@@ -25,10 +30,8 @@ describe('dewar actions', () => {
   })
 
   it('addDewar should assign a date if it is not given', () => {
-    const now = new Date()
-    sinon.useFakeTimers(now.getTime())
     const action = actions.addDewar({name: 'd-123a-1'})
-    expect(action.dewar.addedTime).to.eql(now)
+    expect(action.dewar.addedTime).to.eql(TIME)
   })
 
   it('updateDewar should create an action to update the dewar', () => {

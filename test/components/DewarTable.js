@@ -37,6 +37,11 @@ describe('DewarTableRow', () => {
   const FILLED_CELL = 7
   const SHIP_CELL = 8
 
+  let clock
+  const TIME = new Date('2016-01-20T00:00:00')
+  before(() => { clock = sinon.useFakeTimers(TIME.getTime()) })
+  after(() => { clock.restore() })
+
   it('shows the dewar name', () => {
     const wrapper = render(<DewarTableRow dewar={Dewar({name: 'd-123a-1'})}/>)
     const cell = wrapper.find('tr').children().eq(NAME_CELL)
@@ -57,11 +62,11 @@ describe('DewarTableRow', () => {
       expect(cell.text()).to.equal('')
     })
 
-    it('shows the filled time', () => {
-      const filledTime = new Date(2016, 0, 11, 8, 23)
+    it('shows time since last fill', () => {
+      const filledTime = new Date('2016-01-19T21:00:00')
       const wrapper = render(<DewarTableRow dewar={Dewar({filledTime})}/>)
       const cell = wrapper.find('tr').children().eq(FILLED_CELL)
-      expect(cell.text()).to.equal('2016-01-11 08:23')
+      expect(cell.text()).to.equal('3 hours ago')
     })
 
   })
@@ -123,11 +128,6 @@ describe('DewarTableRow', () => {
   })
 
   describe('fill warning', () => {
-
-    let clock
-    const TIME = new Date('2016-01-20T00:00:00')
-    before(() => { clock = sinon.useFakeTimers(TIME.getTime()) })
-    after(() => { clock.restore() })
 
     it('is present if dewars have not been filled in 3 days', () => {
       const filledTime = new Date('2016-01-17T00:00:00')
