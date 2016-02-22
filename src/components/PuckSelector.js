@@ -35,7 +35,7 @@ export class PuckSelector extends Component {
     )
     let buttonText = this.props.puck.name
     const { lastDewar } = this.props.puck
-    if (lastDewar) { buttonText += ` (Dewar ${lastDewar})` }
+    if (lastDewar) { buttonText += ` [${lastDewar}]` }
     const { note } = this.props.puck
     return (
       <div style={{paddingBottom: '6px'}}>
