@@ -48,17 +48,24 @@ export class DewarTableRow extends Component {
     if (!dewar.filledTime) return true
     return new Date() - dewar.filledTime >= MAX_TIME_BETWEEN_FILLS
   }
+  dewarOverdue () {
+    const { dewar, onsite } = this.props
+    if (!onsite || !dewar.experimentEndTime) return false
+    return new Date() > dewar.experimentEndTime
+  }
   render () {
     const { dewar, onsite } = this.props
     const { name } = dewar
     const expectedContainers = dewar.expectedContainers.replace(/,/g, ' ')
+    const requiresFill = this.dewarRequiresFill()
+    const overdue = this.dewarOverdue()
     const rowClassNames = classNames({
-      warning: this.dewarRequiresFill(),
+      warning: requiresFill || overdue,
       danger: onsite && dewar.missing,
     })
     return (
       <tr key={dewar.name} className={rowClassNames}>
-        <th style={{width: '90px'}}>
+        <th style={{width: '94px'}}>
           <a href="#" onClick={this.onDewarClick.bind(this)}>{dewar.name}</a>
         </th>
         <EditableCell value={dewar.epn}
@@ -69,13 +76,15 @@ export class DewarTableRow extends Component {
           onChange={this.attributeChange.bind(this, 'institute')}/>
         <EditableCell value={dewar.containerType}
           onChange={this.attributeChange.bind(this, 'containerType')}/>
-        <td className='expected-containers'>{expectedContainers}</td>
+        <td>{expectedContainers}</td>
         <EditableCell value={dewar.note}
           onChange={this.attributeChange.bind(this, 'note')} />
-        <td style={{width: '120px'}}>
+        <td className={classNames({filledTime: 1, danger: requiresFill})}
+          style={{width: '120px'}}>
           <Time value={dewar.filledTime} relative={true} />
         </td>
-        <td style={{width: '120px'}}>
+        <td className={classNames({experimentEndTime: 1, danger: overdue})}
+          style={{width: '120px'}}>
           <Time value={dewar.experimentEndTime} format="YYYY-MM-DD HH:mm" />
         </td>
         <td style={{width: '180px'}}>

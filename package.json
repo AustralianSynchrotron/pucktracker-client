@@ -1,6 +1,6 @@
 {
   "name": "pucktracker-client",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Frontend for puck tracking system",
   "private": true,
   "scripts": {
@@ -63,7 +63,7 @@
     "sinon": "1.17.3",
     "sinon-chai": "2.8.0",
     "style-loader": "0.13.0",
-    "webpack": "1.12.13",
+    "webpack": "1.12.14",
     "webpack-dev-middleware": "1.5.1",
     "webpack-hot-middleware": "2.7.1"
   }
