@@ -29,10 +29,13 @@ export default class TypeaheadInput extends Component {
       option => option.indexOf(this.props.value) > -1
     ).slice(0, 4).toList()
   }
+  onSubmit (event) {
+    event.preventDefault()
+  }
   render () {
     const hide = (this.state.hideSelect || this.props.value.length === 0)
     return (
-      <form>
+      <form onSubmit={this.onSubmit.bind(this)}>
         <Input type="text" value={this.props.value}
                placeholder={this.props.placeholder}
                onChange={this.onInputChange.bind(this)}

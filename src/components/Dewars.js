@@ -17,7 +17,8 @@ export class Dewars extends Component {
   onNewDewarChange (event) {
     this.setState({newDewarText: event.target.value})
   }
-  addDewar () {
+  addDewar (event) {
+    event.preventDefault()
     if (!this.state.newDewarText) return
     this.props.addDewar({name: this.state.newDewarText, onsite: true})
     this.setState({newDewarText: ''})
@@ -31,9 +32,7 @@ export class Dewars extends Component {
                  value={this.state.newDewarText}
                  placeholder="New dewar name"
                  onChange={this.onNewDewarChange.bind(this)}
-                 buttonAfter={
-                   <Button onClick={this.addDewar.bind(this)}>Add dewar</Button>
-                 }
+                 buttonAfter={<Button type="submit">Add dewar</Button>}
           />
         </form>
         <h2>On Site</h2>

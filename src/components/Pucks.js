@@ -17,7 +17,8 @@ export class Pucks extends Component {
   onSearchChange (event) {
     this.setState({searchText: event.target.value})
   }
-  addPuck () {
+  addPuck (event) {
+    event.preventDefault()
     if (!this.state.newPuckText) return
     this.props.addPuck({name: this.state.newPuckText})
     this.setState({newPuckText: ''})
@@ -58,9 +59,7 @@ export class Pucks extends Component {
                      value={this.state.newPuckText}
                      placeholder="New puck name"
                      onChange={this.onNewPuckChange.bind(this)}
-                     buttonAfter={
-                       <Button onClick={this.addPuck.bind(this)}>Add puck</Button>
-                     }
+                     buttonAfter={<Button type="submit">Add puck</Button>}
               />
             </form>
           </Col>
