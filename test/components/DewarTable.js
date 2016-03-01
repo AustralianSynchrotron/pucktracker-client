@@ -129,8 +129,8 @@ describe('DewarTableRow', () => {
 
   describe('fill warning', () => {
 
-    it('is present if dewars have not been filled in 3 days', () => {
-      const filledTime = new Date('2016-01-17T00:00:00')
+    it('is present if dewars have not been filled in 5 days', () => {
+      const filledTime = new Date('2016-01-15T00:00:00')
       const dewar = Dewar({name: 'd-123a-1', filledTime})
       const wrapper = render(<DewarTableRow dewar={dewar} onsite={true}/>)
       expect(wrapper.find('tr').hasClass('warning')).to.equal(true)
@@ -149,8 +149,8 @@ describe('DewarTableRow', () => {
       expect(wrapper.find('tr').hasClass('warning')).to.equal(false)
     })
 
-    it('is not present if dewars have not been filled in 3 days', () => {
-      const filledTime = new Date('2016-01-17T00:00:01')
+    it('is not present if dewars have not been filled in 5 days', () => {
+      const filledTime = new Date('2016-01-15T00:00:01')
       const dewar = Dewar({name: 'd-123a-1', filledTime})
       const wrapper = render(<DewarTableRow dewar={dewar} onsite={true}/>)
       expect(wrapper.find('tr').hasClass('warning')).to.equal(false)
