@@ -128,11 +128,21 @@ const Label = (props) => (
   </OverlayTrigger>
 )
 
-const Time = (props) => {
-  if (!props.value) return <span/>
-  const timeString = !!props.relative ? moment(props.value).fromNow()
-                       : moment(props.value).format(props.format)
-  return <time>{timeString}</time>
+class Time extends Component {
+  componentDidMount () {
+    // Refresh every 10 seconds so relative time strings will update
+    this.interval = setInterval(() => this.forceUpdate(), 10000)
+  }
+  componentWillUnmount () {
+    clearInterval(this.interval)
+  }
+  render () {
+    const { value, relative, format } = this.props
+    if (!value) return <span/>
+    const timeString = !!relative ? moment(value).fromNow()
+                       : moment(value).format(format)
+    return <time>{timeString}</time>
+  }
 }
 
 export class DewarTable extends Component {
