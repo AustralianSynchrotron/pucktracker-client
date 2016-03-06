@@ -10,16 +10,31 @@ import { Dewar } from '../../src/reducers/dewars'
 
 describe('DewarTable', () => {
 
-  it('only renders "displayNumber" dewars', () => {
+  let clock
+  const TIME = new Date('2016-01-03T00:00:00')
+  before(() => { clock = sinon.useFakeTimers(TIME.getTime()) })
+  after(() => { clock.restore() })
+
+  it('only renders dewars added within "displayDays"', () => {
     const dewars = Map({
-      'old': Dewar({name: 'old', addedTime: new Date(2015, 0, 1)}),
-      'new': Dewar({name: 'new', addedTime: new Date(2016, 0, 1)}),
-      'oldest': Dewar({name: 'oldest', addedTime: new Date(2014, 0, 1)}),
+      'd-old': Dewar({name: 'd-old', addedTime: new Date(2016, 0, 2)}),
+      'd-new': Dewar({name: 'd-new', addedTime: new Date(2016, 0, 3)}),
+      'd-oldest': Dewar({name: 'd-oldest', addedTime: new Date(2016, 0, 1)}),
     })
-    const wrapper = render(<DewarTable dewars={dewars} displayNumber={2}/>)
-    expect(wrapper.text()).to.contain('old')
-    expect(wrapper.text()).to.contain('new')
-    expect(wrapper.text()).not.to.contain('oldest')
+    const wrapper = render(<DewarTable dewars={dewars} displayDays={2}/>)
+    expect(wrapper.text()).to.contain('d-old')
+    expect(wrapper.text()).to.contain('d-new')
+    expect(wrapper.text()).not.to.contain('d-oldest')
+  })
+
+  it('only always displays staff dewars', () => {
+    const dewars = Map({
+      's-staff': Dewar({name: 's-staff', addedTime: new Date(2016, 0, 1)}),
+      'd-user': Dewar({name: 'd-user', addedTime: new Date(2016, 0, 1)}),
+    })
+    const wrapper = render(<DewarTable dewars={dewars} displayDays={2}/>)
+    expect(wrapper.text()).to.contain('s-staff')
+    expect(wrapper.text()).not.to.contain('d-user')
   })
 
 })

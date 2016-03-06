@@ -9,6 +9,7 @@ import {
 import EditableCell from './EditableCell'
 
 const MAX_TIME_BETWEEN_FILLS = 5 * 86400 * 1000
+const MS_PER_DAY = 86400000
 
 export class DewarTableRow extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
@@ -148,9 +149,14 @@ class Time extends Component {
 export class DewarTable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
-    const { dewars, displayNumber } = this.props
+    const { dewars, displayDays } = this.props
     let dewarsToDisplay = dewars.toList().sortBy(dewar => dewar.addedTime)
-    if (displayNumber) { dewarsToDisplay = dewarsToDisplay.takeLast(displayNumber) }
+    if (displayDays) {
+      dewarsToDisplay = dewarsToDisplay.filter(dewar =>
+        /^s-/.test(dewar.name)
+        || (new Date() - dewar.addedTime) < displayDays * MS_PER_DAY
+      )
+    }
     return (
       <Table striped bordered condensed hover style={{fontSize: '13px'}}>
         <thead>
