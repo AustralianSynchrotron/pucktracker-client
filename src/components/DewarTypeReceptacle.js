@@ -89,6 +89,7 @@ export class DewarTypeReceptacle extends Component {
                 placeholder="Puck name"
                 options={this.props.pucks.map(puck => puck.name)}
                 onChange={this.onAddPuckInputChange.bind(this)}
+                onSubmit={this.addPuck.bind(this)}
                 buttonAfter={
                   <Button onClick={this.addPuck.bind(this)}>Add puck</Button>
                 }

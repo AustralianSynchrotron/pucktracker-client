@@ -9,6 +9,7 @@ export default class TypeaheadInput extends Component {
     value: PropTypes.string.isRequired,
     options: ImmutablePropTypes.map,
     onChange: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
     buttonAfter: PropTypes.object,
   };
@@ -31,6 +32,11 @@ export default class TypeaheadInput extends Component {
   }
   onSubmit (event) {
     event.preventDefault()
+    const options = this.filteredOptions()
+    if (options.size < 1) return
+    this.setState({hideSelect: true})
+    this.props.onChange(options.first())
+    setTimeout(this.props.onSubmit, 0)
   }
   render () {
     const hide = (this.state.hideSelect || this.props.value.length === 0)

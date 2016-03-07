@@ -27,14 +27,14 @@ describe('DewarTable', () => {
     expect(wrapper.text()).not.to.contain('d-oldest')
   })
 
-  it('only always displays staff dewars', () => {
+  it('always displays staff dewars', () => {
     const dewars = Map({
       's-staff': Dewar({name: 's-staff', addedTime: new Date(2016, 0, 1)}),
-      'd-user': Dewar({name: 'd-user', addedTime: new Date(2016, 0, 1)}),
+      'd-pqrs-1': Dewar({name: 'd-pqrs-1', addedTime: new Date(2016, 0, 1)}),
     })
     const wrapper = render(<DewarTable dewars={dewars} displayDays={2}/>)
     expect(wrapper.text()).to.contain('s-staff')
-    expect(wrapper.text()).not.to.contain('d-user')
+    expect(wrapper.text()).not.to.contain('d-pqrs-1')
   })
 
 })
