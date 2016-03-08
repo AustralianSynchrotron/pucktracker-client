@@ -37,6 +37,26 @@ describe('DewarTable', () => {
     expect(wrapper.text()).not.to.contain('d-pqrs-1')
   })
 
+  it('handles dewars without an addedTime', () => {
+    const dewars = Map({
+      'd-123a-1': Dewar({name: 'd-123a-1'}),
+    })
+    const wrapper = render(<DewarTable dewars={dewars} displayDays={2}/>)
+    expect(wrapper.text()).not.to.contain('d-123a-1')
+  })
+
+  it('displays newest dewars first', () => {
+    const dewars = Map({
+      'd-old': Dewar({name: 'd-old', addedTime: new Date(2016, 0, 2)}),
+      'd-new': Dewar({name: 'd-new', addedTime: new Date(2016, 0, 3)}),
+      'd-oldest': Dewar({name: 'd-oldest', addedTime: new Date(2016, 0, 1)}),
+    })
+    const wrapper = render(<DewarTable dewars={dewars}/>)
+    expect(wrapper.find('tr').eq(1).text()).to.contain('d-new')
+    expect(wrapper.find('tr').eq(2).text()).to.contain('d-old')
+    expect(wrapper.find('tr').eq(3).text()).to.contain('d-oldest')
+  })
+
 })
 
 

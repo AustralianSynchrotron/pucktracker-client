@@ -150,11 +150,12 @@ export class DewarTable extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
     const { dewars, displayDays } = this.props
-    let dewarsToDisplay = dewars.toList().sortBy(dewar => dewar.addedTime)
+    let dewarsToDisplay = dewars.toList().sortBy(dewar => dewar.addedTime).reverse()
     if (displayDays) {
+      const now = new Date()
       dewarsToDisplay = dewarsToDisplay.filter(dewar =>
-        /^s-/.test(dewar.name)
-        || (new Date() - dewar.addedTime) < displayDays * MS_PER_DAY
+        /^s-/.test(dewar.name)  // Staff dewar
+        || (dewar.addedTime && (now - dewar.addedTime) < displayDays * MS_PER_DAY)
       )
     }
     return (
