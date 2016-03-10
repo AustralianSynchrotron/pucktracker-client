@@ -65,21 +65,30 @@ describe('pucks reducer', () => {
     expect(puck.note).to.equal('Test')
   })
 
-  it('sets puck receptacles to null when dewar is offsite', () => {
-
+  it('sets puck receptacles to null when dewar moves offsite', () => {
     const initialState = Map({
       'ASP001': Puck({receptacle: '1001'}),
       'ASP002': Puck({receptacle: '1002'}),
     })
-    const action = {
-      type: 'SET_DEWAR_OFFSITE',
-      dewar: '1001',
-    }
+    const action = {type: 'SET_DEWAR_OFFSITE', dewar: '1001'}
     const state = reducer(initialState, action)
     expect(state.get('ASP001').receptacle).to.equal(null)
+    expect(state.get('ASP001').receptacleType).to.equal(null)
     expect(state.get('ASP002').receptacle).to.equal('1002')
-
   })
+
+  it('sets puck receptacles to null when dewar is deleted', () => {
+    const initialState = Map({
+      'ASP001': Puck({receptacle: '1001'}),
+      'ASP002': Puck({receptacle: '1002'}),
+    })
+    const action = {type: 'DELETE_DEWAR', dewar: '1001'}
+    const state = reducer(initialState, action)
+    expect(state.get('ASP001').receptacle).to.equal(null)
+    expect(state.get('ASP001').receptacleType).to.equal(null)
+    expect(state.get('ASP002').receptacle).to.equal('1002')
+  })
+
 
   it('clears receptacle', () => {
     const initialState = Map({

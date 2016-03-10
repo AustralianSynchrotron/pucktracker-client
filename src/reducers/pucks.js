@@ -42,7 +42,8 @@ export default function reducer(state=OrderedMap(), action) {
     case 'UPDATE_PUCK': {
       return state.mergeIn([action.puck], action.update)
     }
-    case 'SET_DEWAR_OFFSITE': {
+    case 'SET_DEWAR_OFFSITE':
+    case 'DELETE_DEWAR': {
       return state.map(puck => {
         if (puck.receptacle === action.dewar) {
           return puck.merge({receptacle: null, receptacleType: null})
