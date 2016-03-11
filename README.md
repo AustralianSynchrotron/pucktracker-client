@@ -7,6 +7,7 @@ Website for sample tracking at the MX beamlines. Powered by react, redux and boo
 ## Installation
 
 ```
+cp config.example.js config.js  # Customise if needed
 npm install
 ```
 
@@ -17,3 +18,9 @@ npm start
 ```
 
 [pucktracker-server](https://github.com/AustralianSynchrotron/pucktracker-server) must be started separately.
+
+## Testing
+
+```
+npm test
+```

@@ -6,9 +6,6 @@ import path from 'path'
 import config from './config'
 import webpackConfig from './webpack.config'
 
-const env = process.env.NODE_ENV || 'development'
-const port = config[env].port
-
 const app = express()
 const compiler = webpack(webpackConfig)
 
@@ -22,7 +19,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'src', 'index.html'))
 })
 
-app.listen(port, err => {
+app.listen(config.port, err => {
   if (err) return console.log(err)
-  console.log(`Listening on localhost:${port}`)
+  console.log(`Listening on localhost:${config.port}`)
 })

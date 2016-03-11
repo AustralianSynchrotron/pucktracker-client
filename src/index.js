@@ -17,13 +17,9 @@ import { ConnectedPucks } from './components/Pucks'
 import { ConnectedBeamline } from './components/Beamline'
 import { setConnected } from './actions/app'
 import './styles/pucks.less'
-
 import config from '../config'
 
-const env = process.env.NODE_ENV || 'development'
-const serverPort = config[env].serverPort
-
-const socket = io(`${location.protocol}//${location.hostname}:${serverPort}`)
+const socket = io(`${location.protocol}//${location.hostname}:${config.wsPort}`)
 
 const remoteActionMiddleware = socket => store => next => action => {
   if (action.broadcast) {
