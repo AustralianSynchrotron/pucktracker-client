@@ -25,14 +25,17 @@ export class DewarTableRow extends Component {
       this.props.setDewarOffsite(name)
     }
   }
-  onDewarClick (e) {
+  onDewarClick (event) {
+    event.preventDefault()
     const query = {
       left: 'dewar',
       right: 'adaptor',
       leftDewar: this.props.dewar.name,
     }
     browserHistory.push({pathname: '/puck-transfer', query})
-    e.preventDefault()
+  }
+  handleEditClick () {
+    browserHistory.push({pathname: `/dewars/${this.props.dewar.name}`})
   }
   handleRemoveClick (dewar) {
     const doDelete = confirm(`Permanently delete dewar ${dewar.name}?`)
@@ -88,7 +91,7 @@ export class DewarTableRow extends Component {
           style={{width: '120px'}}>
           <Time value={dewar.experimentEndTime} format="YYYY-MM-DD HH:mm" />
         </td>
-        <td style={{width: '180px'}}>
+        <td style={{width: '210px'}}>
           <ButtonGroup>
             <Label text='Dewar filled' tipId={`${name}-filled`}>
               <Button className='dewar-filled'
@@ -107,6 +110,11 @@ export class DewarTableRow extends Component {
               <Button className='dewar-missing'
                 onClick={() => this.handleMissingClick()}>
                 <Glyphicon glyph={dewar.missing ? 'ok-sign' : 'question-sign'} />
+              </Button>
+            </Label>
+            <Label text='Edit dewar data' tipId={`${name}-edit`}>
+              <Button onClick={() => this.handleEditClick()}>
+                <Glyphicon glyph='edit' />
               </Button>
             </Label>
             <Label text='Delete dewar' tipId={`${name}-delete`}>

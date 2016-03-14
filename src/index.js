@@ -15,6 +15,7 @@ import { ConnectedPuckTransfer } from './components/PuckTransfer'
 import { ConnectedDewars } from './components/Dewars'
 import { ConnectedPucks } from './components/Pucks'
 import { ConnectedBeamline } from './components/Beamline'
+import { ConnectedDewarDetails } from './components/DewarDetails'
 import { setConnected } from './actions/app'
 import './styles/pucks.less'
 import config from '../config'
@@ -118,6 +119,7 @@ ReactDOM.render(
         <Route path="adaptor-locations" component={ConnectedAdaptorLocations}/>
         <Route path="puck-transfer" component={ConnectedPuckTransfer}/>
         <Route path="dewars" component={ConnectedDewars}/>
+        <Route path="dewars/:dewarId" component={ConnectedDewarDetails}/>
         <Route path="pucks" component={ConnectedPucks}/>
         <Route path="mx1" component={ConnectedBeamline}/>
         <Route path="mx2" component={ConnectedBeamline}/>
