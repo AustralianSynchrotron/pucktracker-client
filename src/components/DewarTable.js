@@ -60,7 +60,6 @@ export class DewarTableRow extends Component {
   render () {
     const { dewar, onsite } = this.props
     const { name } = dewar
-    const expectedContainers = dewar.expectedContainers.replace(/,/g, ' ')
     const requiresFill = this.dewarRequiresFill()
     const overdue = this.dewarOverdue()
     const rowClassNames = classNames({
@@ -80,7 +79,8 @@ export class DewarTableRow extends Component {
           onChange={this.attributeChange.bind(this, 'institute')}/>
         <EditableCell value={dewar.containerType}
           onChange={this.attributeChange.bind(this, 'containerType')}/>
-        <td>{expectedContainers}</td>
+        <EditableCell value={dewar.expectedContainers}
+          onChange={this.attributeChange.bind(this, 'expectedContainers')}/>
         <EditableCell value={dewar.note}
           onChange={this.attributeChange.bind(this, 'note')} />
         <td className={classNames({filledTime: 1, danger: requiresFill})}
