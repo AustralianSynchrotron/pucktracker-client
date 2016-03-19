@@ -21,6 +21,24 @@ class DewarInput extends Component {
   }
 }
 
+class DewarCheckbox extends Component {
+  shouldComponentUpdate = shouldPureComponentUpdate;
+  onInputChange (event) {
+    const { dewar, updateDewar, field } = this.props
+    const { checked } = event.target
+    updateDewar(dewar.name, {[field]: checked})
+  }
+  render () {
+    const { dewar, field, label } = this.props
+    const value = dewar[field]
+    return (
+      <Input type="checkbox" wrapperClassName="col-xs-offset-3 col-xs-9"
+        id={this.props.id} label={label} checked={value}
+        onChange={this.onInputChange.bind(this)} />
+    )
+  }
+}
+
 export class DewarDetails extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;
   render () {
@@ -48,6 +66,8 @@ export class DewarDetails extends Component {
           <DewarInput field='courier' label='Courier' {...this.props} />
           <DewarInput field='courierAccount' label='Courier account'
                       {...this.props} />
+          <DewarCheckbox id="returnDewar" field="returnDewar" label="Return dewar"
+                         {...this.props} />
         </form>
       </div>
     )

@@ -26,4 +26,24 @@ describe('DewarDetails', () => {
     expect(updateDewar).to.have.been.calledWith('d-123a-1', {epn: '456b'})
   })
 
+  it('returnDewar checkbox should be unchecked if returnDewar is false', () => {
+    const dewar = Dewar({name: 'd-123a-1', returnDewar: false})
+    const wrapper = mount(<DewarDetails dewar={dewar}/>)
+    expect(wrapper.find('#returnDewar')).to.be.not.checked()
+  })
+
+  it('returnDewar checkbox should be checked if returnDewar is true', () => {
+    const dewar = Dewar({name: 'd-123a-1', returnDewar: true})
+    const wrapper = mount(<DewarDetails dewar={dewar}/>)
+    expect(wrapper.find('#returnDewar')).to.be.checked()
+  })
+
+  it('clicking return dewar checkbox should emit an update', () => {
+    const updateDewar = sinon.spy()
+    const dewar = Dewar({name: 'd-123a-1'})
+    const wrapper = mount(<DewarDetails dewar={dewar} updateDewar={updateDewar}/>)
+    wrapper.find('#returnDewar').simulate('change', {target: {checked: true}})
+    expect(updateDewar).to.have.been.calledWith('d-123a-1', {returnDewar: true})
+  })
+
 })
