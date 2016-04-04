@@ -64,6 +64,7 @@ export class DewarTypeReceptacle extends Component {
   render () {
     const pucks = this.pucksForSelectedReceptacle()
     const dewars = this.props.dewars.filter(dewar => dewar.onsite)
+    const dewar = this.props.dewars.get(this.state.selectedReceptacle)
     return (
       <div>
         <h1>
@@ -81,8 +82,12 @@ export class DewarTypeReceptacle extends Component {
             </Col>
           </Row>
         </h1>
-        {this.state.selectedReceptacle ? (
+        {dewar ? (
           <ListGroup>
+            <ListGroupItem className="clearfix">
+              <em>Pucks stated on shipping form:</em>
+              <span className="pull-right">{dewar.expectedContainers}</span>
+            </ListGroupItem>
             <ListGroupItem>
               <TypeaheadInput
                 value={this.state.addPuckInputValue}
