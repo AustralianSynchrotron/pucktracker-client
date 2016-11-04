@@ -6,9 +6,15 @@ Website for sample tracking at the MX beamlines. Powered by react, redux and boo
 
 ## Installation
 
+Requirements:
+
+* nodejs v5
+* mongodb
+
 ```
+npm install -g yarn
+yarn
 cp config.example.js config.js  # Customise if needed
-npm install
 ```
 
 ## Running
