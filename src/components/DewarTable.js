@@ -8,8 +8,8 @@ import {
 } from 'react-bootstrap'
 import EditableCell from './EditableCell'
 
-const MAX_TIME_BETWEEN_FILLS = 5 * 86400 * 1000
 const MS_PER_DAY = 86400000
+const MAX_TIME_BETWEEN_FILLS = 5 * MS_PER_DAY
 
 export class DewarTableRow extends Component {
   shouldComponentUpdate = shouldPureComponentUpdate;

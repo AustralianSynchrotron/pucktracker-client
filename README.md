@@ -13,7 +13,7 @@ Requirements:
 
 ```
 npm install -g yarn
-yarn
+yarn  # install dependencies
 cp config.example.js config.js  # Customise if needed
 ```
 
