@@ -8,18 +8,18 @@ Website for sample tracking at the MX beamlines. Powered by react, redux and boo
 
 Requirements:
 
-* nodejs v5
+* nodejs v5 (webpack build fails under node v6 and later)
 
 ```
 npm install -g yarn
-yarn  # install dependencies
+npm_config_python=python2.7 yarn  # Install dependencies
 cp config.example.js config.js  # Customise if needed
 ```
 
 ## Running
 
 ```
-npm start
+yarn start
 ```
 
 [pucktracker-server](https://github.com/AustralianSynchrotron/pucktracker-server) must be started separately.
@@ -27,5 +27,5 @@ npm start
 ## Testing
 
 ```
-npm test
+yarn test
 ```
